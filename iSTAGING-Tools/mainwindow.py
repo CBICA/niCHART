@@ -78,3 +78,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.menubar.addAction(self.menuProcess.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
 
+
+    def OnFileOpenClicked(self):
+        fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file','c:\\',"Pickle files (*.pkl.gz)")
