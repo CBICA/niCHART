@@ -6,6 +6,8 @@ Use of this source code is governed by license located in license file: https://
 """
 
 from PyQt5 import QtCore, QtWidgets
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -38,9 +40,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.verticalLayout.addLayout(self.horizontalLayout_2)
 
         #plot widget
-        self.widget = QtWidgets.QWidget(self.centralwidget)
-        self.widget.setObjectName("widget")
-        self.verticalLayout.addWidget(self.widget)
+        # a figure instance to plot on
+        self.figure = Figure()
+        # this is the Canvas Widget that displays the `figure`
+        self.canvas = FigureCanvas(self.figure)
+        self.verticalLayout.addWidget(self.canvas)
+
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.pushButton = QtWidgets.QPushButton("Ok",self.centralwidget)
