@@ -8,6 +8,9 @@ Use of this source code is governed by license located in license file: https://
 from PyQt5 import QtCore, QtWidgets
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
+from dataio import DataIO
+from pathlib import Path
+import seaborn as sns
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -85,3 +88,24 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def OnFileOpenClicked(self):
         fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file','c:\\',"Pickle files (*.pkl.gz)")
+        #fname = Path("D://ashish//Data//iSTAGINGData//istaging.pkl.gz")
+        #fname = Path("D://ashish//Data//iSTAGINGData//short.pkl.gz")
+        dio = DataIO()
+        pkldata = dio.ReadPickleFile(fname[0])
+
+        #pkldata.sample(5000).to_pickle("D:/ashish/Data/iSTAGINGData/short.pkl.gz")
+
+        # clear plot
+        self.figure.clear()
+
+        # create an axis
+        ax = self.figure.add_subplot(111)
+
+        # plot data
+        #ax.plot(data, '*-')
+        #pkldata.plot(kind='scatter',x='Age',y='MUSE_Volume_47',color='red',ax=ax)
+        #ax.plot('Age','MUSE_Volume_47',data=pkldata, color='red')
+        sns.scatterplot(x='Age', y='MUSE_Volume_47', data=pkldata, hue='Sex',ax=ax)
+
+        # refresh canvas
+        self.canvas.draw()
