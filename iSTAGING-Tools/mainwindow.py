@@ -13,6 +13,10 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.SetupUi()
+        self.SetupConnections()
+
+    def SetupConnections(self):
+        self.actionOpen.triggered.connect(self.OnFileOpenClicked)
 
     def SetupUi(self):
         self.setObjectName("MainWindow")
