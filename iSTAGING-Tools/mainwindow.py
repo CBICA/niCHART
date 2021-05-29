@@ -111,3 +111,14 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # refresh canvas
         self.canvas.draw()
+
+    def PopulateROI(self):
+        #get data column header names
+        datakeys = self.model.GetColumnHeaderNames()
+
+        #construct ROI list to populate comboBox
+        roiList = [x for x in datakeys if x.startswith('MUSE_Volume')]
+
+        #add the list items to comboBox
+        self.comboBoxROI.addItems(roiList)
+
