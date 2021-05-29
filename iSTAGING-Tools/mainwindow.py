@@ -9,6 +9,7 @@ from PyQt5 import QtCore, QtWidgets
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from dataio import DataIO
+from datamodel import DataModel
 from pathlib import Path
 import seaborn as sns
 
@@ -17,6 +18,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super(MainWindow, self).__init__()
         self.SetupUi()
         self.SetupConnections()
+        self.model = DataModel()
 
     def SetupConnections(self):
         self.actionOpen.triggered.connect(self.OnFileOpenClicked)
@@ -38,9 +40,9 @@ class MainWindow(QtWidgets.QMainWindow):
         #plot parameters comboBox
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.comboBox = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox.setObjectName("comboBox")
-        self.horizontalLayout_2.addWidget(self.comboBox)
+        self.comboBoxROI = QtWidgets.QComboBox(self.centralwidget)
+        self.comboBoxROI.setObjectName("comboBoxROI")
+        self.horizontalLayout_2.addWidget(self.comboBoxROI)
         self.radioButton = QtWidgets.QRadioButton("Population Average",self.centralwidget)
         self.radioButton.setObjectName("radioButton")
         self.horizontalLayout_2.addWidget(self.radioButton)
