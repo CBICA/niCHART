@@ -19,7 +19,7 @@ class DataModel:
         return self.data
 
     def IsValid(self):
-        return true
+        return True
 
     def GetColumnHeaderNames(self):
         k = self.data.keys()
