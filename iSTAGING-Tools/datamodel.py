@@ -23,6 +23,13 @@ class DataModel:
         """Returns complete data."""
         return self.data
 
+    def GetData(self,roi,hue):
+        """Returns a subset of data needed for plot.
+        Takes as parameters the roi and hue for the plot.
+        Since the plot always uses 'Age' for X axis, this is always returned."""
+        d = self.data[[roi,"Age",hue]]
+        return d
+
     def IsValid(self):
         """Checks if the data is valid or not."""
 
