@@ -9,18 +9,28 @@ import pandas as pd
 import sys
 
 class DataModel:
+    """This class holds the data model."""
+
     def __init__(self):
+        """The constructor."""
         self.data = None
 
     def SetData(self,d):
+        """Setter"""
         self.data = d
 
     def GetData(self):
+        """Returns complete data."""
         return self.data
 
     def IsValid(self):
+        """Checks if the data is valid or not."""
+
+        ##TODO: Add logic to check validity of data
+        ## For now, it returns True.
         return True
 
     def GetColumnHeaderNames(self):
+        """Returns all header names for all columns in the dataset."""
         k = self.data.keys()
         return k
