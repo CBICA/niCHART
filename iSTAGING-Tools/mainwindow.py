@@ -6,11 +6,11 @@ Use of this source code is governed by license located in license file: https://
 """
 
 from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from dataio import DataIO
 from datamodel import DataModel
-from pathlib import Path
 import seaborn as sns
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -90,12 +90,26 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def OnFileOpenClicked(self):
         fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file','c:\\',"Pickle files (*.pkl.gz)")
-        #fname = Path("D://ashish//Data//iSTAGINGData//istaging.pkl.gz")
-        #fname = Path("D://ashish//Data//iSTAGINGData//short.pkl.gz")
-        dio = DataIO()
-        pkldata = dio.ReadPickleFile(fname[0])
 
-        #pkldata.sample(5000).to_pickle("D:/ashish/Data/iSTAGINGData/short.pkl.gz")
+        #read input data
+        dio = DataIO()
+        d = dio.ReadPickleFile(fname[0])
+
+        #set data in model
+        self.model.SetData(d)
+
+        #populate the ROI only if the data is valid
+        #Otherwise, show error message
+        if(self.model.IsValid()):
+            self.PopulateROI()
+        else:
+            QMessageBox.critical(self, 'Error', "Invalid Input Data. Please check the data and try again.", QMessageBox.Ok)
+
+
+    def UpdatePlot(self):
+
+        #get current selected combobox item
+        currentROI = self.comboBoxROI.currentText()
 
         # clear plot
         self.figure.clear()
