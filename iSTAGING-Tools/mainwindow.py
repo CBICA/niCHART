@@ -22,6 +22,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def SetupConnections(self):
         self.actionOpen.triggered.connect(self.OnFileOpenClicked)
+        self.comboBoxROI.currentIndexChanged.connect(self.UpdatePlot)
 
     def SetupUi(self):
         self.setObjectName("MainWindow")
