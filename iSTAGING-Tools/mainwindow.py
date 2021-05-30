@@ -118,11 +118,8 @@ class MainWindow(QtWidgets.QMainWindow):
         # create an axis
         ax = self.figure.add_subplot(111)
 
-        # plot data
-        #ax.plot(data, '*-')
-        #pkldata.plot(kind='scatter',x='Age',y='MUSE_Volume_47',color='red',ax=ax)
-        #ax.plot('Age','MUSE_Volume_47',data=pkldata, color='red')
-        sns.scatterplot(x='Age', y='MUSE_Volume_47', data=pkldata, hue='Sex',ax=ax)
+        #seaborn plot on axis
+        sns.scatterplot(x='Age', y=currentROI, data=self.model.GetData(currentROI,"Sex"), hue='Sex',ax=ax)
 
         # refresh canvas
         self.canvas.draw()
