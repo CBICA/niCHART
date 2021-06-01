@@ -6,7 +6,7 @@ Use of this source code is governed by license located in license file: https://
 """
 
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import QMessageBox
+#from PyQt5.QtWidgets import QMessageBox
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from dataio import DataIO
@@ -90,11 +90,17 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
     def OnFileOpenClicked(self):
-        fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open file','c:\\',"Pickle files (*.pkl.gz)")
+        filename = QtWidgets.QFileDialog.getOpenFileName(self,
+        'Open file',
+        QtCore.QDir().homePath(),
+        "Pickle files (*.pkl.gz)")
+
+        if not filename[0]:
+            return
 
         #read input data
         dio = DataIO()
-        d = dio.ReadPickleFile(fname[0])
+        d = dio.ReadPickleFile(filename[0])
 
         #set data in model
         self.model.SetData(d)
@@ -104,7 +110,10 @@ class MainWindow(QtWidgets.QMainWindow):
         if(self.model.IsValid()):
             self.PopulateROI()
         else:
-            QMessageBox.critical(self, 'Error', "Invalid Input Data. Please check the data and try again.", QMessageBox.Ok)
+            QtWidgets.QMessageBox.critical(self,
+            'Error',
+            "Invalid Input Data. Please check the data and try again.",
+            QtWidgets.QMessageBox.Ok)
 
 
     def UpdatePlot(self):
