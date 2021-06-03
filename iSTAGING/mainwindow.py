@@ -38,6 +38,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionOpenModelFile.triggered.connect(self.OnModelFileOpenClicked)
         self.comboBoxROI.currentIndexChanged.connect(self.UpdatePlot)
         self.comboBoxHue.currentIndexChanged.connect(self.UpdatePlot)
+        self.actionQuitApplication.triggered.connect(self.OnQuitClicked)
 
     def SetupUi(self):
         self.setObjectName("MainWindow")
@@ -95,6 +96,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionOpenModelFile = QtWidgets.QAction("Open Model File",self)
         self.actionOpenModelFile.setObjectName("actionOpen")
         self.menuFile.addAction(self.actionOpenModelFile)
+
+        self.actionQuitApplication = QtWidgets.QAction("Quit",self)
+        self.actionQuitApplication.setObjectName("actionQuit")
+        self.menuFile.addAction(self.actionQuitApplication)
 
         self.menuProcess = QtWidgets.QMenu("Process",self.menubar)
         self.menuProcess.setObjectName("menuProcess")
@@ -216,3 +221,8 @@ class MainWindow(QtWidgets.QMainWindow):
         categoryList = ['Sex','Study','A','T','N','PIB_Status']
         categoryList = list(set(categoryList).intersection(set(datakeys)))
         self.comboBoxHue.addItems(categoryList)
+
+    def OnQuitClicked(self):
+        #quit application
+        QtWidgets.QApplication.quit()
+
