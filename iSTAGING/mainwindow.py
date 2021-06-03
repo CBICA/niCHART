@@ -48,8 +48,19 @@ class MainWindow(QtWidgets.QMainWindow):
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         self.setCentralWidget(self.centralwidget)
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
-        self.verticalLayout.setObjectName("verticalLayout")
+
+        self.layout = QtWidgets.QHBoxLayout(self.centralwidget)
+        self.layout.setObjectName("layout")
+
+        self.leftPaneVLayout = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.leftPaneVLayout.setObjectName("leftPaneVLayout")
+
+        self.layout.addLayout(self.leftPaneVLayout)
+
+        self.rightPaneVLayout = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.rightPaneVLayout.setObjectName("rightPaneVLayout")
+
+        self.layout.addLayout(self.rightPaneVLayout)
 
         #plot parameters comboBox
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
@@ -63,14 +74,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.radioButton = QtWidgets.QRadioButton("Population Average",self.centralwidget)
         self.radioButton.setObjectName("radioButton")
         self.horizontalLayout_2.addWidget(self.radioButton)
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.rightPaneVLayout.addLayout(self.horizontalLayout_2)
 
         #plot widget
         # a figure instance to plot on
         self.figure = Figure()
         # this is the Canvas Widget that displays the `figure`
         self.canvas = FigureCanvas(self.figure)
-        self.verticalLayout.addWidget(self.canvas)
+        self.rightPaneVLayout.addWidget(self.canvas)
 
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -79,7 +90,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.horizontalLayout.addWidget(self.pushButton)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.rightPaneVLayout.addLayout(self.horizontalLayout)
 
         #menu bar
         self.menubar = QtWidgets.QMenuBar(self)
