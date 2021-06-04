@@ -103,9 +103,9 @@ class DataModel:
         return k
 
     def Reset(self):
-        #clear all contents of data/empty memory etc.
+        #clear all contents of data/model and release memory etc.
         #TODO: this needs to be done correctly,
-        #Is there a better way to clear data?
+        #is there a better way to clear data?
         del self.data
         del self.harmonization_model
         self.harmonization_model = None
