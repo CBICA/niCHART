@@ -39,6 +39,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.comboBoxROI.currentIndexChanged.connect(self.UpdatePlot)
         self.comboBoxHue.currentIndexChanged.connect(self.UpdatePlot)
         self.actionQuitApplication.triggered.connect(self.OnQuitClicked)
+        self.actionClose.triggered.connect(self.OnCloseClicked)
 
     def SetupUi(self):
         self.setObjectName("MainWindow")
@@ -96,6 +97,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionOpenModelFile = QtWidgets.QAction("Open Model File",self)
         self.actionOpenModelFile.setObjectName("actionOpen")
         self.menuFile.addAction(self.actionOpenModelFile)
+
+        self.actionClose = QtWidgets.QAction("Close",self)
+        self.actionClose.setObjectName("actionClose")
+        self.menuFile.addAction(self.actionClose)
 
         self.actionQuitApplication = QtWidgets.QAction("Quit",self)
         self.actionQuitApplication.setObjectName("actionQuit")
@@ -225,4 +230,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def OnQuitClicked(self):
         #quit application
         QtWidgets.QApplication.quit()
+
+    def OnCloseClicked(self):
+        #close currently loaded data and model
 
