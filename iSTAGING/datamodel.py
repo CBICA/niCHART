@@ -101,3 +101,12 @@ class DataModel:
         """Returns all header names for all columns in the dataset."""
         k = self.data.keys()
         return k
+
+    def Reset(self):
+        #clear all contents of data/empty memory etc.
+        #TODO: this needs to be done correctly,
+        #Is there a better way to clear data?
+        del self.data
+        del self.harmonization_model
+        self.harmonization_model = None
+        self.data = None
