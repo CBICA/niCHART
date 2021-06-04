@@ -233,4 +233,23 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def OnCloseClicked(self):
         #close currently loaded data and model
+        self.ResetUI()
 
+    def ResetUI(self):
+        #reset all UI
+
+        #clear plot
+        self.figure.clear()
+
+        # refresh canvas
+        self.canvas.draw()
+
+        #clear ROI & HUE comboboxes
+        self.comboBoxROI.blockSignals(True)
+        self.comboBoxHue.blockSignals(True)
+
+        self.comboBoxHue.clear()
+        self.comboBoxROI.clear()
+
+        self.comboBoxROI.blockSignals(False)
+        self.comboBoxHue.blockSignals(False)
