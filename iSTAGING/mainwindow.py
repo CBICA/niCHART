@@ -234,6 +234,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def OnCloseClicked(self):
         #close currently loaded data and model
         self.ResetUI()
+        self.model.Reset()
 
     def ResetUI(self):
         #reset all UI
