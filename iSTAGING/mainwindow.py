@@ -61,7 +61,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.dataStatsGroupBoxGridLayout = QtWidgets.QGridLayout(self.dataStatisticsGroupBox)
 
-        #Fill data statistics box on left pane
+        #Add data statistics box on left pane
         #Participants
         self.label_NumParticipants = QtWidgets.QLabel(self.dataStatisticsGroupBox);
         self.label_NumParticipants.setObjectName("label_NumParticipants")
@@ -192,6 +192,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
         #set data in model
         self.model.SetData(d)
+
+        #populate data statistics
+        self.UpdateDataStatistics()
 
         #populate the ROI only if the data is valid
         #Otherwise, show error message
