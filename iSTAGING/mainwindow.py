@@ -314,3 +314,15 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.comboBoxROI.blockSignals(False)
         self.comboBoxHue.blockSignals(False)
+
+    def UpdateDataStatistics(self):
+        #get data statistics from model
+        stats = self.model.GetDataStatistics()
+
+        #add statistics values to UI
+        self.label_NumParticipantsValue.setText(str(stats['numParticipants']))
+        self.label_NumObservationsValue.setText(str(stats['numObservations']))
+        ageVal = "[" + str(round(stats['minAge'],2)) + "," + str(round(stats['maxAge'],2)) + "]"
+        self.label_AgeValue.setText(ageVal)
+        sexVal = "[" + str(stats['countsPerSex']['M']) + "," + str(stats['countsPerSex']['F']) + "]"
+        self.label_SexValue.setText(sexVal)
