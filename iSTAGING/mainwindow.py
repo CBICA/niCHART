@@ -55,11 +55,60 @@ class MainWindow(QtWidgets.QMainWindow):
         self.leftPaneVLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.leftPaneVLayout.setObjectName("leftPaneVLayout")
 
+        self.dataStatisticsGroupBox = QtWidgets.QGroupBox(self.centralwidget)
+        self.dataStatisticsGroupBox.setObjectName("dataStatisticsGroupBox")
+        self.leftPaneVLayout.addWidget(self.dataStatisticsGroupBox)
+
+        self.dataStatsGroupBoxGridLayout = QtWidgets.QGridLayout(self.dataStatisticsGroupBox)
+
+        #Fill data statistics box on left pane
+        #Participants
+        self.label_NumParticipants = QtWidgets.QLabel(self.dataStatisticsGroupBox);
+        self.label_NumParticipants.setObjectName("label_NumParticipants")
+        self.label_NumParticipants.setText("Number of Participants:")
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_NumParticipants, 0, 0, 1, 1);
+
+        self.label_NumParticipantsValue = QtWidgets.QLabel(self.dataStatisticsGroupBox)
+        self.label_NumParticipantsValue.setObjectName("label_NumParticipantsValue")
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_NumParticipantsValue, 0, 1, 1, 1)
+
+        #Observations
+        self.label_NumObservations = QtWidgets.QLabel(self.dataStatisticsGroupBox);
+        self.label_NumObservations.setObjectName("label_NumObservations")
+        self.label_NumObservations.setText("Number of Observations:")
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_NumObservations, 1, 0, 1, 1);
+
+        self.label_NumObservationsValue = QtWidgets.QLabel(self.dataStatisticsGroupBox)
+        self.label_NumObservationsValue.setObjectName("label_NumObservationsValue")
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_NumObservationsValue, 1, 1, 1, 1)
+
+        #Age
+        self.label_Age = QtWidgets.QLabel(self.dataStatisticsGroupBox);
+        self.label_Age.setObjectName("label_Age")
+        self.label_Age.setText("Age [min, max]:")
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_Age, 2, 0, 1, 1);
+
+        self.label_AgeValue = QtWidgets.QLabel(self.dataStatisticsGroupBox)
+        self.label_AgeValue.setObjectName("label_AgeValue")
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_AgeValue, 2, 1, 1, 1)
+
+        #Sex[M/F]
+        self.label_Sex = QtWidgets.QLabel(self.dataStatisticsGroupBox);
+        self.label_Sex.setObjectName("label_Sex")
+        self.label_Sex.setText("Sex [M/F]:")
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_Sex, 3, 0, 1, 1);
+
+        self.label_SexValue = QtWidgets.QLabel(self.dataStatisticsGroupBox)
+        self.label_SexValue.setObjectName("label_SexValue")
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_SexValue, 3, 1, 1, 1)
+
+        #add left pane to layout
         self.layout.addLayout(self.leftPaneVLayout)
 
         self.rightPaneVLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.rightPaneVLayout.setObjectName("rightPaneVLayout")
 
+        #add right pane to layout
         self.layout.addLayout(self.rightPaneVLayout)
 
         #plot parameters comboBox
