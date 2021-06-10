@@ -110,3 +110,26 @@ class DataModel:
         del self.harmonization_model
         self.harmonization_model = None
         self.data = None
+
+    def GetDataStatistics(self):
+        """Returns a dictionary of data statistics.
+        Currently returned stats:
+        # Observation,
+        # Participants
+        # Age [min,max]
+        # Sex [M,F]"""
+
+        #create empty dictionary
+        stats = dict()
+
+        #fill dictionary with data stats
+        stats['minAge'] = self.data['Age'].min()
+        stats['maxAge'] = self.data['Age'].max()
+        stats['meanAge'] = self.data['Age'].mean()
+        stats['numParticipants'] = len(self.data['participant_id'].unique())
+        stats['numObservations'] = self.data.shape[0]
+
+        sex = self.data[['participant_id','Sex']].drop_duplicates()
+        stats['countsPerSex'] = sex['Sex'].value_counts()
+
+        return stats
