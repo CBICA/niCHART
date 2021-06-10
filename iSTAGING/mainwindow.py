@@ -315,6 +315,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.comboBoxROI.blockSignals(False)
         self.comboBoxHue.blockSignals(False)
 
+        #clear data statistics on left pane
+        self.label_NumParticipantsValue.setText("")
+        self.label_NumObservationsValue.setText("")
+        self.label_AgeValue.setText("")
+        self.label_SexValue.setText("")
+
     def UpdateDataStatistics(self):
         #get data statistics from model
         stats = self.model.GetDataStatistics()
