@@ -52,7 +52,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.layout = QtWidgets.QHBoxLayout(self.centralwidget)
         self.layout.setObjectName("layout")
 
-        self.leftPaneVLayout = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.leftPaneVLayout = QtWidgets.QVBoxLayout()
         self.leftPaneVLayout.setObjectName("leftPaneVLayout")
 
         self.dataStatisticsGroupBox = QtWidgets.QGroupBox(self.centralwidget)
@@ -105,7 +105,7 @@ class MainWindow(QtWidgets.QMainWindow):
         #add left pane to layout
         self.layout.addLayout(self.leftPaneVLayout)
 
-        self.rightPaneVLayout = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.rightPaneVLayout = QtWidgets.QVBoxLayout()
         self.rightPaneVLayout.setObjectName("rightPaneVLayout")
 
         #add right pane to layout
