@@ -95,7 +95,7 @@ class MainWindow(QtWidgets.QMainWindow):
         #Sex[M/F]
         self.label_Sex = QtWidgets.QLabel(self.dataStatisticsGroupBox);
         self.label_Sex.setObjectName("label_Sex")
-        self.label_Sex.setText("Sex [M/F]:")
+        self.label_Sex.setText("Sex [M,F]:")
         self.dataStatsGroupBoxGridLayout.addWidget(self.label_Sex, 3, 0, 1, 1);
 
         self.label_SexValue = QtWidgets.QLabel(self.dataStatisticsGroupBox)
