@@ -16,21 +16,11 @@ import sys
 class DataModel:
     """This class holds the data model."""
 
-    def __init__(self,DataFile=None,HarmonizationModelFile=None):
+    #def __init__(self,DataFile=None,HarmonizationModelFile=None):
+    def __init__(self):
         """The constructor."""
-        if DataFile is None:
-            self.data = None
-        else:
-            dio = DataIO()
-            d = dio.ReadPickleFile(DataFile)
-            self.SetData(d)
-
-        if HarmonizationModelFile is None:
-            self.harmonization_model = None
-        else:
-            dio = DataIO()
-            m = dio.ReadPickleFile(HarmonizationModelFile)
-            self.SetHarmonizationModel(m)
+        self.data = None
+        self.harmonization_model = None
         
     def SetData(self,d):
         """Setter"""
