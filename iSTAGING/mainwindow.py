@@ -154,6 +154,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionOpenModelFile.setObjectName("actionOpen")
         self.menuFile.addAction(self.actionOpenModelFile)
 
+        self.actionSave = QtWidgets.QAction("Save",self)
+        self.actionSave.setObjectName("actionSave")
+        self.menuFile.addAction(self.actionSave)
+
         self.actionClose = QtWidgets.QAction("Close",self)
         self.actionClose.setObjectName("actionClose")
         self.menuFile.addAction(self.actionClose)
