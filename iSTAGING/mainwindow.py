@@ -14,28 +14,24 @@ from iSTAGING.datamodel import DataModel
 import seaborn as sns
 
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self, DataFile=None, HarmonizationModelFile=None):
+    def __init__(self, dataFile=None, harmonizationModelFile=None):
         super(MainWindow,self).__init__()
         self.SetupUi()
         self.SetupConnections()
-        self.model = DataModel(DataFile=DataFile,
-                               HarmonizationModelFile=HarmonizationModelFile)
-        if DataFile is not None:
-            #populate the ROI only if the data is valid
-            #Otherwise, show error message
-            if(self.model.IsValid()):
-                self.PopulateROI()
-                self.PopulateHue()
-            else:
-                QtWidgets.QMessageBox.critical(self,
-                'Error',
-                "Invalid Input Data. Please check the data and try again.",
-                QtWidgets.QMessageBox.Ok)
 
+        #Instantiate data model
+        self.model = DataModel()
+
+        if dataFile is not None:
+            # if datafile provided on cmd line, load it
+            self.OnDataFileOpenClicked(dataFile)
+        if harmonizationModelFile is not None:
+            #if harmonization model file provided on cmd line, load it
+            self.OnModelFileOpenClicked(harmonizationModelFile)
 
     def SetupConnections(self):
-        self.actionOpenDataFile.triggered.connect(self.OnDataFileOpenClicked)
-        self.actionOpenModelFile.triggered.connect(self.OnModelFileOpenClicked)
+        self.actionOpenDataFile.triggered.connect(lambda: self.OnDataFileOpenClicked(None))
+        self.actionOpenModelFile.triggered.connect(lambda: self.OnModelFileOpenClicked(None))
         self.comboBoxROI.currentIndexChanged.connect(self.UpdatePlot)
         self.comboBoxHue.currentIndexChanged.connect(self.UpdatePlot)
         self.actionQuitApplication.triggered.connect(self.OnQuitClicked)
@@ -177,11 +173,21 @@ class MainWindow(QtWidgets.QMainWindow):
         self.menubar.addAction(self.menuHelp.menuAction())
 
 
-    def OnDataFileOpenClicked(self):
-        filename = QtWidgets.QFileDialog.getOpenFileName(self,
-        'Open data file',
-        QtCore.QDir().homePath(),
-        "Pickle files (*.pkl.gz)")
+    def OnDataFileOpenClicked(self,dataFile=None):
+
+        #this should happen only where there is some data loaded
+        #maybe should also get a confirmation from user
+        #should also handle accept and decline cases
+        #if(self.model.HasData()):
+        #    self.OnCloseClicked()
+
+        if dataFile is None:
+            filename = QtWidgets.QFileDialog.getOpenFileName(self,
+            'Open data file',
+            QtCore.QDir().homePath(),
+            "Pickle files (*.pkl.gz)")
+        else:
+            filename = [dataFile]
 
         if not filename[0]:
             return
@@ -208,11 +214,15 @@ class MainWindow(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.Ok)
 
 
-    def OnModelFileOpenClicked(self):
-        filename = QtWidgets.QFileDialog.getOpenFileName(self,
-        'Open iSTAGING model file',
-        QtCore.QDir().homePath(),
-        "Pickle files (*.pkl)")
+    def OnModelFileOpenClicked(self, harmonizationModelFile=None):
+
+        if harmonizationModelFile is None:
+            filename = QtWidgets.QFileDialog.getOpenFileName(self,
+            'Open iSTAGING model file',
+            QtCore.QDir().homePath(),
+            "Pickle files (*.pkl)")
+        else:
+            filename = [harmonizationModelFile]
 
         if not filename[0]:
             return
