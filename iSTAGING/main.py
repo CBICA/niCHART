@@ -22,6 +22,6 @@ if __name__ == '__main__':
     harmonization_model_file = args.harmonization_model_file
     
     app = QtWidgets.QApplication(sys.argv)
-    mw = MainWindow(DataFile=data_file,HarmonizationModelFile=harmonization_model_file)
+    mw = MainWindow(dataFile=data_file,harmonizationModelFile=harmonization_model_file)
     mw.show()
     sys.exit(app.exec_())
