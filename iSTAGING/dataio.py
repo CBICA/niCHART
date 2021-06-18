@@ -16,4 +16,7 @@ class DataIO:
         data = pd.read_pickle(filename)
         return data
 
+    def SavePickleFile(self,data,filename):
+        data.to_pickle(filename)
+
 
