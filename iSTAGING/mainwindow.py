@@ -36,6 +36,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.comboBoxHue.currentIndexChanged.connect(self.UpdatePlot)
         self.actionQuitApplication.triggered.connect(self.OnQuitClicked)
         self.actionClose.triggered.connect(self.OnCloseClicked)
+        self.actionSave.triggered.connect(self.OnSaveClicked)
 
     def SetupUi(self):
         self.setObjectName("MainWindow")
@@ -312,6 +313,20 @@ class MainWindow(QtWidgets.QMainWindow):
         #close currently loaded data and model
         self.ResetUI()
         self.model.Reset()
+
+    def OnSaveClicked(self):
+        #save currently loaded data
+        fileName, _ = QtWidgets.QFileDialog.getSaveFileName(self,
+        'Save iSTAGING data file',
+        QtCore.QDir().homePath(),
+        "Pickle Files (*.pkl.gz)")
+
+        if not fileName:
+            return
+
+        #save data
+        dio = DataIO()
+        dio.SavePickleFile(self.model.GetCompleteData(),fileName)
 
     def ResetUI(self):
         #reset all UI
