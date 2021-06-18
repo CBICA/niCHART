@@ -30,7 +30,7 @@ class DataModel:
         """Setter"""
         self.harmonization_model = m
 
-    def GetData(self):
+    def GetCompleteData(self):
         """Returns complete data."""
         return self.data
 
