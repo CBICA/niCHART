@@ -389,7 +389,12 @@ class MainWindow(QtWidgets.QMainWindow):
     def OnViewChanged(self,action):
         #update current view
         self.currentView = action.text()
+
+        #control combo box visibility for views
+        if(action.text() == 'View2'):
+            self.comboBoxROI.hide()
+        elif(action.text() == 'AgeTrend'):
+            self.comboBoxROI.show()
+
         #redraw plot
         self.UpdatePlot()
-
-
