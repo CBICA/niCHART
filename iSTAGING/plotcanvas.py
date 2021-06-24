@@ -78,3 +78,7 @@ class PlotCanvas(FigureCanvas):
 
         # refresh canvas
         self.draw()
+
+    def Reset(self):
+        """Remove all plots"""
+        self.axes.clear()

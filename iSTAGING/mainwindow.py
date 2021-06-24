@@ -11,6 +11,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from iSTAGING.dataio import DataIO
 from iSTAGING.datamodel import DataModel
+from iSTAGING.plotcanvas import PlotCanvas
 import seaborn as sns
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -19,6 +20,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.SetupUi()
         self.SetupConnections()
 
+        #defaults
+        self.currentView = 'AgeTrend'
         #Instantiate data model
         self.model = DataModel()
 
@@ -125,12 +128,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.horizontalLayout_2.addWidget(self.radioButton)
         self.rightPaneVLayout.addLayout(self.horizontalLayout_2)
 
-        #plot widget
-        # a figure instance to plot on
-        self.figure = Figure()
-        # this is the Canvas Widget that displays the `figure`
-        self.canvas = FigureCanvas(self.figure)
-        self.rightPaneVLayout.addWidget(self.canvas)
+        #instantiate plot canvas and add to UI layout
+        self.plotCanvas = PlotCanvas(self)
+        self.rightPaneVLayout.addWidget(self.plotCanvas)
 
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -184,7 +184,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.menuView = QtWidgets.QMenu("View",self.menubar)
         self.menuView.setObjectName("menuView")
 
-        self.actionViewAgeTrend = QtWidgets.QAction("Age Trend",self)
+        self.actionViewAgeTrend = QtWidgets.QAction("AgeTrend",self)
         self.actionViewAgeTrend.setObjectName("actionViewAgeTrend")
         self.menuView.addAction(self.actionViewAgeTrend)
 
@@ -283,30 +283,17 @@ class MainWindow(QtWidgets.QMainWindow):
         #get current selected combobox item
         currentROI = self.comboBoxROI.currentText()
         currentHue = self.comboBoxHue.currentText()
-        if not currentHue:
-            currentHue = 'Sex'
 
-        # clear plot
-        self.figure.clear()
+        #create empty dictionary of plot options
+        plotOptions = dict()
 
-        # create an axis
-        ax = self.figure.add_subplot(111)
+        #fill dictionary with options
+        plotOptions['ROI'] = currentROI
+        plotOptions['HUE'] = currentHue
+        plotOptions['VIEW'] = self.currentView
 
-        # seaborn plot on axis
-        sns.scatterplot(x='Age', y=currentROI,  hue=currentHue,ax=ax, s=5,
-                       data=self.model.GetData(currentROI,currentHue))
-        
-        # Plot normative range if according GAM model is available
-        if (self.model.harmonization_model is not None) and (currentROI in self.model.harmonization_model['ROIs']):
-            x,y,z = self.model.GetNormativeRange(currentROI)
-            print('Pooled variance: %f' % (z))
-            # Plot three lines as expected mean and +/- 2 times standard deviation
-            sns.lineplot(x=x, y=y, ax=ax, linestyle='-', markers=False, color='k')
-            sns.lineplot(x=x, y=y+z, ax=ax, linestyle=':', markers=False, color='k')
-            sns.lineplot(x=x, y=y-z, ax=ax, linestyle=':', markers=False, color='k')
-
-        # refresh canvas
-        self.canvas.draw()
+        #Plot data
+        self.plotCanvas.Plot(self.model,plotOptions)
 
     def PopulateROI(self):
         #get data column header names
@@ -359,10 +346,7 @@ class MainWindow(QtWidgets.QMainWindow):
         #reset all UI
 
         #clear plot
-        self.figure.clear()
-
-        # refresh canvas
-        self.canvas.draw()
+        self.plotCanvas.Reset()
 
         #clear ROI & HUE comboboxes
         self.comboBoxROI.blockSignals(True)
@@ -403,10 +387,9 @@ class MainWindow(QtWidgets.QMainWindow):
         pass
 
     def OnViewChanged(self,action):
-        if(action.text() == 'Age Trend'):
-            #TODO
-            print('Age Trend')
-        elif(action.text() == 'View2'):
-            #TODO
-            print('View2')
+        #update current view
+        self.currentView = action.text()
+        #redraw plot
+        self.UpdatePlot()
+
 
