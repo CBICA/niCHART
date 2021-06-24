@@ -37,6 +37,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionQuitApplication.triggered.connect(self.OnQuitClicked)
         self.actionClose.triggered.connect(self.OnCloseClicked)
         self.actionSave.triggered.connect(self.OnSaveClicked)
+        self.actionProcessSpare.triggered.connect(self.OnProcessSpareClicked)
+        self.actionProcessHarmonization.triggered.connect(self.OnProcessHarmonizationClicked)
 
     def SetupUi(self):
         self.setObjectName("MainWindow")
@@ -169,6 +171,14 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.menuProcess = QtWidgets.QMenu("Process",self.menubar)
         self.menuProcess.setObjectName("menuProcess")
+
+        self.actionProcessSpare = QtWidgets.QAction("Spare",self)
+        self.actionProcessSpare.setObjectName("actionSpare")
+        self.menuProcess.addAction(self.actionProcessSpare)
+
+        self.actionProcessHarmonization = QtWidgets.QAction("Harmonization",self)
+        self.actionProcessHarmonization.setObjectName("actionHarmonization")
+        self.menuProcess.addAction(self.actionProcessHarmonization)
 
         self.menuHelp = QtWidgets.QMenu("Help",self.menubar)
         self.menuHelp.setObjectName("menuHelp")
@@ -364,3 +374,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.label_AgeValue.setText(ageVal)
         sexVal = "[" + str(stats['countsPerSex']['M']) + "," + str(stats['countsPerSex']['F']) + "]"
         self.label_SexValue.setText(sexVal)
+
+    def OnProcessSpareClicked(self):
+        #TODO:call spare processing functionality
+        pass
+
+    def OnProcessHarmonizationClicked(self):
+        #TODO: call harmonization process functionality
+        pass
