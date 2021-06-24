@@ -39,6 +39,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionSave.triggered.connect(self.OnSaveClicked)
         self.actionProcessSpare.triggered.connect(self.OnProcessSpareClicked)
         self.actionProcessHarmonization.triggered.connect(self.OnProcessHarmonizationClicked)
+        self.actionGroupView.triggered.connect(self.OnViewChanged)
 
     def SetupUi(self):
         self.setObjectName("MainWindow")
@@ -180,11 +181,27 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionProcessHarmonization.setObjectName("actionHarmonization")
         self.menuProcess.addAction(self.actionProcessHarmonization)
 
+        self.menuView = QtWidgets.QMenu("View",self.menubar)
+        self.menuView.setObjectName("menuView")
+
+        self.actionViewAgeTrend = QtWidgets.QAction("Age Trend",self)
+        self.actionViewAgeTrend.setObjectName("actionViewAgeTrend")
+        self.menuView.addAction(self.actionViewAgeTrend)
+
+        self.actionView2 = QtWidgets.QAction("View2",self)
+        self.actionView2.setObjectName("actionView2")
+        self.menuView.addAction(self.actionView2)
+
+        self.actionGroupView = QtWidgets.QActionGroup(self)
+        self.actionGroupView.addAction(self.actionViewAgeTrend)
+        self.actionGroupView.addAction(self.actionView2)
+
         self.menuHelp = QtWidgets.QMenu("Help",self.menubar)
         self.menuHelp.setObjectName("menuHelp")
 
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuProcess.menuAction())
+        self.menubar.addAction(self.menuView.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
 
 
@@ -376,9 +393,20 @@ class MainWindow(QtWidgets.QMainWindow):
         self.label_SexValue.setText(sexVal)
 
     def OnProcessSpareClicked(self):
-        #TODO:call spare processing functionality
+        #TODO:call spare processing functionality from processes.py
+        #show msg if no spare model is loaded
         pass
 
     def OnProcessHarmonizationClicked(self):
-        #TODO: call harmonization process functionality
+        #TODO: call harmonization process functionality from processes.py
+        #show msg if no harmonization model is loaded
         pass
+
+    def OnViewChanged(self,action):
+        if(action.text() == 'Age Trend'):
+            #TODO
+            print('Age Trend')
+        elif(action.text() == 'View2'):
+            #TODO
+            print('View2')
+
