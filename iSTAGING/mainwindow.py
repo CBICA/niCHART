@@ -188,13 +188,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionViewAgeTrend.setObjectName("actionViewAgeTrend")
         self.menuView.addAction(self.actionViewAgeTrend)
 
-        self.actionView2 = QtWidgets.QAction("View2",self)
-        self.actionView2.setObjectName("actionView2")
-        self.menuView.addAction(self.actionView2)
+        self.actionSPARE = QtWidgets.QAction("SPARE",self)
+        self.actionSPARE.setObjectName("actionSPARE")
+        self.menuView.addAction(self.actionSPARE)
 
         self.actionGroupView = QtWidgets.QActionGroup(self)
         self.actionGroupView.addAction(self.actionViewAgeTrend)
-        self.actionGroupView.addAction(self.actionView2)
+        self.actionGroupView.addAction(self.actionSPARE)
 
         self.menuHelp = QtWidgets.QMenu("Help",self.menubar)
         self.menuHelp.setObjectName("menuHelp")
@@ -391,7 +391,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.currentView = action.text()
 
         #control combo box visibility for views
-        if(action.text() == 'View2'):
+        if(action.text() == 'SPARE'):
             self.comboBoxROI.hide()
         elif(action.text() == 'AgeTrend'):
             self.comboBoxROI.show()

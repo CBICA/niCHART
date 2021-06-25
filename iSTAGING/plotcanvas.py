@@ -34,8 +34,8 @@ class PlotCanvas(FigureCanvas):
         """call appropriate plotting functionality as per plot options"""
         if(str(plotOptions['VIEW']) == 'AgeTrend'):
             self.PlotAgeTrends(datamodel,plotOptions)
-        elif(str(plotOptions['VIEW']) == 'View2'):
-            self.PlotView2(datamodel,plotOptions)
+        elif(str(plotOptions['VIEW']) == 'SPARE'):
+            self.PlotSPARE(datamodel,plotOptions)
 
     def PlotAgeTrends(self,datamodel,plotOptions):
         """Plot Age Trends - default view"""
@@ -65,16 +65,28 @@ class PlotCanvas(FigureCanvas):
         # refresh canvas
         self.draw()
 
-    def PlotView2(self,datamodel,plotOptions):
-        """Plot View 2"""
-
+    def PlotSPARE(self,datamodel,plotOptions):
+        """Plot SPARE"""
         # clear plot
         self.axes.clear()
 
-        #plot other/modified data
-        otherdata = [random.random() for i in range(25)]
-        self.axes.plot(otherdata, 'r-')
-        self.axes.set_title('PyQt Matplotlib Example')
+        # set hue
+        currentHue = plotOptions['HUE']
+
+        if not currentHue:
+            currentHue = 'Sex'
+
+        # seaborn plot on axis
+        if (('SPARE_AD' in datamodel.GetColumnHeaderNames()) &
+            ('SPARE_BA' in datamodel.GetColumnHeaderNames())):
+            sns.scatterplot(x='SPARE_AD', y='SPARE_BA', hue=currentHue,ax=self.axes,
+                            s=5, data=datamodel.GetData(['SPARE_BA','SPARE_AD'],
+                                                         currentHue))
+        else:
+            # Set error text on plot
+            self.axes.text(0.5,0.5,'No SPARE-* scores available.',
+                           va='center', ha='center')
+            print('Plotting failed. Probably data set does not have SPARE-* indices.')
 
         # refresh canvas
         self.draw()
