@@ -70,7 +70,10 @@ class DataModel:
         """Returns a subset of data needed for plot.
         Takes as parameters the roi and hue for the plot.
         Since the plot always uses 'Age' for X axis, this is always returned."""
-        d = self.data[[roi,"Age",hue]]
+        if not isinstance(roi, list):
+            roi = [roi]
+        
+        d = self.data[roi + ["Age",hue]]
         return d
 
     def IsValid(self):
