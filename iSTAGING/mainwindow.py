@@ -19,7 +19,6 @@ class MainWindow(QtWidgets.QMainWindow):
         super(MainWindow,self).__init__()
         self.SetupUi()
         self.SetupConnections()
-
         #defaults
         self.currentView = 'AgeTrend'
         #Instantiate data model
@@ -34,11 +33,12 @@ class MainWindow(QtWidgets.QMainWindow):
             self.OnDataFileOpenClicked(dataFile)
         if harmonizationModelFile is not None:
             #if harmonization model file provided on cmd line, load it
-            self.OnModelFileOpenClicked(harmonizationModelFile)
+            self.OnHarmonizationModelFileOpenClicked(harmonizationModelFile)
 
     def SetupConnections(self):
         self.actionOpenDataFile.triggered.connect(lambda: self.OnDataFileOpenClicked(None))
-        self.actionOpenModelFile.triggered.connect(lambda: self.OnModelFileOpenClicked(None))
+        self.actionOpenHarmonizationModelFile.triggered.connect(lambda: self.OnHarmonizationModelFileOpenClicked(None))
+        self.actionOpenSPAREModelFile.triggered.connect(lambda: self.OnSPAREModelFileOpenClicked(None))
         self.comboBoxROI.currentIndexChanged.connect(self.UpdatePlot)
         self.comboBoxHue.currentIndexChanged.connect(self.UpdatePlot)
         self.actionQuitApplication.triggered.connect(self.OnQuitClicked)
@@ -166,9 +166,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionOpenDataFile.setObjectName("actionOpen")
         self.menuFile.addAction(self.actionOpenDataFile)
 
-        self.actionOpenModelFile = QtWidgets.QAction("Open Model File",self)
-        self.actionOpenModelFile.setObjectName("actionOpen")
-        self.menuFile.addAction(self.actionOpenModelFile)
+        self.actionOpenHarmonizationModelFile = QtWidgets.QAction("Open Harmonization Model File",self)
+        self.actionOpenHarmonizationModelFile.setObjectName("actionOpen")
+        self.menuFile.addAction(self.actionOpenHarmonizationModelFile)
+
+        self.actionOpenSPAREModelFile = QtWidgets.QAction("Open SPARE Model File",self)
+        self.actionOpenSPAREModelFile.setObjectName("actionOpen")
+        self.menuFile.addAction(self.actionOpenSPAREModelFile)
 
         self.actionSave = QtWidgets.QAction("Save",self)
         self.actionSave.setObjectName("actionSave")
@@ -255,7 +259,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         #populate the ROI only if the data is valid
         #Otherwise, show error message
-        if(self.model.IsValid()):
+        if(self.model.IsValidData()):
             self.PopulateROI()
             self.PopulateHue()
         else:
@@ -265,7 +269,7 @@ class MainWindow(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.Ok)
 
 
-    def OnModelFileOpenClicked(self, harmonizationModelFile=None):
+    def OnHarmonizationModelFileOpenClicked(self, harmonizationModelFile=None):
 
         if harmonizationModelFile is None:
             filename = QtWidgets.QFileDialog.getOpenFileName(self,
@@ -291,13 +295,45 @@ class MainWindow(QtWidgets.QMainWindow):
 
         #populate the ROI only if the data is valid
         #Otherwise, show error message
-        if(self.model.IsValid()):
+        if(self.model.IsValidData()):
             self.PopulateROI()
             self.PopulateHue()
         else:
             QtWidgets.QMessageBox.critical(self,
             'Error',
-            "Invalid Input Data. Please check the data and try again.",
+            "Invalid Input Data [Harmonization]. Please check the data and try again.",
+            QtWidgets.QMessageBox.Ok)
+
+
+    def OnSPAREModelFileOpenClicked(self, SPAREModelFile=None):
+
+        if SPAREModelFile is None:
+            filename = QtWidgets.QFileDialog.getOpenFileName(self,
+            'Open iSTAGING SPARE-* model file',
+            QtCore.QDir().homePath(),
+            "Pickle files (*.pkl.gz)")
+        else:
+            filename = [SPAREModelFile]
+
+        if not filename[0]:
+            return
+
+        #read input data
+        dio = DataIO()
+        BrainAgeModel, ADModel = dio.ReadSPAREModel(filename[0])
+
+        #set data in model
+        self.model.SetSPAREModel(BrainAgeModel, ADModel)
+
+        #populate the ROI only if the data is valid
+        #Otherwise, show error message
+        if(self.model.IsValidData()):
+            self.PopulateROI()
+            self.PopulateHue()
+        else:
+            QtWidgets.QMessageBox.critical(self,
+            'Error',
+            "Invalid Input Data [SPARE]. Please check the data and try again.",
             QtWidgets.QMessageBox.Ok)
 
 

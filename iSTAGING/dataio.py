@@ -6,15 +6,18 @@ Use of this source code is governed by license located in license file: https://
 """
 
 import pandas as pd
+import joblib
 import os, sys
 
 class DataIO:
     def __init__(self):
         pass
 
+
     def ReadPickleFile(self,filename):
         data = pd.read_pickle(filename)
         return data
+
 
     def SavePickleFile(self,data,filename):
         data.to_pickle(filename)
@@ -31,3 +34,8 @@ class DataIO:
         MUSEDictIDtoNAME = dict(zip(MUSEDict['ROI_COL'], MUSEDict['ROI_NAME']))
 
         return MUSEDictNAMEtoID, MUSEDictIDtoNAME
+
+        
+    def ReadSPAREModel(self, filename):
+        BrainAgeModel, ADModel = joblib.load(filename)
+        return BrainAgeModel, ADModel

@@ -15,6 +15,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='iSTAGING Data Visualization and Preparation')
     parser.add_argument('--data_file', type=str, help='Data file containing data frame.', default=None, required=False)
     parser.add_argument('--harmonization_model_file', type=str, help='Harmonization model file.', default=None, required=False)
+    parser.add_argument('--SPARE_model_file', type=str, help='Model file for SPARE-scores.', default=None, required=False)
 
     args = parser.parse_args(sys.argv[1:])
 
