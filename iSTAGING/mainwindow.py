@@ -195,12 +195,18 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def OnDataFileOpenClicked(self,dataFile=None):
 
-        #this should happen only where there is some data loaded
-        #maybe should also get a confirmation from user
-        #should also handle accept and decline cases
-        #if(self.model.HasData()):
-        #    self.OnCloseClicked()
+        #when there is already some data loaded, we get a confirmation from the user
+        #to close the loaded data and load a new one
+        if(self.model.IsValid()):
+            returnValue = QtWidgets.QMessageBox.question(self,
+            'Warning',
+            "There is already a data loaded. Do you want to close this data and load new one?")
+            if(returnValue == QtWidgets.QMessageBox.Yes):
+                self.OnCloseClicked()
+            elif(returnValue == QtWidgets.QMessageBox.No):
+                return
 
+        #when there is no data loaded or when the loaded data was closed to load a new one
         if dataFile is None:
             filename = QtWidgets.QFileDialog.getOpenFileName(self,
             'Open data file',
