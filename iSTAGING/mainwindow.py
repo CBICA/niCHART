@@ -123,23 +123,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.comboBoxHue = QtWidgets.QComboBox(self.centralwidget)
         self.comboBoxHue.setObjectName("comboBoxHue")
         self.horizontalLayout_2.addWidget(self.comboBoxHue)
-        self.radioButton = QtWidgets.QRadioButton("Population Average",self.centralwidget)
-        self.radioButton.setObjectName("radioButton")
-        self.horizontalLayout_2.addWidget(self.radioButton)
         self.rightPaneVLayout.addLayout(self.horizontalLayout_2)
 
         #instantiate plot canvas and add to UI layout
         self.plotCanvas = PlotCanvas(self)
         self.rightPaneVLayout.addWidget(self.plotCanvas)
-
-        self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.pushButton = QtWidgets.QPushButton("Ok",self.centralwidget)
-        self.pushButton.setObjectName("pushButton")
-        self.horizontalLayout.addWidget(self.pushButton)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem)
-        self.rightPaneVLayout.addLayout(self.horizontalLayout)
 
         #menu bar
         self.menubar = QtWidgets.QMenuBar(self)
