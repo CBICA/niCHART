@@ -16,8 +16,8 @@ import sys
 class DataModel:
     """This class holds the data model."""
 
-    #def __init__(self,DataFile=None,HarmonizationModelFile=None):
-    def __init__(self):
+    def __init__(self, DataFile=None, HarmonizationModelFile=None,
+                 SPAREModelFile=None):
         """The constructor."""
         self.data = None
         self.harmonization_model = None
@@ -31,10 +31,6 @@ class DataModel:
         self.MUSEDictNAMEtoID = MUSEDictNAMEtoID
         self.MUSEDictIDtoNAME = MUSEDictIDtoNAME
 
-
-    def GetMUSEDictionaries(self):
-        """Get the MUSE dictionaries to map from ID to name and vice-versa"""
-        return self.MUSEDictNAMEtoID, self.MUSEDictIDtoNAME
 
     def SetDataFilePath(self,p):
         """Setter"""
@@ -53,20 +49,30 @@ class DataModel:
         return self.harmonization_model_Filepath
 
     def SetData(self,d):
-        """Setter"""
+        """Setter for data"""
         self.data = d
 
+
     def SetHarmonizationModel(self,m):
-        """Setter"""
+        """Setter for neuroHarmonize model"""
         self.harmonization_model = m
+
+
+    def SetSPAREModel(self,BrainAgeModel, ADModel):
+        """Setter for SPARE-* models"""
+        self.BrainAgeModel = BrainAgeModel
+        self.ADModel = ADModel
+
 
     def GetCompleteData(self):
         """Returns complete data."""
         return self.data
 
+
     def GetModel(self):
         """Returns harmonization model."""
         return self.harmonization_model
+
 
     def GetNormativeRange(self,roi):
         """Return normative range"""
@@ -106,7 +112,8 @@ class DataModel:
         d = self.data[roi + ["Age",hue]]
         return d
 
-    def IsValid(self):
+
+    def IsValidData(self):
         """Checks if the data is valid or not."""
         if not isinstance(self.data, pd.DataFrame):
             return False
@@ -120,10 +127,23 @@ class DataModel:
             return True
 
 
+    def IsValidHarmonization(self):
+        """Checks if the harmonization model is valid or not."""
+        #TODO: Implement checks
+        return True
+
+
+    def IsValidSPARE(self):
+        """Checks if the SPARE-* model is valid or not."""
+        #TODO: Implement checks
+        return True
+
+
     def GetColumnHeaderNames(self):
         """Returns all header names for all columns in the dataset."""
         k = self.data.keys()
         return k
+
 
     def Reset(self):
         #clear all contents of data/model and release memory etc.
