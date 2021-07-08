@@ -14,8 +14,12 @@ class Processes:
 
     def DoSpare(self,data):
         #TODO: implement functionality
-        pass
-        #return modifieddata
+        if (self.BrainAgeModel is None) | (self.ADModel is None):
+            return data
+        
+        # compute SPARE-* based on saved function
+
+        return data
 
     def DoHarmonization(self,data):
         #TODO: implement functionality
