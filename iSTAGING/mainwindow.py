@@ -189,7 +189,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.menuProcess = QtWidgets.QMenu("Process",self.menubar)
         self.menuProcess.setObjectName("menuProcess")
 
-        self.actionProcessSpare = QtWidgets.QAction("Spare",self)
+        self.actionProcessSpare = QtWidgets.QAction("Compute SPARE-*",self)
         self.actionProcessSpare.setObjectName("actionSpare")
         self.menuProcess.addAction(self.actionProcessSpare)
 
