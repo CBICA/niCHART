@@ -37,5 +37,7 @@ class DataIO:
 
         
     def ReadSPAREModel(self, filename):
-        BrainAgeModel, ADModel = joblib.load(filename)
+        with open(filename, "rb") as file:
+            BrainAgeModel, ADModel = joblib.load(filename)
+        
         return BrainAgeModel, ADModel

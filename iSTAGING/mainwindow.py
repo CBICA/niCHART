@@ -12,10 +12,13 @@ from matplotlib.figure import Figure
 from iSTAGING.dataio import DataIO
 from iSTAGING.datamodel import DataModel
 from iSTAGING.plotcanvas import PlotCanvas
-
+import seaborn as sns
+import iSTAGING.processes
+import struct
+import pickle
 
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self, dataFile=None, harmonizationModelFile=None):
+    def __init__(self, dataFile=None, harmonizationModelFile=None, SPAREModelFile=None):
         super(MainWindow,self).__init__()
         self.SetupUi()
         self.SetupConnections()
@@ -34,6 +37,9 @@ class MainWindow(QtWidgets.QMainWindow):
         if harmonizationModelFile is not None:
             #if harmonization model file provided on cmd line, load it
             self.OnHarmonizationModelFileOpenClicked(harmonizationModelFile)
+        if SPAREModelFile is not None:
+            #if SPARE model file provided on cmd line, load it
+            self.OnSPAREModelFileOpenClicked(SPAREModelFile)
 
     def SetupConnections(self):
         self.actionOpenDataFile.triggered.connect(lambda: self.OnDataFileOpenClicked(None))
@@ -225,7 +231,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         #when there is already some data loaded, we get a confirmation from the user
         #to close the loaded data and load a new one
-        if(self.model.IsValid()):
+        if(self.model.IsValidData()):
             returnValue = QtWidgets.QMessageBox.question(self,
             'Warning',
             "There is already a data loaded. Do you want to close this data and load new one?")
@@ -397,6 +403,9 @@ class MainWindow(QtWidgets.QMainWindow):
         roiList = ['(WMLS) ' + list(map(MUSEDictIDtoNAME.get, [k.replace('WMLS_', 'MUSE_')]))[0] if k.startswith('WMLS_') else k for k in roiList]
 
         #add the list items to comboBox
+        self.comboBoxROI.blockSignals(True)
+        self.comboBoxROI.clear()
+        self.comboBoxROI.blockSignals(False)
         self.comboBoxROI.addItems(roiList)
 
 
@@ -405,6 +414,10 @@ class MainWindow(QtWidgets.QMainWindow):
         datakeys = self.model.GetColumnHeaderNames()
         categoryList = ['Sex','Study','A','T','N','PIB_Status']
         categoryList = list(set(categoryList).intersection(set(datakeys)))
+        self.comboBoxROI.blockSignals(True)
+        self.comboBoxHue.clear()
+        self.comboBoxROI.blockSignals(False)
+
         self.comboBoxHue.addItems(categoryList)
 
     def OnQuitClicked(self):
@@ -472,14 +485,21 @@ class MainWindow(QtWidgets.QMainWindow):
         self.label_HarmonizationModelFileValue.setToolTip(QtCore.QFileInfo(harmonizationModelFilePath).absoluteFilePath())
 
     def OnProcessSpareClicked(self):
-        #TODO:call spare processing functionality from processes.py
-        #show msg if no spare model is loaded
-        pass
+        #TODO:show msg if no spare model is loaded
+        p = iSTAGING.processes.Processes()
+        self.model.SetData(p.DoSPARE(self.model.GetCompleteData(),
+                                     self.model.ADModel,
+                                     self.model.BrainAgeModel))
+        self.PopulateROI()
+
 
     def OnProcessHarmonizationClicked(self):
-        #TODO: call harmonization process functionality from processes.py
-        #show msg if no harmonization model is loaded
-        pass
+        #TODO: show msg if no harmonization model is loaded
+        p = iSTAGING.processes.Processes()
+        self.model.SetData(p.DoHarmonization(self.model.GetCompleteData(),
+                                             self.model.harmonization_model))
+        self.PopulateROI()
+
 
     def OnViewChanged(self,action):
         #update current view
