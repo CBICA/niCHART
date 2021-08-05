@@ -6,7 +6,7 @@ Use of this source code is governed by license located in license file: https://
 """
 
 import pandas as pd
-import sys
+import os, sys
 
 class DataIO:
     def __init__(self):
@@ -19,4 +19,15 @@ class DataIO:
     def SavePickleFile(self,data,filename):
         data.to_pickle(filename)
 
+    def ReadMUSEDictionary(salf):
+        # Load MUSE dictionary file
+        MUSEDict = os.path.join(os.path.dirname(__file__), 'MUSE_ROI_Dictionary.csv')
+        MUSEDict = pd.read_csv(MUSEDict)
 
+        # Create lookup from name to ID and vice-versa
+        # e.g. name to ID: Hippocampus right -> MUSE_Volume_48
+        MUSEDictNAMEtoID = dict(zip(MUSEDict['ROI_NAME'], MUSEDict['ROI_COL']))
+        # e.g. ID to name; MUSE_Volume_48 -> Hippocampus right
+        MUSEDictIDtoNAME = dict(zip(MUSEDict['ROI_COL'], MUSEDict['ROI_NAME']))
+
+        return MUSEDictNAMEtoID, MUSEDictIDtoNAME

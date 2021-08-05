@@ -62,6 +62,21 @@ class PlotCanvas(FigureCanvas):
             sns.lineplot(x=x, y=y+z, ax=self.axes, linestyle=':', markers=False, color='k')
             sns.lineplot(x=x, y=y-z, ax=self.axes, linestyle=':', markers=False, color='k')
 
+        # Set ROI name as y-label if applicable
+        _, MUSEDictIDtoNAME = datamodel.GetMUSEDictionaries()
+        ylabel = currentROI
+        print(currentROI)
+        if ylabel.startswith('MUSE_'):
+            ylabel = '(MUSE) ' + list(map(MUSEDictIDtoNAME.get, [currentROI]))[0]
+
+        if ylabel.startswith('WMLS_'):
+            ylabel = '(WMLS) ' + list(map(MUSEDictIDtoNAME.get, [currentROI.replace('WMLS_', 'MUSE_')]))[0]
+
+        if ylabel.startswith('H_MUSE_'):
+            ylabel = '(Harmonized MUSE) ' + list(map(MUSEDictIDtoNAME.get, [currentROI.replace('H_', '')]))[0]
+         
+        self.axes.set(ylabel=ylabel)
+
         # refresh canvas
         self.draw()
 

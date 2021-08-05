@@ -21,7 +21,21 @@ class DataModel:
         """The constructor."""
         self.data = None
         self.harmonization_model = None
-        
+        self.MUSEDictNAMEtoID = None
+        self.MUSEDictIDtoNAME = None
+
+
+    def SetMUSEDictionaries(self, MUSEDictNAMEtoID, MUSEDictIDtoNAME):
+        """Setter for MUSE dictionary"""
+        self.MUSEDictNAMEtoID = MUSEDictNAMEtoID
+        self.MUSEDictIDtoNAME = MUSEDictIDtoNAME
+
+
+    def GetMUSEDictionaries(self):
+        """Get the MUSE dictionaries to map from ID to name and vice-versa"""
+        return self.MUSEDictNAMEtoID, self.MUSEDictIDtoNAME
+
+
     def SetData(self,d):
         """Setter"""
         self.data = d
