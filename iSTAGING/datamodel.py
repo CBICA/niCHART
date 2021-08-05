@@ -11,13 +11,13 @@ from iSTAGING.dataio import DataIO
 import neuroHarmonize as nh
 import importlib.resources as pkg_resources
 import sys
+import joblib
 
 
 class DataModel:
     """This class holds the data model."""
 
-    def __init__(self, DataFile=None, HarmonizationModelFile=None,
-                 SPAREModelFile=None):
+    def __init__(self):
         """The constructor."""
         self.data = None
         self.harmonization_model = None
@@ -25,6 +25,9 @@ class DataModel:
         self.MUSEDictIDtoNAME = None
         self.data_FilePath = None
         self.harmonization_model_Filepath = None
+        self.SPAREModel = None
+        self.BrainAgeModel = None
+        self.ADModel = None
 
     def SetMUSEDictionaries(self, MUSEDictNAMEtoID, MUSEDictIDtoNAME):
         """Setter for MUSE dictionary"""
@@ -48,6 +51,7 @@ class DataModel:
         """Return harmonization model file path"""
         return self.harmonization_model_Filepath
 
+
     def SetData(self,d):
         """Setter for data"""
         self.data = d
@@ -60,6 +64,7 @@ class DataModel:
 
     def SetSPAREModel(self,BrainAgeModel, ADModel):
         """Setter for SPARE-* models"""
+        print('setting SPARE models')
         self.BrainAgeModel = BrainAgeModel
         self.ADModel = ADModel
 
