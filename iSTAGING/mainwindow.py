@@ -69,45 +69,65 @@ class MainWindow(QtWidgets.QMainWindow):
         self.dataStatsGroupBoxGridLayout = QtWidgets.QGridLayout(self.dataStatisticsGroupBox)
 
         #Add data statistics box on left pane
+        #Data File
+        self.label_DataFile = QtWidgets.QLabel(self.dataStatisticsGroupBox);
+        self.label_DataFile.setObjectName("label_DataFile")
+        self.label_DataFile.setText("Data File:")
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_DataFile, 0, 0, 1, 1);
+
+        self.label_DataFileValue = QtWidgets.QLabel(self.dataStatisticsGroupBox)
+        self.label_DataFileValue.setObjectName("label_NumParticipantsValue")
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_DataFileValue,0, 1, 1, 1)
+
+        #Harmonization Model File
+        self.label_HarmonizationModelFile = QtWidgets.QLabel(self.dataStatisticsGroupBox);
+        self.label_HarmonizationModelFile.setObjectName("label_HarmonizationModelFile")
+        self.label_HarmonizationModelFile.setText("Harmonization Model File:")
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_HarmonizationModelFile, 1, 0, 1, 1);
+
+        self.label_HarmonizationModelFileValue = QtWidgets.QLabel(self.dataStatisticsGroupBox)
+        self.label_HarmonizationModelFileValue.setObjectName("label_HarmonizationModelFileValue")
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_HarmonizationModelFileValue, 1, 1, 1, 1)
+
         #Participants
         self.label_NumParticipants = QtWidgets.QLabel(self.dataStatisticsGroupBox);
         self.label_NumParticipants.setObjectName("label_NumParticipants")
         self.label_NumParticipants.setText("Number of Participants:")
-        self.dataStatsGroupBoxGridLayout.addWidget(self.label_NumParticipants, 0, 0, 1, 1);
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_NumParticipants, 2, 0, 1, 1);
 
         self.label_NumParticipantsValue = QtWidgets.QLabel(self.dataStatisticsGroupBox)
         self.label_NumParticipantsValue.setObjectName("label_NumParticipantsValue")
-        self.dataStatsGroupBoxGridLayout.addWidget(self.label_NumParticipantsValue, 0, 1, 1, 1)
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_NumParticipantsValue, 2, 1, 1, 1)
 
         #Observations
         self.label_NumObservations = QtWidgets.QLabel(self.dataStatisticsGroupBox);
         self.label_NumObservations.setObjectName("label_NumObservations")
         self.label_NumObservations.setText("Number of Observations:")
-        self.dataStatsGroupBoxGridLayout.addWidget(self.label_NumObservations, 1, 0, 1, 1);
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_NumObservations, 3, 0, 1, 1);
 
         self.label_NumObservationsValue = QtWidgets.QLabel(self.dataStatisticsGroupBox)
         self.label_NumObservationsValue.setObjectName("label_NumObservationsValue")
-        self.dataStatsGroupBoxGridLayout.addWidget(self.label_NumObservationsValue, 1, 1, 1, 1)
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_NumObservationsValue, 3, 1, 1, 1)
 
         #Age
         self.label_Age = QtWidgets.QLabel(self.dataStatisticsGroupBox);
         self.label_Age.setObjectName("label_Age")
         self.label_Age.setText("Age [min, max]:")
-        self.dataStatsGroupBoxGridLayout.addWidget(self.label_Age, 2, 0, 1, 1);
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_Age, 4, 0, 1, 1);
 
         self.label_AgeValue = QtWidgets.QLabel(self.dataStatisticsGroupBox)
         self.label_AgeValue.setObjectName("label_AgeValue")
-        self.dataStatsGroupBoxGridLayout.addWidget(self.label_AgeValue, 2, 1, 1, 1)
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_AgeValue, 4, 1, 1, 1)
 
         #Sex[M/F]
         self.label_Sex = QtWidgets.QLabel(self.dataStatisticsGroupBox);
         self.label_Sex.setObjectName("label_Sex")
         self.label_Sex.setText("Sex [M,F]:")
-        self.dataStatsGroupBoxGridLayout.addWidget(self.label_Sex, 3, 0, 1, 1);
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_Sex, 5, 0, 1, 1);
 
         self.label_SexValue = QtWidgets.QLabel(self.dataStatisticsGroupBox)
         self.label_SexValue.setObjectName("label_SexValue")
-        self.dataStatsGroupBoxGridLayout.addWidget(self.label_SexValue, 3, 1, 1, 1)
+        self.dataStatsGroupBoxGridLayout.addWidget(self.label_SexValue, 5, 1, 1, 1)
 
         #add left pane to layout
         self.layout.addLayout(self.leftPaneVLayout)
@@ -228,6 +248,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         #set data in model
         self.model.SetData(d)
+        self.model.SetDataFilePath(filename[0])
 
         #populate data statistics
         self.UpdateDataStatistics()
@@ -263,6 +284,10 @@ class MainWindow(QtWidgets.QMainWindow):
 
         #set data in model
         self.model.SetHarmonizationModel(m)
+        self.model.SetHarmonizationModelFilePath(filename[0])
+
+        #populate data statistics
+        self.UpdateDataStatistics()
 
         #populate the ROI only if the data is valid
         #Otherwise, show error message
@@ -402,6 +427,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.label_AgeValue.setText(ageVal)
         sexVal = "[" + str(stats['countsPerSex']['M']) + "," + str(stats['countsPerSex']['F']) + "]"
         self.label_SexValue.setText(sexVal)
+
+        dataFilePath = self.model.GetDataFilePath()
+        harmonizationModelFilePath = self.model.GetHarmonizationModelFilePath()
+        self.label_DataFileValue.setText(QtCore.QFileInfo(dataFilePath).fileName())
+        self.label_HarmonizationModelFileValue.setText(QtCore.QFileInfo(harmonizationModelFilePath).fileName())
 
     def OnProcessSpareClicked(self):
         #TODO:call spare processing functionality from processes.py
