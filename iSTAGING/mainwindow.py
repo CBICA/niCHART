@@ -431,7 +431,9 @@ class MainWindow(QtWidgets.QMainWindow):
         dataFilePath = self.model.GetDataFilePath()
         harmonizationModelFilePath = self.model.GetHarmonizationModelFilePath()
         self.label_DataFileValue.setText(QtCore.QFileInfo(dataFilePath).fileName())
+        self.label_DataFileValue.setToolTip(dataFilePath)
         self.label_HarmonizationModelFileValue.setText(QtCore.QFileInfo(harmonizationModelFilePath).fileName())
+        self.label_HarmonizationModelFileValue.setToolTip(harmonizationModelFilePath)
 
     def OnProcessSpareClicked(self):
         #TODO:call spare processing functionality from processes.py
