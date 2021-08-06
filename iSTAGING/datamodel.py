@@ -23,7 +23,8 @@ class DataModel:
         self.harmonization_model = None
         self.MUSEDictNAMEtoID = None
         self.MUSEDictIDtoNAME = None
-
+        self.data_FilePath = None
+        self.harmonization_model_Filepath = None
 
     def SetMUSEDictionaries(self, MUSEDictNAMEtoID, MUSEDictIDtoNAME):
         """Setter for MUSE dictionary"""
@@ -35,6 +36,21 @@ class DataModel:
         """Get the MUSE dictionaries to map from ID to name and vice-versa"""
         return self.MUSEDictNAMEtoID, self.MUSEDictIDtoNAME
 
+    def SetDataFilePath(self,p):
+        """Setter"""
+        self.data_FilePath = p
+
+    def SetHarmonizationModelFilePath(self,p):
+        """Setter"""
+        self.harmonization_model_Filepath = p
+
+    def GetDataFilePath(self):
+        """Return data file path"""
+        return self.data_FilePath
+
+    def GetHarmonizationModelFilePath(self):
+        """Return harmonization model file path"""
+        return self.harmonization_model_Filepath
 
     def SetData(self,d):
         """Setter"""
