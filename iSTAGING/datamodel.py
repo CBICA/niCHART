@@ -29,6 +29,7 @@ class DataModel:
         self.BrainAgeModel = None
         self.ADModel = None
 
+
     def SetMUSEDictionaries(self, MUSEDictNAMEtoID, MUSEDictIDtoNAME):
         """Setter for MUSE dictionary"""
         self.MUSEDictNAMEtoID = MUSEDictNAMEtoID
@@ -39,19 +40,27 @@ class DataModel:
         """Setter"""
         self.data_FilePath = p
 
+
     def SetHarmonizationModelFilePath(self,p):
         """Setter"""
         self.harmonization_model_Filepath = p
 
+
     def GetDataFilePath(self):
         """Return data file path"""
         return self.data_FilePath
+
 
     def GetHarmonizationModelFilePath(self):
         """Return harmonization model file path"""
         return self.harmonization_model_Filepath
 
 
+    def GetMUSEDictionaries(self):
+        """Get the MUSE dictionaries to map from ID to name and vice-versa"""
+        return self.MUSEDictNAMEtoID, self.MUSEDictIDtoNAME
+
+        
     def SetData(self,d):
         """Setter for data"""
         self.data = d
