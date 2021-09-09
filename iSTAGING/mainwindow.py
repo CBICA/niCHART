@@ -485,20 +485,26 @@ class MainWindow(QtWidgets.QMainWindow):
         self.label_HarmonizationModelFileValue.setToolTip(QtCore.QFileInfo(harmonizationModelFilePath).absoluteFilePath())
 
     def OnProcessSpareClicked(self):
-        #TODO:show msg if no spare model is loaded
         p = iSTAGING.processes.Processes()
-        self.model.SetData(p.DoSPARE(self.model.GetCompleteData(),
-                                     self.model.ADModel,
-                                     self.model.BrainAgeModel))
-        self.PopulateROI()
+        if (self.model.ADModel is not None and
+           self.model.BrainAgeModel is not None):
+            self.model.SetData(p.DoSPARE(self.model.GetCompleteData(),
+                                        self.model.ADModel,
+                                        self.model.BrainAgeModel))
+            self.PopulateROI()
+        else:
+            print('No SPARE-* models loaded.')
 
 
     def OnProcessHarmonizationClicked(self):
         #TODO: show msg if no harmonization model is loaded
         p = iSTAGING.processes.Processes()
-        self.model.SetData(p.DoHarmonization(self.model.GetCompleteData(),
-                                             self.model.harmonization_model))
-        self.PopulateROI()
+        if (self.model.harmonization_model is not None):
+            self.model.SetData(p.DoHarmonization(self.model.GetCompleteData(),
+                                                self.model.harmonization_model))
+            self.PopulateROI()
+        else:
+            print('No harmonization model loaded.')
 
 
     def OnViewChanged(self,action):
