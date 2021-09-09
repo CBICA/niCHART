@@ -54,8 +54,8 @@ class PlotCanvas(FigureCanvas):
                        data=datamodel.GetData(currentROI,currentHue))
 
         # Plot normative range if according GAM model is available
-        if (datamodel.harmonization_model is not None) and (currentROI in datamodel.harmonization_model['ROIs']):
-            x,y,z = datamodel.GetNormativeRange(currentROI)
+        if (datamodel.harmonization_model is not None) and (currentROI in ['H_' + x for x in datamodel.harmonization_model['ROIs']]):
+            x,y,z = datamodel.GetNormativeRange(currentROI[2:])
             print('Pooled variance: %f' % (z))
             # Plot three lines as expected mean and +/- 2 times standard deviation
             sns.lineplot(x=x, y=y, ax=self.axes, linestyle='-', markers=False, color='k')
