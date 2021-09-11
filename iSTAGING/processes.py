@@ -11,7 +11,6 @@ import sys
 import neuroHarmonize as nh
 
 
-
 class Processes:
     def __init__(self):
         pass
@@ -78,9 +77,12 @@ class Processes:
         bayes_data, stand_mean = nh.harmonizationApply(data[[x for x in model['ROIs']]].values,
                                                 data[['SITE','Age','Sex','DLICV_baseline']],
                                                 model,True)
-        data = pd.concat([data.reset_index(), pd.DataFrame(bayes_data, columns=['H_' + s for s in model['ROIs']])],
-                        axis=1)
-        sex_icv_effect = np.dot(data[['Sex','DLICV_baseline']],model['B_hat'][20:22,:])
+        if ('H_MUSE_Volume_47' not in data.keys()):
+            data = pd.concat([data.reset_index(), pd.DataFrame(bayes_data, columns=['H_' + s for s in model['ROIs']])],
+                            axis=1)
+        
+        start_index = len(model['SITE_labels'])
+        sex_icv_effect = np.dot(data[['Sex','DLICV_baseline']],model['B_hat'][start_index:(start_index+2),:])
         ROIs_ICV_Sex_Residuals = ['RES_ICV_Sex_' + x for x in model['ROIs']]
         data[ROIs_ICV_Sex_Residuals] = data[['H_' + x for x in model['ROIs']]] - sex_icv_effect
 
