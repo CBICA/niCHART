@@ -2,12 +2,12 @@
 """
 contact: software@cbica.upenn.edu
 Copyright (c) 2018 University of Pennsylvania. All rights reserved.
-Use of this source code is governed by license located in license file: https://github.com/CBICA/iSTAGING-Tools/blob/main/LICENSE
+Use of this source code is governed by license located in license file: https://github.com/CBICA/BrainChart/blob/main/LICENSE
 """
 
 import pandas as pd
 import numpy as np
-from iSTAGING.dataio import DataIO
+from BrainChart.dataio import DataIO
 import neuroHarmonize as nh
 import importlib.resources as pkg_resources
 import sys
