@@ -2,18 +2,18 @@
 """
 contact: software@cbica.upenn.edu
 Copyright (c) 2018 University of Pennsylvania. All rights reserved.
-Use of this source code is governed by license located in license file: https://github.com/CBICA/iSTAGING-Tools/blob/main/LICENSE
+Use of this source code is governed by license located in license file: https://github.com/CBICA/BrainChart/blob/main/LICENSE
 """
 
 from PyQt5 import QtCore, QtWidgets
 #from PyQt5.QtWidgets import QMessageBox
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
-from iSTAGING.dataio import DataIO
-from iSTAGING.datamodel import DataModel
-from iSTAGING.plotcanvas import PlotCanvas
+from BrainChart.dataio import DataIO
+from BrainChart.datamodel import DataModel
+from BrainChart.plotcanvas import PlotCanvas
 import seaborn as sns
-import iSTAGING.processes
+import BrainChart.processes
 import struct
 import pickle
 
@@ -56,7 +56,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def SetupUi(self):
         self.setObjectName("MainWindow")
-        self.setWindowTitle("iSTAGING Data Visualization and Extraction")
+        self.setWindowTitle("BrainChart Toolbox")
         self.resize(798, 593)
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
@@ -485,7 +485,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.label_HarmonizationModelFileValue.setToolTip(QtCore.QFileInfo(harmonizationModelFilePath).absoluteFilePath())
 
     def OnProcessSpareClicked(self):
-        p = iSTAGING.processes.Processes()
+        p = BrainChart.processes.Processes()
         if (self.model.ADModel is not None and
            self.model.BrainAgeModel is not None):
             self.model.SetData(p.DoSPARE(self.model.GetCompleteData(),
@@ -498,7 +498,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def OnProcessHarmonizationClicked(self):
         #TODO: show msg if no harmonization model is loaded
-        p = iSTAGING.processes.Processes()
+        p = BrainChart.processes.Processes()
         if (self.model.harmonization_model is not None):
             self.model.SetData(p.DoHarmonization(self.model.GetCompleteData(),
                                                 self.model.harmonization_model))
