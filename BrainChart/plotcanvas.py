@@ -94,14 +94,16 @@ class PlotCanvas(FigureCanvas):
         # seaborn plot on axis
         if (('SPARE_AD' in datamodel.GetColumnHeaderNames()) &
             ('SPARE_BA' in datamodel.GetColumnHeaderNames())):
+            spare_data = datamodel.GetData(['SPARE_BA','SPARE_AD'],
+                                           currentHue)
+            spare_data.loc[:, 'SPARE_BA'] = spare_data['SPARE_BA'] - spare_data['Age'] 
             sns.scatterplot(x='SPARE_AD', y='SPARE_BA', hue=currentHue,ax=self.axes,
-                            s=5, data=datamodel.GetData(['SPARE_BA','SPARE_AD'],
-                                                         currentHue))
+                            s=5, data=spare_data)
         else:
             # Set error text on plot
             self.axes.text(0.5,0.5,'No SPARE-* scores available.',
                            va='center', ha='center')
-            print('Plotting failed. Probably data set does not have SPARE-* indices.')
+            print('Plotting failed. Check data set for inclusion of SPARE-* indices.')
 
         # refresh canvas
         self.draw()
