@@ -75,6 +75,9 @@ class PlotCanvas(FigureCanvas):
         if ylabel.startswith('H_MUSE_'):
             ylabel = '(Harmonized MUSE) ' + list(map(MUSEDictIDtoNAME.get, [currentROI.replace('H_', '')]))[0]
          
+        if ylabel.startswith('RES_MUSE_'):
+            ylabel = '(Residuals MUSE) ' + list(map(MUSEDictIDtoNAME.get, [currentROI.replace('RES_', '')]))[0]
+
         self.axes.set(ylabel=ylabel)
 
         # refresh canvas

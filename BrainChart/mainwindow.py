@@ -358,6 +358,9 @@ class MainWindow(QtWidgets.QMainWindow):
         if currentROI.startswith('(Harmonized MUSE)'):
             currentROI = 'H_' + list(map(MUSEDictNAMEtoID.get, [currentROI[18:]]))[0]
 
+        if currentROI.startswith('(Residuals MUSE)'):
+            currentROI = 'RES_' + list(map(MUSEDictNAMEtoID.get, [currentROI[17:]]))[0]
+
         if currentROI.startswith('(WMLS)'):
             currentROI = list(map(MUSEDictNAMEtoID.get, [currentROI[7:]]))[0].replace('MUSE_', 'WMLS_')
 
@@ -382,6 +385,7 @@ class MainWindow(QtWidgets.QMainWindow):
                    + [x for x in datakeys if x.startswith('H_MUSE_Volume')]
                    + [x for x in datakeys if x.startswith('WMLS_Volume')]
                    + [x for x in datakeys if x.startswith('H_WMLS_Volume')]
+                   + [x for x in datakeys if x.startswith('RES_MUSE_Volume')]
                    + ['SPARE_AD','SPARE_BA','Non-existing-ROI','DLICV'])
         
         # !!! remove ROI with no dictionary entry
@@ -401,6 +405,7 @@ class MainWindow(QtWidgets.QMainWindow):
         roiList = ['(MUSE) ' + list(map(MUSEDictIDtoNAME.get, [k]))[0] if k.startswith('MUSE_') else k for k in roiList]
         roiList = ['(Harmonized MUSE) ' + list(map(MUSEDictIDtoNAME.get, [k[2:]]))[0] if k.startswith('H_MUSE_') else k for k in roiList]
         roiList = ['(WMLS) ' + list(map(MUSEDictIDtoNAME.get, [k.replace('WMLS_', 'MUSE_')]))[0] if k.startswith('WMLS_') else k for k in roiList]
+        roiList = ['(Residuals MUSE) ' + list(map(MUSEDictIDtoNAME.get, [k.replace('RES_MUSE_', 'MUSE_')]))[0] if k.startswith('RES_') else k for k in roiList]
 
         #add the list items to comboBox
         self.comboBoxROI.blockSignals(True)
