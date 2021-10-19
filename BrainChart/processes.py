@@ -87,21 +87,24 @@ class Processes:
 
         var_pooled = model['var_pooled']
 
-        for site in new_sites:
-            missing = np.array(data['SITE']==site,dtype=bool)
-            training = np.array(data['UseForComBatGAMHarmonization'],dtype=bool)
-            new_site_is_train = np.logical_and(missing, training)
+        if 'UseForComBatGAMHarmonization' in data.columns:
+            for site in new_sites:
+                missing = np.array(data['SITE']==site,dtype=bool)
+                training = np.array(data['UseForComBatGAMHarmonization'],dtype=bool)
+                new_site_is_train = np.logical_and(missing, training)
 
-            if np.count_nonzero(new_site_is_train)<25:
-                print('New site `'+site+'` has less than 25 reference data points. Skipping harmonization.')
-                continue
+                if np.count_nonzero(new_site_is_train)<25:
+                    print('New site `'+site+'` has less than 25 reference data points. Skipping harmonization.')
+                    continue
 
-            gamma_hat_site = np.mean(((Raw_ROIs_Residuals[new_site_is_train,:])/np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[new_site_is_train,:].shape[0]))).T),0)
-            gamma_hat_site = gamma_hat_site[:,np.newaxis]
-            delta_hat_site = pow(np.std(((Raw_ROIs_Residuals[new_site_is_train,:])/np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[new_site_is_train,:].shape[0]))).T),0),2)
-            delta_hat_site = delta_hat_site[:,np.newaxis]
+                gamma_hat_site = np.mean(((Raw_ROIs_Residuals[new_site_is_train,:])/np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[new_site_is_train,:].shape[0]))).T),0)
+                gamma_hat_site = gamma_hat_site[:,np.newaxis]
+                delta_hat_site = pow(np.std(((Raw_ROIs_Residuals[new_site_is_train,:])/np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[new_site_is_train,:].shape[0]))).T),0),2)
+                delta_hat_site = delta_hat_site[:,np.newaxis]
 
-            bayes_data[missing,:] = ((Raw_ROIs_Residuals[missing,:]/np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[missing,:].shape[0]))).T) - np.dot(gamma_hat_site,np.ones((1,Raw_ROIs_Residuals[missing,:].shape[0]))).T)*np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[missing,:].shape[0]))).T/np.dot(np.sqrt(delta_hat_site),np.ones((1,Raw_ROIs_Residuals[missing,:].shape[0]))).T + stand_mean[missing,:]
+                bayes_data[missing,:] = ((Raw_ROIs_Residuals[missing,:]/np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[missing,:].shape[0]))).T) - np.dot(gamma_hat_site,np.ones((1,Raw_ROIs_Residuals[missing,:].shape[0]))).T)*np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[missing,:].shape[0]))).T/np.dot(np.sqrt(delta_hat_site),np.ones((1,Raw_ROIs_Residuals[missing,:].shape[0]))).T + stand_mean[missing,:]
+        else:
+            print('Skipping out-of-sample harmonization because `UseForComBatGAMHarmonization` does not existexists.')
 
 
         if ('H_MUSE_Volume_47' not in data.keys()):
