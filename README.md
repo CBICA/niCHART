@@ -22,7 +22,6 @@ Assuming current working directory is `BrainChart`.
 python -m venv .env
 .env/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
 ```
 
 ### Preparations in Windows 10/11
@@ -31,12 +30,11 @@ Assuming current working directory is `BrainChart`.
 python -m venv .env
 & .env/Scripts/Activate.ps1
 python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-python -m pip install -e . # assuming in `BrainChart` folder
 ```
 
 ### BrainChart Toolbox
-To install the `BrainChart Toolbox`, do one of these:
+To install the `BrainChart Toolbox`, do one of these after activating the
+virtual environment:
 
 ```shell
 # Editable version for development
