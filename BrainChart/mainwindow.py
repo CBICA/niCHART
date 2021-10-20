@@ -394,20 +394,24 @@ class MainWindow(QtWidgets.QMainWindow):
         currentROI = self.comboBoxROI.currentText()
         currentHue = self.comboBoxHue.currentText()
 
-
         # Translate ROI name back to ROI ID
-        MUSEDictNAMEtoID, _ = self.model.GetMUSEDictionaries()
-        if currentROI.startswith('(MUSE)'):
-            currentROI = list(map(MUSEDictNAMEtoID.get, [currentROI[7:]]))[0]
+        try:
+            MUSEDictNAMEtoID, _ = self.model.GetMUSEDictionaries()
+            if currentROI.startswith('(MUSE)'):
+                currentROI = list(map(MUSEDictNAMEtoID.get, [currentROI[7:]]))[0]
 
-        if currentROI.startswith('(Harmonized MUSE)'):
-            currentROI = 'H_' + list(map(MUSEDictNAMEtoID.get, [currentROI[18:]]))[0]
+            if currentROI.startswith('(Harmonized MUSE)'):
+                currentROI = 'H_' + list(map(MUSEDictNAMEtoID.get, [currentROI[18:]]))[0]
 
-        if currentROI.startswith('(Residuals MUSE)'):
-            currentROI = 'RES_' + list(map(MUSEDictNAMEtoID.get, [currentROI[17:]]))[0]
+            if currentROI.startswith('(Residuals MUSE)'):
+                currentROI = 'RES_' + list(map(MUSEDictNAMEtoID.get, [currentROI[17:]]))[0]
 
-        if currentROI.startswith('(WMLS)'):
-            currentROI = list(map(MUSEDictNAMEtoID.get, [currentROI[7:]]))[0].replace('MUSE_', 'WMLS_')
+            if currentROI.startswith('(WMLS)'):
+                currentROI = list(map(MUSEDictNAMEtoID.get, [currentROI[7:]]))[0].replace('MUSE_', 'WMLS_')
+        except:
+            currentROI = 'DLICV'
+            self.comboBoxROI.setCurrentText('DLICV')
+            print("Could not translate combo box item. Setting to `DLICV`.")
 
 
         #create empty dictionary of plot options
