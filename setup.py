@@ -53,5 +53,6 @@ if __name__ == "__main__":
                    entry_points = {'brainchart.plugin' :
                        ['plugin1=plugins:P1', 
                         'plugin2=plugins:ScatterPlotSPAREs',
-                        'plugin3=plugins:P2']}
+                        'plugin3=plugins:P2'],
+                        'console_scripts': ['BrainChart=BrainChart:main']}
                   )

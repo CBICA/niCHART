@@ -3,7 +3,7 @@
 After proper installation, the tools can be used as follows
 
 ```shell
- python -m BrainChart.main --data_file istaging.pkl.gz --harmonization_model_file MUSE_harmonization_model.pkl
+ BrainChart --data_file istaging.pkl.gz --harmonization_model_file MUSE_harmonization_model.pkl
 ```
 
 where `istaging.pkl.gz` and `MUSE_harmonization_model.pkl` are the data and
