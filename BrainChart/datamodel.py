@@ -159,6 +159,12 @@ class DataModel:
         return k
 
 
+    def GetColumnDataTypes(self):
+        """Returns all header names for all columns in the dataset."""
+        d = self.data.dtypes
+        return d
+    
+
     def Reset(self):
         #clear all contents of data/model and release memory etc.
         #TODO: this needs to be done correctly,
