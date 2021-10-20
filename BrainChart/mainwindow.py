@@ -470,7 +470,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def PopulateHue(self):
         #add the list items to comboBoxHue
         datakeys = self.model.GetColumnHeaderNames()
-        categoryList = ['Sex','Study','A','T','N','PIB_Status']
+        datatypes = self.model.GetColumnDataTypes()
+        categoryList = ['Sex','Study','A','T','N','PIB_Status'] + [k for k,d in zip(datakeys, datatypes) if d.name=='category']
         categoryList = list(set(categoryList).intersection(set(datakeys)))
         self.comboBoxROI.blockSignals(True)
         self.comboBoxHue.clear()
