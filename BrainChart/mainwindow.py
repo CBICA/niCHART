@@ -259,9 +259,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionSPARE.setObjectName("actionSPARE")
         self.menuView.addAction(self.actionSPARE)
 
+        self.actionLongitudinalTrend = QtWidgets.QAction("LongitudinalTrend",self)
+        self.actionLongitudinalTrend.setObjectName("actionLongitudinalTrend")
+        self.menuView.addAction(self.actionLongitudinalTrend)
+
         self.actionGroupView = QtWidgets.QActionGroup(self)
         self.actionGroupView.addAction(self.actionViewAgeTrend)
         self.actionGroupView.addAction(self.actionSPARE)
+        self.actionGroupView.addAction(self.actionLongitudinalTrend)
 
         self.menuHelp = QtWidgets.QMenu("Help",self.menubar)
         self.menuHelp.setObjectName("menuHelp")
@@ -408,7 +413,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         if currentROI.startswith('(WMLS)'):
             currentROI = list(map(MUSEDictNAMEtoID.get, [currentROI[7:]]))[0].replace('MUSE_', 'WMLS_')
-
 
         #create empty dictionary of plot options
         plotOptions = dict()
@@ -564,6 +568,8 @@ class MainWindow(QtWidgets.QMainWindow):
         #control combo box visibility for views
         if(action.text() == 'SPARE'):
             self.comboBoxROI.hide()
+        elif(action.text() == 'LongitudinalTrend'):
+            self.comboBoxROI.show()
         elif(action.text() == 'AgeTrend'):
             self.comboBoxROI.show()
 

@@ -7,8 +7,11 @@ Use of this source code is governed by license located in license file: https://
 from PyQt5 import QtCore, QtWidgets
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
 import seaborn as sns
 import random
+import pandas as pd
+import os
 
 class PlotCanvas(FigureCanvas):
     """ A generic Plotting class that derives from FigureCanvasQTAgg
@@ -36,6 +39,8 @@ class PlotCanvas(FigureCanvas):
             self.PlotAgeTrends(datamodel,plotOptions)
         elif(str(plotOptions['VIEW']) == 'SPARE'):
             self.PlotSPARE(datamodel,plotOptions)
+        elif(str(plotOptions['VIEW']) == 'LongitudinalTrend'):
+            self.PlotLongitudinalTrends(datamodel,plotOptions)
 
     def PlotAgeTrends(self,datamodel,plotOptions):
         """Plot Age Trends - default view"""
@@ -110,6 +115,64 @@ class PlotCanvas(FigureCanvas):
 
         # refresh canvas
         self.draw()
+
+    
+    def PlotLongitudinalTrends(self,datamodel,plotOptions):
+        """Plot Age Trends - default view"""
+
+        currentROI = plotOptions['ROI']
+        currentHue = plotOptions['HUE']
+        N_samples=10
+        N_timepoints=5
+        seed=10
+
+        data=datamodel.GetData(['participant_id',currentROI],
+                               currentHue)
+        
+        # limit dataset by number of timepoints and sample
+        data_sample = data.copy()
+        data_sample.dropna(subset=[currentROI],inplace=True)
+        vc = data_sample['participant_id'].value_counts()
+        timepoints = vc[vc >= N_timepoints].index[:]
+        data_sample = data_sample[data_sample['participant_id'].isin(timepoints)]
+        random.seed(seed)
+        sampled_list = random.sample(list(data_sample['participant_id']), N_samples)
+        data_sample = data_sample[data_sample['participant_id'].isin(sampled_list)]
+        
+        if not currentHue:
+            currentHue = 'Sex'
+
+        # clear plot
+        self.axes.clear()
+
+        # longitudinal plot harmonized
+        _, ax = plt.subplots(1,1)
+        ax = sns.scatterplot(x='Age',y=currentROI,hue=currentHue,ax=self.axes,linewidth=1.5,s=50,data=data_sample)
+        for i in data_sample['participant_id']:
+            d = data_sample.index[data_sample['participant_id'] == i].tolist()
+            ax.plot(data_sample['Age'][d],data_sample[currentROI][d],c='0',linewidth=2)
+
+        # Set ROI name as y-label if applicable
+        _, MUSEDictIDtoNAME = datamodel.GetMUSEDictionaries()
+        ylabel = currentROI
+        print(currentROI)
+        if ylabel.startswith('MUSE_'):
+            ylabel = '(MUSE) ' + list(map(MUSEDictIDtoNAME.get, [currentROI]))[0]
+
+        if ylabel.startswith('WMLS_'):
+            ylabel = '(WMLS) ' + list(map(MUSEDictIDtoNAME.get, [currentROI.replace('WMLS_', 'MUSE_')]))[0]
+
+        if ylabel.startswith('H_MUSE_'):
+            ylabel = '(Harmonized MUSE) ' + list(map(MUSEDictIDtoNAME.get, [currentROI.replace('H_', '')]))[0]
+
+        if ylabel.startswith('RES_MUSE_'):
+            ylabel = '(Residuals MUSE) ' + list(map(MUSEDictIDtoNAME.get, [currentROI.replace('RES_', '')]))[0]
+         
+        self.axes.set(ylabel=ylabel)
+
+        # refresh canvas
+        self.draw()
+
 
     def Reset(self):
         """Remove all plots"""
