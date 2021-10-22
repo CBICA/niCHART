@@ -16,6 +16,8 @@ import seaborn as sns
 import BrainChart.processes
 import struct
 import pickle
+from pkg_resources import iter_entry_points
+
 
 class ExtendedComboBox(QtWidgets.QComboBox):
     def __init__(self, parent=None):
@@ -251,8 +253,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.menuView = QtWidgets.QMenu("View",self.menubar)
         self.menuView.setObjectName("menuView")
 
-        self.actionViewAgeTrend = QtWidgets.QAction("AgeTrend",self)
+        self.actionViewAgeTrend = QtWidgets.QAction("AgeTrend", self)
         self.actionViewAgeTrend.setObjectName("actionViewAgeTrend")
+        self.actionViewAgeTrend.setStatusTip("Age trends of structural data")
         self.menuView.addAction(self.actionViewAgeTrend)
 
         self.actionSPARE = QtWidgets.QAction("SPARE",self)
@@ -268,12 +271,32 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionGroupView.addAction(self.actionSPARE)
         self.actionGroupView.addAction(self.actionLongitudinalTrend)
 
+        # Manage plugins
+        self.menuPlugins = QtWidgets.QMenu("Plugins",self.menubar)
+        self.menuPlugins.setObjectName("menuPlugins")
+
+        self.pluginFunctions = []
+        self.actionPlugins = []
+
+        for i, entry_point in enumerate(iter_entry_points(group='brainchart.plugin', name=None)):
+            ep = entry_point.load()
+            self.pluginFunctions = self.pluginFunctions + [ep().run]
+            self.actionPlugins = self.actionPlugins + [QtWidgets.QAction(ep().name, self)]
+            self.actionPlugins[-1].setObjectName('action' + ep().name)
+            self.menuPlugins.addAction(self.actionPlugins[i])
+
+
+        # This does not work (all menu items trigger the first action)
+        for i in range(0,3):
+            self.actionPlugins[i].triggered.connect(lambda state, i=i: self.pluginFunctions[i](self))
+
         self.menuHelp = QtWidgets.QMenu("Help",self.menubar)
         self.menuHelp.setObjectName("menuHelp")
 
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuProcess.menuAction())
         self.menubar.addAction(self.menuView.menuAction())
+        self.menubar.addAction(self.menuPlugins.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
 
 
@@ -580,3 +603,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         #redraw plot
         self.UpdatePlot()
+
+
+    def print_stuff(self):
+        print('blablaba blabla.')

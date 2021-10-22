@@ -36,7 +36,7 @@ requirements = ['cycler==0.10.0',
                 'future==0.18.2',
                 'python_dateutil==2.8.1',
                 'pytz==2021.1',
-                'scikit_learn==0.24.1',
+                'scikit_learn==0.24.2',
                 'scipy==1.6.3',
                 'seaborn==0.11.1',
                 'six==1.16.0',
@@ -49,5 +49,9 @@ if __name__ == "__main__":
                    package_data = {"BrainChart": ['MUSE_ROI_Dictionary.csv']},
                    install_requires = requirements,
                    long_description=readme,
-                   long_description_content_type="text/markdown"
+                   long_description_content_type="text/markdown",
+                   entry_points = {'brainchart.plugin' :
+                       ['plugin1=plugins:P1', 
+                        'plugin2=plugins:ScatterPlotSPAREs',
+                        'plugin3=plugins:P2']}
                   )
