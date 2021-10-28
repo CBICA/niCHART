@@ -96,3 +96,72 @@ class ScatterPlotSPAREs():
 
         # refresh canvas
         mainwindow.plotCanvas.draw()
+
+class ScatterPlotMUSE():
+    
+    def __init__(self):
+        self.name = 'Raw versus Harmonized'
+
+
+    def run(self, mainwindow):
+        if mainwindow.model.data is None:
+            print("No data available.")
+            return
+
+        """Remove all plots"""
+        mainwindow.plotCanvas.axes.clear()
+
+        """Plot MUSE"""
+        # clear plot
+        mainwindow.plotCanvas.axes.clear()
+
+        #get current selected combobox item
+        currentROI = mainwindow.comboBoxROI.currentText()
+        currentHue = mainwindow.comboBoxHue.currentText()
+
+        # Translate ROI name back to ROI ID
+        try:
+            MUSEDictNAMEtoID, _ = mainwindow.model.GetMUSEDictionaries()
+            if currentROI.startswith('(MUSE)'):
+                currentROI = list(map(MUSEDictNAMEtoID.get, [currentROI[7:]]))[0]
+
+            if currentROI.startswith('(Harmonized MUSE)'):
+                currentROI = 'H_' + list(map(MUSEDictNAMEtoID.get, [currentROI[18:]]))[0]
+
+            if currentROI.startswith('(Residuals MUSE)'):
+                currentROI = 'RES_' + list(map(MUSEDictNAMEtoID.get, [currentROI[17:]]))[0]
+
+            if currentROI.startswith('(WMLS)'):
+                currentROI = list(map(MUSEDictNAMEtoID.get, [currentROI[7:]]))[0].replace('MUSE_', 'WMLS_')
+        except:
+            currentROI = 'DLICV'
+            self.comboBoxROI.setCurrentText('DLICV')
+            print("Could not translate combo box item. Setting to `DLICV`.")
+
+        #create empty dictionary of plot options
+        plotOptions = dict()
+
+        #fill dictionary with options
+        plotOptions['ROI'] = currentROI
+        plotOptions['HUE'] = currentHue
+
+        # set hue
+        currentHue = plotOptions['HUE']
+
+        if not currentHue:
+            currentHue = 'Sex'
+
+        # seaborn plot on axis
+
+        if 'H_MUSE_Volume_47' in mainwindow.model.GetColumnHeaderNames():
+            muse_data = mainwindow.model.GetData(['MUSE_Volume_47','H_MUSE_Volume_47'],currentHue().copy())
+            sns.scatterplot(x='MUSE_Volume_47', y='H_MUSE_Volume_47', hue=currentHue,ax=mainwindow.plotCanvas.axes,
+                                s=5, data=muse_data)
+        else:
+            # Set error text on plot
+            mainwindow.plotCanvas.axes.text(0.5,0.5,'No harmonized volumes available.',
+                           va='center', ha='center')
+            print('Plotting failed. Harmonization must be completed first.')
+
+        # refresh canvas
+        mainwindow.plotCanvas.draw()
