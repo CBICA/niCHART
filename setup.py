@@ -19,7 +19,8 @@ except Exception as error:
 
 
 # Requirements
-requirements = ['cycler==0.10.0',
+requirements = ['pyguitemp',
+                'cycler==0.10.0',
                 'joblib==1.0.1',
                 'kiwisolver==1.3.1',
                 'matplotlib==3.4.2',
@@ -47,7 +48,6 @@ if __name__ == "__main__":
                    packages=setuptools.find_packages(),
                    include_package_data=True,
                    package_data = {"BrainChart": ['MUSE_ROI_Dictionary.csv']},
-                   install_requires = requirements,
                    long_description=readme,
                    long_description_content_type="text/markdown",
                    entry_points = {'brainchart.plugin' :
