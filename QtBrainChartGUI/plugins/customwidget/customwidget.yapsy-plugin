@@ -1,0 +1,9 @@
+[Core]
+Name = customwidget
+Module = customwidget
+
+[Documentation]
+Author = Ashish Singh
+Version = 0.1
+Website = 
+Description = custom widget 

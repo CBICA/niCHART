@@ -1,0 +1,9 @@
+[Core]
+Name = data
+Module = data
+
+[Documentation]
+Author = Ashish Singh
+Version = 0.1
+Website = 
+Description = data model
