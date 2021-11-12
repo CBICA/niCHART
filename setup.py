@@ -55,5 +55,6 @@ if __name__ == "__main__":
                        ['plugin1=plugins:P1', 
                         'plugin2=plugins:ScatterPlotSPAREs',
                         'plugin3=plugins:P2'],
-                        'console_scripts': ['BrainChart=BrainChart:main']}
+                        'console_scripts': ['BrainChart=BrainChart:main',
+                                            'QtBrainChart=QtBrainChartGUI:main']}
                   )

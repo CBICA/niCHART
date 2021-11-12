@@ -10,7 +10,7 @@ from yapsy.PluginManager import PluginManager
 from yapsy.IPlugin import IPlugin
 import os, sys
 #from BrainChart.dataio import DataIO
-from core.model.datamodel import DataModel
+from QtBrainChartGUI.core.model.datamodel import DataModel
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, dataFile=None, harmonizationModelFile=None, SPAREModelFile=None):
@@ -25,7 +25,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Create plugin manager
         self.manager = PluginManager(categories_filter={ "UI": IPlugin})
-        root = os.path.dirname(sys.argv[0])
+        root = os.path.dirname(__file__)
         self.manager.setPluginPlaces([os.path.join(root, 'plugins')])
         #self.manager.setPluginPlaces(["plugins"])
 
@@ -62,7 +62,8 @@ class MainWindow(QtWidgets.QMainWindow):
  
     def SetupUi(self):
         print("in setup")
-        self.ui = uic.loadUi('mainwindow.ui', self)
+        root = os.path.dirname(__file__)
+        self.ui = uic.loadUi(os.path.join(root, 'mainwindow.ui'), self)
         self.ui.setWindowTitle('Qt BrainChart')
 
     def OnAboutClicked(self):
