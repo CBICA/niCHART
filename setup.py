@@ -41,7 +41,8 @@ requirements = ['pyguitemp',
                 'scipy==1.6.3',
                 'seaborn==0.11.1',
                 'six==1.16.0',
-                'statsmodels==0.13.0']
+                'statsmodels==0.13.0',
+                'Yapsy==1.12.2']
 
 if __name__ == "__main__":
   setuptools.setup(
