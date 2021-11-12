@@ -9,8 +9,8 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
     def __init__(self):
         super(Harmonization,self).__init__()
         self.datamodel = None
-        root = os.path.dirname(sys.argv[0])
-        self.ui = uic.loadUi(os.path.join(root, 'plugins', 'Harmonization', 'harmonization.ui'),self)
+        root = os.path.dirname(__file__)
+        self.ui = uic.loadUi(os.path.join(root, 'harmonization.ui'),self)
         #TODO: hook up plot functionality
 
     def getUI(self):

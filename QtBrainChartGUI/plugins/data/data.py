@@ -2,15 +2,15 @@ from PyQt5.QtGui import *
 from yapsy.IPlugin import IPlugin
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 import sys, os
-from plugins.data.dataio import DataIO
+from QtBrainChartGUI.plugins.data.dataio import DataIO
 
 class Data(QtWidgets.QWidget,IPlugin):
 
     def __init__(self):
         super(Data,self).__init__()
         self.datamodel = None
-        root = os.path.dirname(sys.argv[0])
-        self.ui = uic.loadUi(os.path.join(root, 'plugins', 'Data', 'data.ui'),self)
+        root = os.path.dirname(__file__)
+        self.ui = uic.loadUi(os.path.join(root, 'data.ui'),self)
 
     def SetupConnections(self):
         self.ui.browseBtn.clicked.connect(lambda: self.OnBrowseBtnClicked())

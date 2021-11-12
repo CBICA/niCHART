@@ -3,7 +3,7 @@
 After proper installation, the tools can be used as follows
 
 ```shell
- BrainChart --data_file istaging.pkl.gz --harmonization_model_file MUSE_harmonization_model.pkl
+QtBrainChart
 ```
 
 where `istaging.pkl.gz` and `MUSE_harmonization_model.pkl` are the data and
@@ -16,7 +16,7 @@ Install Python version 3.8.8 or newer. Verify with
 python --version # should be 3.8.8 or newer
 ```
 
-### Preparations in Linux (CUBIC)
+### Prepare environment in Linux (CUBIC)
 Assuming current working directory is `BrainChart`.
 ```shell
 python -m venv .env
@@ -24,7 +24,7 @@ python -m venv .env
 python -m pip install --upgrade pip
 ```
 
-### Preparations in Windows 10/11
+### Prepare environment in Windows 10 or Windows 11
 Assuming current working directory is `BrainChart`.
 ```shell
 python -m venv .env
@@ -32,7 +32,7 @@ python -m venv .env
 python -m pip install --upgrade pip
 ```
 
-### BrainChart Toolbox
+### Install BrainChart Toolbox
 To install the `BrainChart Toolbox`, do one of these after activating the
 virtual environment:
 
