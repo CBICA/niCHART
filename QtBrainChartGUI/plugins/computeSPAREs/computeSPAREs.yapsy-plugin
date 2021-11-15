@@ -1,0 +1,9 @@
+[Core]
+Name = SPARE-*
+Module = computeSPAREs
+
+[Documentation]
+Author = Ahmed Abdulkadir
+Version = 0.1
+Website = 
+Description = Compute SPARE-* scores from existing model. 

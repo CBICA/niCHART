@@ -12,6 +12,8 @@ import os, sys
 #from BrainChart.dataio import DataIO
 from QtBrainChartGUI.core.model.datamodel import DataModel
 
+import pandas as pd
+
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, dataFile=None, harmonizationModelFile=None, SPAREModelFile=None):
         super(MainWindow,self).__init__()
@@ -45,9 +47,10 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.tabWidget.addTab(po,plugin.name)
 
         if dataFile is not None:
-            pass
             # if datafile provided on cmd line, load it
-            #self.OnDataFileOpenClicked(dataFile)
+            self.OnDataFile(dataFile)
+
+
         if harmonizationModelFile is not None:
             pass
             #if harmonization model file provided on cmd line, load it
@@ -64,7 +67,7 @@ class MainWindow(QtWidgets.QMainWindow):
         print("in setup")
         root = os.path.dirname(__file__)
         self.ui = uic.loadUi(os.path.join(root, 'mainwindow.ui'), self)
-        self.ui.setWindowTitle('Qt BrainChart')
+        self.ui.setWindowTitle('Neuro-imaging brain aging chart')
 
     def OnAboutClicked(self):
         #quit application
@@ -74,6 +77,11 @@ class MainWindow(QtWidgets.QMainWindow):
     def OnCloseClicked(self):
         #close currently loaded data and model
         QtWidgets.QApplication.quit()
+
+
+    def OnDataFile(self, dataFile):
+        self.datamodel.SetDataFilePath(dataFile)
+        self.datamodel.SetData(pd.read_pickle(dataFile))
 
 
     def ResetUI(self):

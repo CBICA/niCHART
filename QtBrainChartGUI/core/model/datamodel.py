@@ -160,7 +160,11 @@ class DataModel(QObject):
 
     def GetColumnHeaderNames(self):
         """Returns all header names for all columns in the dataset."""
-        k = self.data.keys()
+        if self.data is not None:
+            k = self.data.keys()
+        else:
+            k = []
+        
         return k
 
 
