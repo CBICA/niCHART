@@ -1,4 +1,5 @@
 from PyQt5.QtGui import *
+from matplotlib.backends.backend_qt5 import FigureCanvasQT
 from yapsy.IPlugin import IPlugin
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 import joblib
@@ -62,6 +63,7 @@ class computeSPAREs(QtWidgets.QWidget,IPlugin):
         self.ui.compute_SPARE_scores_Btn.clicked.connect(lambda: self.OnComputeSPAREs())
         self.ui.show_SPARE_scores_from_data_Btn.clicked.connect(lambda: self.OnShowSPAREs())
         self.datamodel.data_changed.connect(lambda: self.OnDataChanged())
+
         # Set `Show SPARE-* from data` button to visible when SPARE-* columns
         # are present in data frame
         if ('SPARE_BA' in self.datamodel.GetColumnHeaderNames() and
@@ -69,6 +71,13 @@ class computeSPAREs(QtWidgets.QWidget,IPlugin):
             self.ui.show_SPARE_scores_from_data_Btn.setEnabled(True)
         else:
             self.ui.show_SPARE_scores_from_data_Btn.setEnabled(False)
+
+        # Allow loading of SPARE-* model only when harmonized residuals are
+        # present
+        if 'RES_ICV_Sex_MUSE_Volume_47' in self.datamodel.GetColumnHeaderNames():
+            self.ui.load_SPARE_model_Btn.setEnabled(True)
+        else:
+            self.ui.load_SPARE_model_Btn.setEnabled(False)
 
 
 
@@ -85,11 +94,15 @@ class computeSPAREs(QtWidgets.QWidget,IPlugin):
 
 
     def OnComputeSPAREs(self):
-        self.SPAREs = pd.DataFrame.from_dict({
-            'SPARE_BA': predictBrainAge(self.datamodel.data, self.model['BrainAge']),
-            'SPARE_AD': predictAD(self.datamodel.data, self.model['AD'])})
-        self.plotSPAREs()
-        self.ui.stackedWidget.setCurrentIndex(1)
+        if 'RES_ICV_Sex_MUSE_Volume_47' in self.datamodel.GetColumnHeaderNames():
+            self.SPAREs = pd.DataFrame.from_dict({
+                'SPARE_BA': predictBrainAge(self.datamodel.data, self.model['BrainAge']),
+                'SPARE_AD': predictAD(self.datamodel.data, self.model['AD'])})
+            self.plotSPAREs()
+            self.ui.stackedWidget.setCurrentIndex(1)
+        else:
+            print('No field `RES_ICV_Sex_MUSE_Volume_47` found. ' +
+                  'Make sure to compute harmonized residuals first.')
 
 
     def plotSPAREs(self):
@@ -118,6 +131,12 @@ class computeSPAREs(QtWidgets.QWidget,IPlugin):
         else:
             self.ui.show_SPARE_scores_from_data_Btn.setEnabled(False)
 
+        # Allow loading of SPARE-* model only when harmonized residuals are
+        # present
+        if 'RES_ICV_Sex_MUSE_Volume_47' in self.datamodel.GetColumnHeaderNames():
+            self.ui.load_SPARE_model_Btn.setEnabled(True)
+        else:
+            self.ui.load_SPARE_model_Btn.setEnabled(False)
 
 
 def predictBrainAge(data,model):
