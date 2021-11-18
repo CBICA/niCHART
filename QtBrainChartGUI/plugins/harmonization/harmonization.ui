@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>625</width>
     <height>300</height>
    </rect>
   </property>
@@ -25,11 +25,32 @@
      <widget class="QWidget" name="page">
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QPushButton" name="load_harmonization_model_Btn">
-         <property name="text">
-          <string>Load Harmonization Model</string>
-         </property>
-        </widget>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QPushButton" name="show_data_Btn">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="text">
+            <string>Show Data</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="load_harmonization_model_Btn">
+           <property name="text">
+            <string>Load Harmonization Model</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="apply_model_to_dataset_Btn">
+           <property name="text">
+            <string>Apply model to dataset</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
@@ -59,13 +80,6 @@
           </widget>
          </item>
         </layout>
-       </item>
-       <item>
-        <widget class="QWidget" name="plotwidget" native="true">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(11, 255, 11);</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
