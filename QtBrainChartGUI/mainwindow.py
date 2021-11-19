@@ -48,8 +48,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         if dataFile is not None:
             # if datafile provided on cmd line, load it
-            self.OnDataFile(dataFile)
-
+            self.Plugins['data'].ReadData(dataFile)
 
         if harmonizationModelFile is not None:
             pass
@@ -77,12 +76,6 @@ class MainWindow(QtWidgets.QMainWindow):
     def OnCloseClicked(self):
         #close currently loaded data and model
         QtWidgets.QApplication.quit()
-
-
-    def OnDataFile(self, dataFile):
-        self.datamodel.SetDataFilePath(dataFile)
-        self.datamodel.SetData(pd.read_pickle(dataFile))
-
 
     def ResetUI(self):
         #reset all UI

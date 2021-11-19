@@ -21,17 +21,7 @@ class Data(QtWidgets.QWidget,IPlugin):
         'Open data file',
         QtCore.QDir().homePath(),
         "Pickle files (*.pkl.gz)")
-
-        #read input data
-        dio = DataIO()
-        d = dio.ReadPickleFile(filename[0])
-
-        #also read MUSE dictionary
-        MUSEDictNAMEtoID, MUSEDictIDtoNAME = dio.ReadMUSEDictionary()
-        self.datamodel.SetMUSEDictionaries(MUSEDictNAMEtoID, MUSEDictIDtoNAME)
-
-        #set data in model
-        self.datamodel.SetData(d)
+        self.ReadData(filename[0])
 
     def PopulateTable(self):
         df = self.datamodel.GetCompleteData()
@@ -48,3 +38,15 @@ class Data(QtWidgets.QWidget,IPlugin):
 
     def OnDataChanged(self):
         self.PopulateTable()
+
+    def ReadData(self,filename):
+        #read input data
+        dio = DataIO()
+        d = dio.ReadPickleFile(filename)
+
+        #also read MUSE dictionary
+        MUSEDictNAMEtoID, MUSEDictIDtoNAME = dio.ReadMUSEDictionary()
+        self.datamodel.SetMUSEDictionaries(MUSEDictNAMEtoID, MUSEDictIDtoNAME)
+
+        #set data in model
+        self.datamodel.SetData(d)
