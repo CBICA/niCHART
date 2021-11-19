@@ -8,32 +8,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-
-# Plotting with matplotlib
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-import matplotlib as mpl
-mpl.use('QT5Agg')
-
-class PlotCanvas(FigureCanvas):
-    """ A generic Plotting class that derives from FigureCanvasQTAgg
-    and plots data as per different options"""
-
-    def __init__(self, parent=None, width=5, height=4, dpi=100):
-        """The constructor."""
-
-        # a figure instance to plot on
-        fig = mpl.figure.Figure(figsize=(width, height), dpi=dpi)
-        self.axes1 = fig.add_subplot(121)
-        self.axes2 = fig.add_subplot(122)
-
-        #super clas
-        FigureCanvas.__init__(self, fig)
-        self.setParent(parent)
-
-        FigureCanvas.setSizePolicy(self,
-                QtWidgets.QSizePolicy.Expanding,
-                QtWidgets.QSizePolicy.Expanding)
-        FigureCanvas.updateGeometry(self)
+from QtBrainChartGUI.core.plotcanvas import PlotCanvas
 
 class Harmonization(QtWidgets.QWidget,IPlugin):
 
@@ -44,6 +19,8 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         root = os.path.dirname(__file__)
         self.ui = uic.loadUi(os.path.join(root, 'harmonization.ui'),self)
         self.plotCanvas = PlotCanvas(self.ui.page_2)
+        self.plotCanvas.axes1 = self.plotCanvas.fig.add_subplot(121)
+        self.plotCanvas.axes2 = self.plotCanvas.fig.add_subplot(122)
         self.ui.verticalLayout.addWidget(self.plotCanvas) 
         self.MUSE = None
 

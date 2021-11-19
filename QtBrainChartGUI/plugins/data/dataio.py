@@ -22,7 +22,7 @@ class DataIO:
     def SavePickleFile(self,data,filename):
         data.to_pickle(filename)
 
-    def ReadMUSEDictionary(salf):
+    def ReadMUSEDictionary(self):
         # Load MUSE dictionary file
         MUSEDict = os.path.join(os.path.dirname(__file__), 'MUSE_ROI_Dictionary.csv')
         MUSEDict = pd.read_csv(MUSEDict)

@@ -26,6 +26,10 @@ class Data(QtWidgets.QWidget,IPlugin):
         dio = DataIO()
         d = dio.ReadPickleFile(filename[0])
 
+        #also read MUSE dictionary
+        MUSEDictNAMEtoID, MUSEDictIDtoNAME = dio.ReadMUSEDictionary()
+        self.datamodel.SetMUSEDictionaries(MUSEDictNAMEtoID, MUSEDictIDtoNAME)
+
         #set data in model
         self.datamodel.SetData(d)
 
