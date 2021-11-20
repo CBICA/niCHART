@@ -72,8 +72,8 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
                 model_text2 = ('SITES in training set: '+ ' '.join([str(elem) for elem in list(self.model['SITE_labels'])]))
                 model_text2 = wrap_by_word(model_text2,4)
                 model_text1 += '\n\n'+model_text2
-                age_max = self.datamodel.data['Age'].max()
-                age_min = self.datamodel.data['Age'].min()
+                age_max = self.model['smooth_model']['bsplines_constructor'].knot_kwds[0]['upper_bound']
+                age_min = self.model['smooth_model']['bsplines_constructor'].knot_kwds[0]['lower_bound']
                 model_text3 = ('Valid Age Range: [' + str(age_min) + ', ' + str(age_max) + ']')
                 model_text1 += '\n'+model_text3
                 self.ui.Harmonized_Data_Information_Lbl.setText(model_text1)
