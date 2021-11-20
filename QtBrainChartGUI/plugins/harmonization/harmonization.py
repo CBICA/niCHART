@@ -140,8 +140,8 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         self.plotCanvas.axes1.get_figure().set_tight_layout(True)
         self.plotCanvas.axes1.set_xlim(-4*sd_raw, 4*sd_raw)
         sns.set(style='white')
-        a = sns.stripplot(x='RAW_RES_MUSE_Volume_47', y="SITE", data=data, palette=cSite,s=2,linewidth=0,ax=self.plotCanvas.axes1)
-        a = sns.boxplot(x='RAW_RES_MUSE_Volume_47', y="SITE", data=data, palette=cSite,linewidth=1,showfliers = False,ax=self.plotCanvas.axes1,**PROPS)
+        #a = sns.stripplot(x='RAW_RES_MUSE_Volume_47', y="SITE", data=data, palette=cSite,s=2,linewidth=0,ax=self.plotCanvas.axes1)
+        a = sns.boxplot(x='RAW_RES_MUSE_Volume_47', y="SITE", data=data, palette=cSite,linewidth=.25,showfliers = False,ax=self.plotCanvas.axes1,**PROPS)
         medians = data.groupby(['SITE'])['RAW_RES_MUSE_Volume_47'].median().values
         nobs1 = data['SITE'].value_counts().sort_index(ascending=True).values
         nobs1 = [str(x) for x in nobs1.tolist()]
@@ -149,17 +149,16 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         labels = [x + ' (N=' for x in self.model['SITE_labels']]
         labels = [''.join(i) for i in zip(labels, nobs1)]
         labels = [x + ')' for x in labels]
-        a.axvline(ci_plus_raw,color='grey',ls='--')
-        a.axvline(ci_minus_raw,color='grey',ls='--')
-        a.tick_params(axis='both', which='both', length=0)
-        a.set_xlabel('Hippocampus right (residuals)',fontdict={'fontsize':15})
-        a.set_title('Uncorrected',fontdict={'fontsize':15})
+        self.plotCanvas.axes1.axvline(ci_plus_raw,color='grey',ls='--')
+        self.plotCanvas.axes1.axvline(ci_minus_raw,color='grey',ls='--')
+        a.tick_params(axis='both', which='major', length=4)
+        a.set_xlabel('Hippocampus right\n(residuals before harmonization)')
         
         self.plotCanvas.axes2.get_figure().set_tight_layout(True)
         self.plotCanvas.axes2.set_xlim(-4*sd_raw, 4*sd_raw)
         sns.set(style='white')
-        b = sns.stripplot(x='RES_MUSE_Volume_47', y="SITE", data=data, palette=cSite,s=2,linewidth=0,ax=self.plotCanvas.axes2)
-        b = sns.boxplot(x='RES_MUSE_Volume_47', y="SITE", data=data, palette=cSite,linewidth=1,showfliers = False,ax=self.plotCanvas.axes2,**PROPS)
+        #b = sns.stripplot(x='RES_MUSE_Volume_47', y="SITE", data=data, palette=cSite,s=2,linewidth=0,ax=self.plotCanvas.axes2)
+        b = sns.boxplot(x='RES_MUSE_Volume_47', y="SITE", data=data, palette=cSite,linewidth=0.25,showfliers = False,ax=self.plotCanvas.axes2,**PROPS)
         medians = data.groupby(['SITE'])['RES_MUSE_Volume_47'].median().values
         nobs2 = data['SITE'].value_counts().sort_index(ascending=True).values
         nobs2 = [str(x) for x in nobs2.tolist()]
@@ -167,13 +166,15 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         if nobs1 != nobs2:
             print('not equal sample sizes')
         a.set_yticklabels(labels)
-        b.axvline(ci_plus_h,color='grey',ls='--')
-        b.axvline(ci_minus_h,color='grey',ls='--')
+        self.plotCanvas.axes2.axvline(ci_plus_h,color='grey',ls='--')
+        self.plotCanvas.axes2.axvline(ci_minus_h,color='grey',ls='--')
         b.set(yticklabels=[])
-        b.tick_params(axis='both', which='both', length=0)
-        b.set_xlabel('Hippocampus right (residuals)',fontdict={'fontsize':15})
+        b.tick_params(axis='both', which='major', length=4)
+        b.set_xlabel('Hippocampus right\n(residuals after harmonization)')
         b.set_ylabel('')
-        b.set_title('Corrected for site (location and scale)',fontdict={'fontsize':15})
+        self.plotCanvas.axes1.clear()
+        sns.despine(fig=self.plotCanvas.axes1.get_figure(), trim=True)
+
 
     def OnAddToDataFrame(self):
         print('Saving modified data to pickle file...')
