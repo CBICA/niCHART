@@ -140,7 +140,6 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         self.plotCanvas.axes1.get_figure().set_tight_layout(True)
         self.plotCanvas.axes1.set_xlim(-4*sd_raw, 4*sd_raw)
         sns.set(style='white')
-        #a = sns.stripplot(x='RAW_RES_MUSE_Volume_47', y="SITE", data=data, palette=cSite,s=2,linewidth=0,ax=self.plotCanvas.axes1)
         a = sns.boxplot(x='RAW_RES_MUSE_Volume_47', y="SITE", data=data, palette=cSite,linewidth=.25,showfliers = False,ax=self.plotCanvas.axes1,**PROPS)
         medians = data.groupby(['SITE'])['RAW_RES_MUSE_Volume_47'].median().values
         nobs1 = data['SITE'].value_counts().sort_index(ascending=True).values
@@ -157,7 +156,6 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         self.plotCanvas.axes2.get_figure().set_tight_layout(True)
         self.plotCanvas.axes2.set_xlim(-4*sd_raw, 4*sd_raw)
         sns.set(style='white')
-        #b = sns.stripplot(x='RES_MUSE_Volume_47', y="SITE", data=data, palette=cSite,s=2,linewidth=0,ax=self.plotCanvas.axes2)
         b = sns.boxplot(x='RES_MUSE_Volume_47', y="SITE", data=data, palette=cSite,linewidth=0.25,showfliers = False,ax=self.plotCanvas.axes2,**PROPS)
         medians = data.groupby(['SITE'])['RES_MUSE_Volume_47'].median().values
         nobs2 = data['SITE'].value_counts().sort_index(ascending=True).values
@@ -172,7 +170,6 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         b.tick_params(axis='both', which='major', length=4)
         b.set_xlabel('Hippocampus right\n(residuals after harmonization)')
         b.set_ylabel('')
-        self.plotCanvas.axes1.clear()
         sns.despine(fig=self.plotCanvas.axes1.get_figure(), trim=True)
 
 
