@@ -38,6 +38,7 @@ class computeSPAREs(QtWidgets.QWidget,IPlugin):
         self.ui.show_SPARE_scores_from_data_Btn.clicked.connect(lambda: self.OnShowSPAREs())
         self.datamodel.data_changed.connect(lambda: self.OnDataChanged())
 
+        self.ui.add_to_dataframe_Btn.setStyleSheet("background-color: green; color: white")
         # Set `Show SPARE-* from data` button to visible when SPARE-* columns
         # are present in data frame
         if ('SPARE_BA' in self.datamodel.GetColumnHeaderNames() and
