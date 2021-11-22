@@ -24,9 +24,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="browseBtn">
+      <widget class="QPushButton" name="open_data_file_Btn">
        <property name="text">
-        <string>Browse</string>
+        <string>Open Data File</string>
        </property>
       </widget>
      </item>
