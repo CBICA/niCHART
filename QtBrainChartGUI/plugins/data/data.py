@@ -2,6 +2,7 @@ from PyQt5.QtGui import *
 from yapsy.IPlugin import IPlugin
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 import sys, os
+import pandas as pd
 from QtBrainChartGUI.plugins.data.dataio import DataIO
 
 class Data(QtWidgets.QWidget,IPlugin):
@@ -13,15 +14,26 @@ class Data(QtWidgets.QWidget,IPlugin):
         self.ui = uic.loadUi(os.path.join(root, 'data.ui'),self)
 
     def SetupConnections(self):
-        self.ui.browseBtn.clicked.connect(lambda: self.OnBrowseBtnClicked())
+        self.ui.open_data_file_Btn.clicked.connect(lambda: self.OnOpenDataFileBtnClicked())
         self.datamodel.data_changed.connect(lambda: self.OnDataChanged())
 
-    def OnBrowseBtnClicked(self):
+    def OnOpenDataFileBtnClicked(self):
         filename = QtWidgets.QFileDialog.getOpenFileName(None,
         'Open data file',
         QtCore.QDir().homePath(),
-        "Pickle files (*.pkl.gz)")
-        self.ReadData(filename[0])
+        "Pickle files (*.pkl.gz *.pkl)")
+
+        if filename[0] == "":
+            print("No data was selected")
+        else:
+            file = pd.read_pickle(filename[0])
+            if not (isinstance(file,pd.DataFrame)):
+                print('Selected file must be a dataframe.')
+            else:
+                self.ReadData(filename[0])
+            self.ui.tableWidget
+        self.ui.tableWidget
+
 
     def PopulateTable(self):
         df = self.datamodel.GetCompleteData()
@@ -30,7 +42,7 @@ class Data(QtWidgets.QWidget,IPlugin):
         self.ui.tableWidget.setColumnCount(len(df.columns))
         self.ui.tableWidget.setRowCount(len(df.index))
         #for i in range(len(df.index)):
-        for i in range(5):
+        for i in range(20):
             for j in range(len(df.columns)):
                 self.ui.tableWidget.setItem(i,j,QtWidgets.QTableWidgetItem(str(df.iloc[i, j])))
 
