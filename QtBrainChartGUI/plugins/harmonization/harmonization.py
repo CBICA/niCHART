@@ -18,7 +18,7 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         self.datamodel = None
         root = os.path.dirname(__file__)
         self.ui = uic.loadUi(os.path.join(root, 'harmonization.ui'),self)
-        Harmonized_Data_Information_Lbl = QtWidgets.QLabel(self)
+        self.ui.Harmonization_Model_Loaded_Lbl.setHidden(True)
         self.plotCanvas = PlotCanvas(self.ui.page_2)
         self.plotCanvas.axes1 = self.plotCanvas.fig.add_subplot(121)
         self.plotCanvas.axes2 = self.plotCanvas.fig.add_subplot(122)
@@ -41,9 +41,10 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         self.datamodel.data_changed.connect(lambda: self.OnDataChanged())
         self.ui.apply_model_to_dataset_Btn.setEnabled(False)
 
-        if ('MUSE_Volume_47' in self.datamodel.GetColumnHeaderNames() and
-            'H_MUSE_Volume_47' in self.datamodel.GetColumnHeaderNames()):
+        if ('RES_MUSE_Volume_47' in self.datamodel.GetColumnHeaderNames() and
+            'RAW_RES_MUSE_Volume_47' in self.datamodel.GetColumnHeaderNames()):
             self.ui.show_data_Btn.setEnabled(True)
+            self.ui.show_data_Btn.setStyleSheet("background-color: lightBlue; color: white")
         else:
             self.ui.show_data_Btn.setEnabled(False)
 
@@ -66,6 +67,10 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
                 self.ui.Harmonized_Data_Information_Lbl.setObjectName('Error_label')
                 self.ui.Harmonized_Data_Information_Lbl.setStyleSheet('QLabel#Error_label {color: red}')
             else:
+                self.ui.Harmonization_Model_Loaded_Lbl.setHidden(False)
+                self.ui.Harmonization_Model_Loaded_Lbl.setObjectName('correct_label')
+                self.ui.Harmonization_Model_Loaded_Lbl.setStyleSheet('QLabel#correct_label {color: green}')
+                self.ui.Harmonization_Model_Loaded_Lbl.setText('Harmonization model compatible')
                 self.ui.Harmonized_Data_Information_Lbl.setObjectName('correct_label')
                 self.ui.Harmonized_Data_Information_Lbl.setStyleSheet('QLabel#correct_label {color: black}')
                 model_text1 = (os.path.basename(filename) +' loaded')
@@ -78,6 +83,7 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
                 model_text1 += '\n'+model_text3
                 self.ui.Harmonized_Data_Information_Lbl.setText(model_text1)
                 self.ui.apply_model_to_dataset_Btn.setEnabled(True)
+                self.ui.apply_model_to_dataset_Btn.setStyleSheet("background-color: lightGreen; color: white")
         self.ui.stackedWidget.setCurrentIndex(0) 
 
     def OnShowDataBtnClicked(self):
@@ -141,7 +147,6 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         self.plotCanvas.axes1.set_xlim(-4*sd_raw, 4*sd_raw)
         sns.set(style='white')
         a = sns.boxplot(x='RAW_RES_MUSE_Volume_47', y="SITE", data=data, palette=cSite,linewidth=.25,showfliers = False,ax=self.plotCanvas.axes1,**PROPS)
-        medians = data.groupby(['SITE'])['RAW_RES_MUSE_Volume_47'].median().values
         nobs1 = data['SITE'].value_counts().sort_index(ascending=True).values
         nobs1 = [str(x) for x in nobs1.tolist()]
         nobs1 = [i for i in nobs1]
@@ -150,14 +155,15 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         labels = [x + ')' for x in labels]
         self.plotCanvas.axes1.axvline(ci_plus_raw,color='grey',ls='--')
         self.plotCanvas.axes1.axvline(ci_minus_raw,color='grey',ls='--')
+        self.plotCanvas.axes1.yaxis.set_ticks_position('left')
+        self.plotCanvas.axes1.xaxis.set_ticks_position('bottom')
         a.tick_params(axis='both', which='major', length=4)
-        a.set_xlabel('Hippocampus right\n(residuals before harmonization)')
+        a.set_xlabel('Residuals before harmonization')
         
         self.plotCanvas.axes2.get_figure().set_tight_layout(True)
         self.plotCanvas.axes2.set_xlim(-4*sd_raw, 4*sd_raw)
         sns.set(style='white')
         b = sns.boxplot(x='RES_MUSE_Volume_47', y="SITE", data=data, palette=cSite,linewidth=0.25,showfliers = False,ax=self.plotCanvas.axes2,**PROPS)
-        medians = data.groupby(['SITE'])['RES_MUSE_Volume_47'].median().values
         nobs2 = data['SITE'].value_counts().sort_index(ascending=True).values
         nobs2 = [str(x) for x in nobs2.tolist()]
         nobs2 = [i for i in nobs2]
@@ -166,11 +172,14 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         a.set_yticklabels(labels)
         self.plotCanvas.axes2.axvline(ci_plus_h,color='grey',ls='--')
         self.plotCanvas.axes2.axvline(ci_minus_h,color='grey',ls='--')
+        self.plotCanvas.axes2.yaxis.set_ticks_position('left')
+        self.plotCanvas.axes2.xaxis.set_ticks_position('bottom')
         b.set(yticklabels=[])
         b.tick_params(axis='both', which='major', length=4)
-        b.set_xlabel('Hippocampus right\n(residuals after harmonization)')
+        b.set_xlabel('Residuals after harmonization')
         b.set_ylabel('')
         sns.despine(fig=self.plotCanvas.axes1.get_figure(), trim=True)
+        sns.despine(fig=self.plotCanvas.axes2.get_figure(), trim=True)
 
 
     def OnAddToDataFrame(self):
@@ -189,6 +198,7 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         if ('RES_MUSE_Volume_47' in self.datamodel.GetColumnHeaderNames() and
             'RAW_RES_MUSE_Volume_47' in self.datamodel.GetColumnHeaderNames()):
             self.ui.show_data_Btn.setEnabled(True)
+            self.ui.show_data_Btn.setStyleSheet("background-color: lightBlue; color: white")
         else:
             self.ui.show_data_Btn.setEnabled(False)
 
