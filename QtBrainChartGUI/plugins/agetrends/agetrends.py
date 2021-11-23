@@ -128,8 +128,12 @@ class AgeTrends(QtWidgets.QWidget,IPlugin):
         self.plotCanvas.axes.clear()
 
         # seaborn plot on axis
-        sns.scatterplot(x='Age', y=currentROI,  hue=currentHue,ax=self.plotCanvas.axes, s=5,
+        a = sns.scatterplot(x='Age', y=currentROI,  hue=currentHue,ax=self.plotCanvas.axes, s=5,
             data=self.datamodel.GetData(currentROI,currentHue))
+        self.plotCanvas.axes.yaxis.set_ticks_position('left')
+        self.plotCanvas.axes.xaxis.set_ticks_position('bottom')
+        sns.despine(fig=self.plotCanvas.axes.get_figure(), trim=True)
+        self.plotCanvas.axes.get_figure().set_tight_layout(True)
 
         # Plot normative range if according GAM model is available
         if (self.datamodel.harmonization_model is not None) and (currentROI in ['H_' + x for x in self.datamodel.harmonization_model['ROIs']]):

@@ -1,5 +1,5 @@
 [Core]
-Name = ageTrends
+Name = Age Trends
 Module = ageTrends
 
 [Documentation]
