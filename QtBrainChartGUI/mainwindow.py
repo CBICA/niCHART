@@ -5,12 +5,14 @@ Copyright (c) 2018 University of Pennsylvania. All rights reserved.
 Use of this source code is governed by license located in license file: https://github.com/CBICA/BrainChart/blob/main/LICENSE
 """
 
-from PyQt5 import QtCore, QtWidgets, uic
+from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from yapsy.PluginManager import PluginManager
 from yapsy.IPlugin import IPlugin
 import os, sys
 #from BrainChart.dataio import DataIO
 from QtBrainChartGUI.core.model.datamodel import DataModel
+from .aboutdialog import AboutDialog
+from QtBrainChartGUI.resources import resources
 
 import pandas as pd
 
@@ -19,8 +21,6 @@ class MainWindow(QtWidgets.QMainWindow):
         super(MainWindow,self).__init__()
         self.SetupUi()
         self.SetupConnections()
-        #defaults
-        print("in constructor")
 
         #instantiate data model
         self.datamodel = DataModel()
@@ -63,15 +63,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actionAbout.triggered.connect(self.OnAboutClicked)
  
     def SetupUi(self):
-        print("in setup")
         root = os.path.dirname(__file__)
         self.ui = uic.loadUi(os.path.join(root, 'mainwindow.ui'), self)
         self.ui.setWindowTitle('Neuro-imaging brain aging chart')
+        self.setWindowIcon(QtGui.QIcon(":/icons/icon.png"))
+        self.aboutdialog = AboutDialog(self)
 
     def OnAboutClicked(self):
-        #quit application
-        #QtWidgets.QApplication.quit()
-        print("About Clicked")
+        self.aboutdialog.show()
 
     def OnCloseClicked(self):
         #close currently loaded data and model
