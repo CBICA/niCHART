@@ -181,6 +181,7 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         sns.despine(fig=self.plotCanvas.axes1.get_figure(), trim=True)
         sns.despine(fig=self.plotCanvas.axes2.get_figure(), trim=True)
 
+        self.plotCanvas.draw()
 
     def OnAddToDataFrame(self):
         print('Saving modified data to pickle file...')
