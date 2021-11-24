@@ -10,6 +10,50 @@ import numpy as np
 import pandas as pd
 from QtBrainChartGUI.core.plotcanvas import PlotCanvas
 
+class ExtendedComboBox(QtWidgets.QComboBox):
+    def __init__(self, parent=None):
+        super(ExtendedComboBox, self).__init__(parent)
+
+        self.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.setEditable(True)
+
+        # add a filter model to filter matching items
+        self.pFilterModel = QtCore.QSortFilterProxyModel(self)
+        self.pFilterModel.setFilterCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.pFilterModel.setSourceModel(self.model())
+
+        # add a completer, which uses the filter model
+        self.completer = QtWidgets.QCompleter(self.pFilterModel, self)
+        # always show all (filtered) completions
+        self.completer.setCompletionMode(QtWidgets.QCompleter.UnfilteredPopupCompletion)
+        self.setCompleter(self.completer)
+
+        # connect signals
+        self.lineEdit().textEdited.connect(self.pFilterModel.setFilterFixedString)
+        self.completer.activated.connect(self.on_completer_activated)
+
+
+    # on selection of an item from the completer, select the corresponding item from combobox 
+    def on_completer_activated(self, text):
+        if text:
+            index = self.findText(text)
+            self.setCurrentIndex(index)
+            self.activated[str].emit(self.itemText(index))
+
+
+    # on model change, update the models of the filter and completer as well 
+    def setModel(self, model):
+        super(ExtendedComboBox, self).setModel(model)
+        self.pFilterModel.setSourceModel(model)
+        self.completer.setModel(self.pFilterModel)
+
+
+    # on model column change, update the model column of the filter and completer as well
+    def setModelColumn(self, column):
+        self.completer.setCompletionColumn(column)
+        self.pFilterModel.setFilterKeyColumn(column)
+        super(ExtendedComboBox, self).setModelColumn(column)  
+
 class Harmonization(QtWidgets.QWidget,IPlugin):
 
     #constructor
@@ -19,10 +63,12 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         root = os.path.dirname(__file__)
         self.ui = uic.loadUi(os.path.join(root, 'harmonization.ui'),self)
         self.ui.Harmonization_Model_Loaded_Lbl.setHidden(True)
+        self.ui.comboBoxROI = ExtendedComboBox(self.ui)
         self.plotCanvas = PlotCanvas(self.ui.page_2)
         self.plotCanvas.axes1 = self.plotCanvas.fig.add_subplot(121)
         self.plotCanvas.axes2 = self.plotCanvas.fig.add_subplot(122)
         self.ui.verticalLayout.addWidget(self.plotCanvas) 
+        self.ui.horizontalLayout_3.addWidget(self.comboBoxROI)
         self.MUSE = None
 
         self.ui.stackedWidget.setCurrentIndex(0) 
@@ -37,6 +83,7 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         self.ui.show_data_Btn.clicked.connect(lambda: self.OnShowDataBtnClicked())
         self.ui.apply_model_to_dataset_Btn.clicked.connect(lambda: self.OnApplyModelToDatasetBtnClicked())
         self.ui.add_to_dataframe_Btn.clicked.connect(lambda: self.OnAddToDataFrame())
+        self.ui.comboBoxROI.currentIndexChanged.connect(self.UpdatePlot)
         self.ui.add_to_dataframe_Btn.setStyleSheet("background-color: green; color: white")
         self.datamodel.data_changed.connect(lambda: self.OnDataChanged())
         self.ui.apply_model_to_dataset_Btn.setEnabled(False)
@@ -86,18 +133,68 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
                 self.ui.apply_model_to_dataset_Btn.setStyleSheet("background-color: lightGreen; color: white")
         self.ui.stackedWidget.setCurrentIndex(0) 
 
+    def PopulateROI(self):
+        #get data column header names
+        datakeys = self.datamodel.GetColumnHeaderNames()
+        #construct ROI list to populate comboBox
+        roiList = (  [x for x in datakeys if x.startswith('MUSE_Volume')])
+        
+        _, MUSEDictIDtoNAME = self.datamodel.GetMUSEDictionaries()
+        roiList = list(set(roiList).intersection(set(datakeys)))
+        roiList.sort()
+        roiList = ['(MUSE) ' + list(map(MUSEDictIDtoNAME.get, [k]))[0] if k.startswith('MUSE_') else k for k in roiList]
+
+        #add the list items to comboBox
+        self.ui.comboBoxROI.blockSignals(True)
+        self.ui.comboBoxROI.clear()
+        self.ui.comboBoxROI.blockSignals(False)
+        self.ui.comboBoxROI.addItems(roiList)
+
     def OnShowDataBtnClicked(self):
-        self.MUSE = self.datamodel.data[['SITE','RES_MUSE_Volume_47','RAW_RES_MUSE_Volume_47']]
-        self.plotMUSE(self.MUSE)
+        self.MUSE = self.datamodel.data
+        self.PopulateROI()
+        self.UpdatePlot()
     
     def OnApplyModelToDatasetBtnClicked(self):
         self.MUSE= self.DoHarmonization()
-        self.plotMUSE()
+        self.PopulateROI()
+        self.UpdatePlot()
 
-    def plotMUSE(self):
+    def UpdatePlot(self):
+
+        #get current selected combobox item
+        currentROI = self.ui.comboBoxROI.currentText()
+
+        # Translate ROI name back to ROI ID
+        try:
+            MUSEDictNAMEtoID, _ = self.datamodel.GetMUSEDictionaries()
+            if currentROI.startswith('(MUSE)'):
+                currentROI = list(map(MUSEDictNAMEtoID.get, [currentROI[7:]]))[0]
+        except:
+            currentROI = 'DLICV'
+            self.ui.comboBoxROI.setCurrentText('DLICV')
+            print("Could not translate combo box item. Setting to `DLICV`.")
+
+        #create empty dictionary of plot options
+        plotOptions = dict()
+
+        #fill dictionary with options
+        plotOptions['ROI'] = currentROI
+
+        self.plotMUSE(plotOptions)
+
+    def plotMUSE(self,plotOptions):
         self.ui.stackedWidget.setCurrentIndex(1)
+
+        self.plotCanvas.axes1.clear()
+        self.plotCanvas.axes2.clear()
+
+        # select roi
+        currentROI = plotOptions['ROI']
+        h_res = 'RES_'+currentROI
+        raw_res = 'RAW_RES_'+currentROI
         
-        if 'isTrainMUSEHarmonization' in self.MUSE:  ###placeholder for the time being until I can implement a dropdown menu for dataselection 
+        if 'isTrainMUSEHarmonization' in self.MUSE: 
             print('Plotting controls only')
             data = self.MUSE[self.MUSE['isTrainMUSEHarmonization']==1]
             cSite = sns.color_palette("Paired", n_colors=22)
@@ -121,14 +218,14 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
             cSite[21] = (0.2, 0.2, 0.5)
         else:
             data = self.MUSE
-            self.MUSE.dropna(subset=['RAW_RES_MUSE_Volume_47'],inplace=True)
+            self.MUSE.dropna(subset=[raw_res],inplace=True)
             cSite=sns.color_palette("hls", len(list(self.MUSE.SITE.unique())))
 
         data['SITE'] = pd.Categorical(data['SITE'])
         data['SITE'] = data.SITE.cat.remove_unused_categories()
 
-        sd_raw = data['RAW_RES_MUSE_Volume_47'].std()
-        sd_h = data['RES_MUSE_Volume_47'].std()
+        sd_raw = data[raw_res].std()
+        sd_h = data[h_res].std()
 
         ci_plus_raw = 0.65*sd_raw
         ci_minus_raw = -0.65*sd_raw
@@ -146,7 +243,7 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         self.plotCanvas.axes1.get_figure().set_tight_layout(True)
         self.plotCanvas.axes1.set_xlim(-4*sd_raw, 4*sd_raw)
         sns.set(style='white')
-        a = sns.boxplot(x='RAW_RES_MUSE_Volume_47', y="SITE", data=data, palette=cSite,linewidth=.25,showfliers = False,ax=self.plotCanvas.axes1,**PROPS)
+        a = sns.boxplot(x=raw_res, y="SITE", data=data, palette=cSite,linewidth=.25,showfliers = False,ax=self.plotCanvas.axes1,**PROPS)
         nobs1 = data['SITE'].value_counts().sort_index(ascending=True).values
         nobs1 = [str(x) for x in nobs1.tolist()]
         nobs1 = [i for i in nobs1]
@@ -163,7 +260,7 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         self.plotCanvas.axes2.get_figure().set_tight_layout(True)
         self.plotCanvas.axes2.set_xlim(-4*sd_raw, 4*sd_raw)
         sns.set(style='white')
-        b = sns.boxplot(x='RES_MUSE_Volume_47', y="SITE", data=data, palette=cSite,linewidth=0.25,showfliers = False,ax=self.plotCanvas.axes2,**PROPS)
+        b = sns.boxplot(x=h_res, y="SITE", data=data, palette=cSite,linewidth=0.25,showfliers = False,ax=self.plotCanvas.axes2,**PROPS)
         nobs2 = data['SITE'].value_counts().sort_index(ascending=True).values
         nobs2 = [str(x) for x in nobs2.tolist()]
         nobs2 = [i for i in nobs2]
@@ -189,7 +286,10 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         ROIs_ICV_Sex_Residuals = ['RES_ICV_Sex_' + x for x in self.model['ROIs']]
         ROIs_Residuals = ['RES_' + x for x in self.model['ROIs']]
         RAW_Residuals = ['RAW_RES_' + x for x in self.model['ROIs']]
-        self.datamodel.data
+        self.datamodel.data.loc[:,ROIs_ICV_Sex_Residuals] = self.MUSE[ROIs_ICV_Sex_Residuals]
+        self.datamodel.data.loc[:,ROIs_Residuals] = self.MUSE[ROIs_Residuals]
+        self.datamodel.data.loc[:,RAW_Residuals] = self.MUSE[RAW_Residuals]
+        self.datamodel.data_changed.emit()
 
     def OnDataChanged(self):
         self.ui.stackedWidget.setCurrentIndex(0)
@@ -208,7 +308,7 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         print('Running harmonization.')
 
         covars = self.datamodel.data[['SITE','Age','Sex','DLICV_baseline']].copy()
-        covars['Sex'] = covars['Sex'].map({'M':1,'F':0})
+        covars.loc[:,'Sex'] = covars['Sex'].map({'M':1,'F':0})
         covars.loc[covars.Age>100, 'Age']=100
         bayes_data, stand_mean = nh.harmonizationApply(self.datamodel.data[[x for x in self.model['ROIs']]].values,
                                                 covars,
@@ -247,13 +347,13 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         start_index = len(self.model['SITE_labels'])
         sex_icv_effect = np.dot(muse[['Sex','DLICV_baseline']],self.model['B_hat'][start_index:(start_index+2),:])
         ROIs_ICV_Sex_Residuals = ['RES_ICV_Sex_' + x for x in self.model['ROIs']]
-        muse[ROIs_ICV_Sex_Residuals] = muse[['H_' + x for x in self.model['ROIs']]] - sex_icv_effect
+        muse.loc[:,ROIs_ICV_Sex_Residuals] = muse[['H_' + x for x in self.model['ROIs']]] - sex_icv_effect
 
-        muse['Sex'] = muse['Sex'].map({1:'M',0:'F'})
+        muse.loc[:,'Sex'] = muse['Sex'].map({1:'M',0:'F'})
         ROIs_Residuals = ['RES_' + x for x in self.model['ROIs']]
         RAW_Residuals = ['RAW_RES_' + x for x in self.model['ROIs']]
-        muse[ROIs_Residuals] = bayes_data-stand_mean
-        muse[RAW_Residuals] = Raw_ROIs_Residuals
+        muse.loc[:,ROIs_Residuals] = bayes_data-stand_mean
+        muse.loc[:,RAW_Residuals] = Raw_ROIs_Residuals
         print('Harmonization done.')
 
         return muse
