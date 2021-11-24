@@ -68,7 +68,7 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         self.plotCanvas.axes1 = self.plotCanvas.fig.add_subplot(121)
         self.plotCanvas.axes2 = self.plotCanvas.fig.add_subplot(122)
         self.ui.verticalLayout.addWidget(self.plotCanvas) 
-        self.ui.horizontalLayout_3.addWidget(self.comboBoxROI)
+        self.ui.horizontalLayout_3.insertWidget(0,self.comboBoxROI)
         self.MUSE = None
 
         self.ui.stackedWidget.setCurrentIndex(0) 
@@ -107,8 +107,8 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
             self.ui.Harmonized_Data_Information_Lbl.setObjectName('Missing_label')
             self.ui.Harmonized_Data_Information_Lbl.setStyleSheet('QLabel#Missing_label {color: red}')
         else:
-            self.model = pd.read_pickle(filename)
-            if not (isinstance(self.model,dict) and 'SITE_labels' in self.model):
+            self.datamodel.harmonization_model = pd.read_pickle(filename)
+            if not (isinstance(self.datamodel.harmonization_model,dict) and 'SITE_labels' in self.datamodel.harmonization_model):
                 text_2=('Selected file is not a viable harmonization model')
                 self.ui.Harmonized_Data_Information_Lbl.setText(text_2)
                 self.ui.Harmonized_Data_Information_Lbl.setObjectName('Error_label')
@@ -121,11 +121,11 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
                 self.ui.Harmonized_Data_Information_Lbl.setObjectName('correct_label')
                 self.ui.Harmonized_Data_Information_Lbl.setStyleSheet('QLabel#correct_label {color: black}')
                 model_text1 = (os.path.basename(filename) +' loaded')
-                model_text2 = ('SITES in training set: '+ ' '.join([str(elem) for elem in list(self.model['SITE_labels'])]))
+                model_text2 = ('SITES in training set: '+ ' '.join([str(elem) for elem in list(self.datamodel.harmonization_model['SITE_labels'])]))
                 model_text2 = wrap_by_word(model_text2,4)
                 model_text1 += '\n\n'+model_text2
-                age_max = self.model['smooth_model']['bsplines_constructor'].knot_kwds[0]['upper_bound']
-                age_min = self.model['smooth_model']['bsplines_constructor'].knot_kwds[0]['lower_bound']
+                age_max = self.datamodel.harmonization_model['smooth_model']['bsplines_constructor'].knot_kwds[0]['upper_bound']
+                age_min = self.datamodel.harmonization_model['smooth_model']['bsplines_constructor'].knot_kwds[0]['lower_bound']
                 model_text3 = ('Valid Age Range: [' + str(age_min) + ', ' + str(age_max) + ']')
                 model_text1 += '\n'+model_text3
                 self.ui.Harmonized_Data_Information_Lbl.setText(model_text1)
@@ -221,8 +221,8 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
             self.MUSE.dropna(subset=[raw_res],inplace=True)
             cSite=sns.color_palette("hls", len(list(self.MUSE.SITE.unique())))
 
-        data['SITE'] = pd.Categorical(data['SITE'])
-        data['SITE'] = data.SITE.cat.remove_unused_categories()
+        data.loc[:,'SITE'] = pd.Categorical(data['SITE'])
+        data.loc[:,'SITE'] = data.SITE.cat.remove_unused_categories()
 
         sd_raw = data[raw_res].std()
         sd_h = data[h_res].std()
@@ -247,7 +247,7 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         nobs1 = data['SITE'].value_counts().sort_index(ascending=True).values
         nobs1 = [str(x) for x in nobs1.tolist()]
         nobs1 = [i for i in nobs1]
-        labels = [x + ' (N=' for x in self.model['SITE_labels']]
+        labels = [x + ' (N=' for x in self.datamodel.harmonization_model['SITE_labels']]
         labels = [''.join(i) for i in zip(labels, nobs1)]
         labels = [x + ')' for x in labels]
         self.plotCanvas.axes1.axvline(ci_plus_raw,color='grey',ls='--')
@@ -282,10 +282,12 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
 
     def OnAddToDataFrame(self):
         print('Saving modified data to pickle file...')
-        H_ROIs = ['H_'+x for x in self.model]
-        ROIs_ICV_Sex_Residuals = ['RES_ICV_Sex_' + x for x in self.model['ROIs']]
-        ROIs_Residuals = ['RES_' + x for x in self.model['ROIs']]
-        RAW_Residuals = ['RAW_RES_' + x for x in self.model['ROIs']]
+        H_ROIs = ['H_'+x for x in self.datamodel.harmonization_model['ROIs']]
+        ROIs_ICV_Sex_Residuals = ['RES_ICV_Sex_' + x for x in self.datamodel.harmonization_model['ROIs']]
+        ROIs_Residuals = ['RES_' + x for x in self.datamodel.harmonization_model['ROIs']]
+        RAW_Residuals = ['RAW_RES_' + x for x in self.datamodel.harmonization_model['ROIs']]
+        if ('H_MUSE_Volume_47' not in self.datamodel.data.keys()):
+            self.datamodel.data.loc[:,H_ROIs] = self.MUSE[H_ROIs]
         self.datamodel.data.loc[:,ROIs_ICV_Sex_Residuals] = self.MUSE[ROIs_ICV_Sex_Residuals]
         self.datamodel.data.loc[:,ROIs_Residuals] = self.MUSE[ROIs_Residuals]
         self.datamodel.data.loc[:,RAW_Residuals] = self.MUSE[RAW_Residuals]
@@ -310,16 +312,16 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         covars = self.datamodel.data[['SITE','Age','Sex','DLICV_baseline']].copy()
         covars.loc[:,'Sex'] = covars['Sex'].map({'M':1,'F':0})
         covars.loc[covars.Age>100, 'Age']=100
-        bayes_data, stand_mean = nh.harmonizationApply(self.datamodel.data[[x for x in self.model['ROIs']]].values,
+        bayes_data, stand_mean = nh.harmonizationApply(self.datamodel.data[[x for x in self.datamodel.harmonization_model['ROIs']]].values,
                                                 covars,
-                                                self.model,True)
+                                                self.datamodel.harmonization_model,True)
 
-        Raw_ROIs_Residuals = self.datamodel.data[self.model['ROIs']].values - stand_mean
+        Raw_ROIs_Residuals = self.datamodel.data[self.datamodel.harmonization_model['ROIs']].values - stand_mean
 
         # create list of new SITEs to loop through
-        new_sites = set(self.datamodel.data['SITE'].value_counts().index.tolist())^set(self.model['SITE_labels'])
+        new_sites = set(self.datamodel.data['SITE'].value_counts().index.tolist())^set(self.datamodel.harmonization_model['SITE_labels'])
 
-        var_pooled = self.model['var_pooled']
+        var_pooled = self.datamodel.harmonization_model['var_pooled']
 
         if 'UseForComBatGAMHarmonization' in self.datamodel.data.columns:
             for site in new_sites:
@@ -341,17 +343,17 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
             print('Skipping out-of-sample harmonization because `UseForComBatGAMHarmonization` does not exist.')
 
         if 'isTrainMUSEHarmonization' in self.datamodel.data.columns:
-            muse = pd.concat([self.datamodel.data['isTrainMUSEHarmonization'],covars, pd.DataFrame(bayes_data, columns=['H_' + s for s in self.model['ROIs']])],axis=1)    
+            muse = pd.concat([self.datamodel.data['isTrainMUSEHarmonization'],covars, pd.DataFrame(bayes_data, columns=['H_' + s for s in self.datamodel.harmonization_model['ROIs']])],axis=1)    
         else:
-            muse = pd.concat([covars,pd.DataFrame(bayes_data, columns=['H_' + s for s in self.model['ROIs']])],axis=1)
-        start_index = len(self.model['SITE_labels'])
-        sex_icv_effect = np.dot(muse[['Sex','DLICV_baseline']],self.model['B_hat'][start_index:(start_index+2),:])
-        ROIs_ICV_Sex_Residuals = ['RES_ICV_Sex_' + x for x in self.model['ROIs']]
-        muse.loc[:,ROIs_ICV_Sex_Residuals] = muse[['H_' + x for x in self.model['ROIs']]] - sex_icv_effect
+            muse = pd.concat([covars,pd.DataFrame(bayes_data, columns=['H_' + s for s in self.datamodel.harmonization_model['ROIs']])],axis=1)
+        start_index = len(self.datamodel.harmonization_model['SITE_labels'])
+        sex_icv_effect = np.dot(muse[['Sex','DLICV_baseline']],self.datamodel.harmonization_model['B_hat'][start_index:(start_index+2),:])
+        ROIs_ICV_Sex_Residuals = ['RES_ICV_Sex_' + x for x in self.datamodel.harmonization_model['ROIs']]
+        muse.loc[:,ROIs_ICV_Sex_Residuals] = muse[['H_' + x for x in self.datamodel.harmonization_model['ROIs']]] - sex_icv_effect
 
         muse.loc[:,'Sex'] = muse['Sex'].map({1:'M',0:'F'})
-        ROIs_Residuals = ['RES_' + x for x in self.model['ROIs']]
-        RAW_Residuals = ['RAW_RES_' + x for x in self.model['ROIs']]
+        ROIs_Residuals = ['RES_' + x for x in self.datamodel.harmonization_model['ROIs']]
+        RAW_Residuals = ['RAW_RES_' + x for x in self.datamodel.harmonization_model['ROIs']]
         muse.loc[:,ROIs_Residuals] = bayes_data-stand_mean
         muse.loc[:,RAW_Residuals] = Raw_ROIs_Residuals
         print('Harmonization done.')
