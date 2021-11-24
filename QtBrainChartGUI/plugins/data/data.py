@@ -13,9 +13,24 @@ class Data(QtWidgets.QWidget,IPlugin):
         root = os.path.dirname(__file__)
         self.ui = uic.loadUi(os.path.join(root, 'data.ui'),self)
 
+
     def SetupConnections(self):
         self.ui.open_data_file_Btn.clicked.connect(lambda: self.OnOpenDataFileBtnClicked())
         self.datamodel.data_changed.connect(lambda: self.OnDataChanged())
+        self.ui.save_data_Btn.clicked.connect(lambda: self.OnSaveDataBtClicked())
+
+
+    def OnSaveDataBtClicked(self):
+        filename = QtWidgets.QFileDialog.getSaveFileName(None,
+            'Save data frame to file',
+            QtCore.QDir().homePath(),
+            "Pickle files (*.pkl.gz *.pkl)")
+
+        if filename[0] == "":
+            print("No file was selected")
+        else:
+            pd.to_pickle(self.datamodel.data, filename[0])
+
 
     def OnOpenDataFileBtnClicked(self):
         filename = QtWidgets.QFileDialog.getOpenFileName(None,
