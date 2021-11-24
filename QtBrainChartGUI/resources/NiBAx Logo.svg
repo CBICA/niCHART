@@ -1,0 +1,1320 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="11.5mm"
+   height="11.5mm"
+   viewBox="0 0 11.5 11.5"
+   version="1.1"
+   id="svg98781"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="NiBAx Logo.svg"
+   inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\NiBAX Logo.png"
+   inkscape:export-xdpi="1200"
+   inkscape:export-ydpi="1200"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview98783"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="12.429181"
+     inkscape:cx="27.395209"
+     inkscape:cy="25.06199"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g60155-9" />
+  <defs
+     id="defs98778">
+    <marker
+       id="ExperimentalArrow-9-6"
+       refX="5"
+       refY="3"
+       orient="auto-start-reverse"
+       inkscape:stockid="ExperimentalArrow"
+       inkscape:isstock="true">
+      <path
+         style="fill:context-stroke"
+         d="M 10,3 0,6 V 0 Z"
+         id="path26768-9-1" />
+    </marker>
+    <marker
+       id="ExperimentalArrow-9-1-5"
+       refX="5"
+       refY="3"
+       orient="auto-start-reverse"
+       inkscape:stockid="ExperimentalArrow"
+       inkscape:isstock="true">
+      <path
+         style="fill:context-stroke"
+         d="M 10,3 0,6 V 0 Z"
+         id="path26768-9-7-2" />
+    </marker>
+    <marker
+       id="ExperimentalArrow-9-1-1-5"
+       refX="5"
+       refY="3"
+       orient="auto-start-reverse"
+       inkscape:stockid="ExperimentalArrow"
+       inkscape:isstock="true">
+      <path
+         style="fill:context-stroke"
+         d="M 10,3 0,6 V 0 Z"
+         id="path26768-9-7-7-3" />
+    </marker>
+    <marker
+       id="ExperimentalArrow-9-1-1-8-5"
+       refX="5"
+       refY="3"
+       orient="auto-start-reverse"
+       inkscape:stockid="ExperimentalArrow"
+       inkscape:isstock="true">
+      <path
+         style="fill:context-stroke"
+         d="M 10,3 0,6 V 0 Z"
+         id="path26768-9-7-7-7-3" />
+    </marker>
+    <marker
+       id="ExperimentalArrow-9-1-1-1-18"
+       refX="5"
+       refY="3"
+       orient="auto-start-reverse"
+       inkscape:stockid="ExperimentalArrow"
+       inkscape:isstock="true">
+      <path
+         style="fill:context-stroke"
+         d="M 10,3 0,6 V 0 Z"
+         id="path26768-9-7-7-9-4" />
+    </marker>
+    <marker
+       id="ExperimentalArrow-9-1-1-83-4"
+       refX="5"
+       refY="3"
+       orient="auto-start-reverse"
+       inkscape:stockid="ExperimentalArrow"
+       inkscape:isstock="true">
+      <path
+         style="fill:context-stroke"
+         d="M 10,3 0,6 V 0 Z"
+         id="path26768-9-7-7-4-1" />
+    </marker>
+    <marker
+       id="ExperimentalArrow-9-1-1-83-5-7"
+       refX="5"
+       refY="3"
+       orient="auto-start-reverse"
+       inkscape:stockid="ExperimentalArrow"
+       inkscape:isstock="true">
+      <path
+         style="fill:context-stroke"
+         d="M 10,3 0,6 V 0 Z"
+         id="path26768-9-7-7-4-6-7" />
+    </marker>
+    <marker
+       id="ExperimentalArrow-9-1-1-83-5-2-1"
+       refX="5"
+       refY="3"
+       orient="auto-start-reverse"
+       inkscape:stockid="ExperimentalArrow"
+       inkscape:isstock="true">
+      <path
+         style="fill:context-stroke"
+         d="M 10,3 0,6 V 0 Z"
+         id="path26768-9-7-7-4-6-5-9" />
+    </marker>
+    <marker
+       id="ExperimentalArrow-9-6-5"
+       refX="5"
+       refY="3"
+       orient="auto-start-reverse"
+       inkscape:stockid="ExperimentalArrow"
+       inkscape:isstock="true">
+      <path
+         style="fill:context-stroke"
+         d="M 10,3 0,6 V 0 Z"
+         id="path26768-9-1-0" />
+    </marker>
+    <marker
+       id="ExperimentalArrow-9-1-5-9"
+       refX="5"
+       refY="3"
+       orient="auto-start-reverse"
+       inkscape:stockid="ExperimentalArrow"
+       inkscape:isstock="true">
+      <path
+         style="fill:context-stroke"
+         d="M 10,3 0,6 V 0 Z"
+         id="path26768-9-7-2-2" />
+    </marker>
+    <marker
+       id="ExperimentalArrow-9-1-1-5-6"
+       refX="5"
+       refY="3"
+       orient="auto-start-reverse"
+       inkscape:stockid="ExperimentalArrow"
+       inkscape:isstock="true">
+      <path
+         style="fill:context-stroke"
+         d="M 10,3 0,6 V 0 Z"
+         id="path26768-9-7-7-3-5" />
+    </marker>
+    <marker
+       id="ExperimentalArrow-9-1-1-8-5-0"
+       refX="5"
+       refY="3"
+       orient="auto-start-reverse"
+       inkscape:stockid="ExperimentalArrow"
+       inkscape:isstock="true">
+      <path
+         style="fill:context-stroke"
+         d="M 10,3 0,6 V 0 Z"
+         id="path26768-9-7-7-7-3-5" />
+    </marker>
+    <marker
+       id="ExperimentalArrow-9-1-1-1-18-6"
+       refX="5"
+       refY="3"
+       orient="auto-start-reverse"
+       inkscape:stockid="ExperimentalArrow"
+       inkscape:isstock="true">
+      <path
+         style="fill:context-stroke"
+         d="M 10,3 0,6 V 0 Z"
+         id="path26768-9-7-7-9-4-6" />
+    </marker>
+    <marker
+       id="ExperimentalArrow-9-1-1-83-4-5"
+       refX="5"
+       refY="3"
+       orient="auto-start-reverse"
+       inkscape:stockid="ExperimentalArrow"
+       inkscape:isstock="true">
+      <path
+         style="fill:context-stroke"
+         d="M 10,3 0,6 V 0 Z"
+         id="path26768-9-7-7-4-1-1" />
+    </marker>
+    <marker
+       id="ExperimentalArrow-9-1-1-83-5-2-1-5"
+       refX="5"
+       refY="3"
+       orient="auto-start-reverse"
+       inkscape:stockid="ExperimentalArrow"
+       inkscape:isstock="true">
+      <path
+         style="fill:context-stroke"
+         d="M 10,3 0,6 V 0 Z"
+         id="path26768-9-7-7-4-6-5-9-1" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g60155-9"
+       transform="translate(-174.60348,29.630803)">
+      <path
+         style="fill:none;stroke:#ffffff;stroke-width:1.01887px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m -55.667707,13.540025 v 9.216319"
+         id="path127721"
+         transform="matrix(0.25968364,0,0,0.25968364,174.33073,-29.564461)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo icon.png"
+         inkscape:export-xdpi="256.70999"
+         inkscape:export-ydpi="256.70999" />
+      <g
+         id="g14894-3"
+         transform="rotate(4.5987317,184.38747,-52.031056)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600">
+        <g
+           id="g6477-8-5"
+           style="stroke:#c00000;stroke-opacity:1"
+           transform="rotate(-58.447478,172.79911,-22.216603)">
+          <path
+             style="fill:none;stroke:#c00000;stroke-width:0.755906;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ExperimentalArrow-9-6)"
+             d="m 662.9375,-54.75 h 2.875"
+             id="path12761-86-8"
+             transform="matrix(0.26458333,0,0,0.26458333,7.8548177,0.94257813)"
+             sodipodi:nodetypes="cc" />
+        </g>
+        <path
+           style="fill:none;stroke:#c00000;stroke-width:7.97366;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 692.62499,-51.187499 H 687.3125"
+           id="path3857-64-3"
+           transform="matrix(0.0690492,-0.11271712,0.02840837,0.01761066,139.29148,52.382237)" />
+      </g>
+      <g
+         id="g14894-8-1"
+         transform="rotate(-99.276728,182.0642,-10.904055)"
+         style="stroke:#ff7c01;stroke-opacity:1"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600">
+        <g
+           id="g6477-8-0-2"
+           style="stroke:#ff7c01;stroke-opacity:1"
+           transform="rotate(-58.447478,172.79911,-22.216603)">
+          <path
+             style="fill:none;stroke:#ff7c01;stroke-width:0.755906;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ExperimentalArrow-9-1-5)"
+             d="m 662.9375,-54.75 h 2.875"
+             id="path12761-86-2-9"
+             transform="matrix(0.26458333,0,0,0.26458333,7.8548177,0.94257813)"
+             sodipodi:nodetypes="cc" />
+        </g>
+        <path
+           style="fill:none;stroke:#ff7c01;stroke-width:7.97366;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 692.62499,-51.187499 H 687.3125"
+           id="path3857-64-5-0"
+           transform="matrix(0.0690492,-0.11271712,0.02840837,0.01761066,139.29148,52.382237)" />
+      </g>
+      <g
+         id="g14894-8-7-2"
+         transform="rotate(-74.374617,180.68011,-20.473681)"
+         style="stroke:#00b050;stroke-opacity:1">
+        <g
+           id="g6477-8-0-8-2"
+           style="stroke:#00b050;stroke-opacity:1"
+           transform="rotate(-58.447478,172.79911,-22.216603)">
+          <path
+             style="fill:none;stroke:#00b050;stroke-width:0.755906;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ExperimentalArrow-9-1-1-5)"
+             d="m 662.9375,-54.75 h 2.875"
+             id="path12761-86-2-5-0"
+             transform="matrix(0.26458333,0,0,0.26458333,7.8548177,0.94257813)"
+             sodipodi:nodetypes="cc" />
+        </g>
+        <path
+           style="fill:none;stroke:#00b050;stroke-width:7.97366;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 692.62499,-51.187499 H 687.3125"
+           id="path3857-64-5-8-1"
+           transform="matrix(0.0690492,-0.11271712,0.02840837,0.01761066,139.29148,52.382237)" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.73998px;line-height:1.25;font-family:'Microsoft New Tai Lue';-inkscape-font-specification:'Microsoft New Tai Lue, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:0.362185;stroke-opacity:1"
+         x="182.62363"
+         y="-18.726318"
+         id="text96853-1-1-8-41-6"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"><tspan
+           sodipodi:role="line"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.73998px;font-family:'Microsoft New Tai Lue';-inkscape-font-specification:'Microsoft New Tai Lue, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke:none;stroke-width:0.362185;stroke-opacity:1"
+           x="182.86363"
+           y="-18.726318"
+           rotate="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"
+           id="tspan321411-3-40-1-4"><tspan
+             rotate="0 0 0 0 0 0 0 0 0"
+             id="tspan152864-6-6"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.73998px;font-family:'Microsoft New Tai Lue';-inkscape-font-specification:'Microsoft New Tai Lue, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke:none;stroke-width:0.362185;stroke-opacity:1"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'CaskaydiaCove Nerd Font Mono';-inkscape-font-specification:'CaskaydiaCove Nerd Font Mono Bold';stroke-width:0.362185"
+   id="tspan105195">[NiBAχ]</tspan> </tspan></tspan></text>
+      <path
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 150.79388,-28.493734 1.37961,-0.646792 2.07311,-0.0095 1.66615,0.342939 1.74745,1.130137 0.96869,1.405551 0.009,1.044665 -0.44635,0.40837 -1.23461,0.0095 -0.73126,0.227928 -0.24693,0.322896 0.095,0.322897 -0.12346,0.474848 -0.49384,0.227927 h -0.59831 l -1.18712,-0.379879 h -0.38891 l -0.30392,0.199436 -0.14245,0.465351 -0.81309,0.566909 -1.19077,0.0029 -0.94969,-0.588811 -0.59831,-0.997181 -0.33239,-1.680962 0.65529,-1.661966 z m 5.39297,1.249919"
+         id="path118601-9-2-8"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         sodipodi:nodetypes="cccccccccccccccccccccccccc"
+         transform="translate(26.061457,2.38125)" />
+      <path
+         style="fill:none;stroke:#3c3c3c;stroke-width:0.35633;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 676.34764,-91.747105 h 2.60745"
+         id="path24015-5-5"
+         transform="matrix(0.28063905,0,0,0.28063905,-12.943877,1.6831392)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-0-2-0-1-85-3-3"
+         cx="155.2851"
+         cy="-26.693481"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.085449,1.2494224)" />
+      <path
+         d="M 588.40624,-103.15625"
+         style="fill:none;stroke:#000000;stroke-width:0.188976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path17355-9"
+         transform="matrix(0.26458333,0,0,0.26458333,26.433532,2.3936521)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#7030a0;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-8-0-5"
+         cx="158.15726"
+         cy="-25.352835"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="translate(26.061457,2.38125)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-8-0-7-3"
+         cx="158.15726"
+         cy="-25.352835"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="translate(25.874149,1.3418112)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-8-4-7-7"
+         cx="155.52151"
+         cy="-23.840338"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="translate(26.061457,2.38125)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-1-3"
+         cx="155.14339"
+         cy="-28.522749"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="translate(26.061457,2.38125)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.0999999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 151.28943,-26.992487 -0.006,-0.458747 h 0.86733 l 0.24077,-0.169376 h 0.98849 l 0.22946,-0.161421 v -0.395644 l 0.27885,-0.339738 h 1.0818"
+         id="path166229-6-5"
+         sodipodi:nodetypes="ccccccccc"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         transform="translate(26.061457,2.38125)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 152.69004,-25.896157 h 1.6586 l 0.39905,0.12294 v 0 0.105685 l 2.82517,0.02152 0.43249,0.233005"
+         id="path166871-3-0"
+         sodipodi:nodetypes="ccccccc"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         transform="translate(26.061457,2.38125)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.0999996;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 152.72918,-25.495717 1.25766,-0.0014 v 0.643118 l 1.24367,0.01169 v 0.80682 l 0.13748,0.09933"
+         id="path170080-0-3"
+         sodipodi:nodetypes="cccccc"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         transform="translate(26.061457,2.38125)" />
+      <g
+         id="g14125-5"
+         transform="translate(13.163043,5.9185266)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600">
+        <rect
+           style="fill:#3c3c3c;fill-opacity:1;stroke:none;stroke-width:0.314448;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect11831-1-1"
+           width="0.44194174"
+           height="0.39774758"
+           x="623.7345"
+           y="-109.9993"
+           transform="matrix(0.45254834,0,0,0.50283147,-117.00409,26.072125)"
+           ry="0.093017578" />
+        <rect
+           style="fill:#3c3c3c;fill-opacity:1;stroke:none;stroke-width:0.314448;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect11831-13-6"
+           width="0.44194174"
+           height="0.39774758"
+           x="623.7345"
+           y="-109.9993"
+           transform="matrix(0.45254834,0,0,0.50283147,-117.00409,26.387761)"
+           ry="0.10464478" />
+        <rect
+           style="fill:#3c3c3c;fill-opacity:1;stroke:none;stroke-width:0.314448;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect11831-5-2"
+           width="0.44194174"
+           height="0.39774758"
+           x="623.7345"
+           y="-109.9993"
+           transform="matrix(0.45254834,0,0,0.50283147,-119.65256,26.24452)"
+           ry="0.081390381" />
+        <rect
+           style="fill:#3c3c3c;fill-opacity:1;stroke:none;stroke-width:0.314448;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect11831-8-8"
+           width="0.44194174"
+           height="0.39774758"
+           x="623.7345"
+           y="-109.9993"
+           transform="matrix(0.45254834,0,0,0.50283147,-119.36608,26.25329)"
+           ry="0.087203979" />
+        <rect
+           style="fill:#3c3c3c;fill-opacity:1;stroke:none;stroke-width:0.314448;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect11831-0-4"
+           width="0.44194174"
+           height="0.39774758"
+           x="623.7345"
+           y="-109.9993"
+           transform="matrix(0.45254834,0,0,0.50283147,-117.29289,26.387761)"
+           ry="0.10464478" />
+        <circle
+           style="fill:none;stroke:#3c3c3c;stroke-width:0.566929;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+           id="path5856-8"
+           cx="620.0625"
+           cy="-103.875"
+           r="6.125"
+           transform="matrix(0.26458333,0,0,0.26458333,-0.00755005,-1.4657556)" />
+        <circle
+           style="fill:#616161;fill-opacity:1;stroke:#3c3c3c;stroke-width:0.711677;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+           id="path5858-6"
+           cx="617.6875"
+           cy="-105.75"
+           r="3.6875"
+           transform="matrix(0.21076977,0,0,0.21076977,33.860798,-6.6604457)" />
+        <path
+           style="fill:#ffffff;fill-opacity:1;stroke:#3c3c3c;stroke-width:0.566929;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 618.35841,-108.28622 3.6382,0.0962 1.22963,4.24532 -6.69542,0.0221 z"
+           id="path8437-2"
+           transform="scale(0.26458333)"
+           sodipodi:nodetypes="ccccc" />
+        <rect
+           style="fill:#3c3c3c;fill-opacity:1;stroke:none;stroke-width:0.314448;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect11831-6"
+           width="0.44194174"
+           height="0.39774758"
+           x="623.7345"
+           y="-109.9993"
+           transform="matrix(0.45254834,0,0,0.50283147,-117.29289,26.072125)"
+           ry="0.087203979" />
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#3c3c3c;stroke-width:0.562281;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect13957-9"
+           width="6.607038"
+           height="1.7014648"
+           x="616.53082"
+           y="-103.92259"
+           transform="matrix(0.26850529,0,0,0.26504746,-2.4184362,0.0486524)"
+           ry="0.15467961" />
+      </g>
+      <path
+         style="fill:none;stroke:#3c3c3c;stroke-width:1.89587;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 676.34764,-91.747105 h 2.60745"
+         id="path24015-3-1"
+         transform="matrix(0.15544309,0.00500444,-0.00472888,0.16093193,71.435669,-11.063064)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-96-2-0-6-4-3-2"
+         cx="155.29337"
+         cy="-27.352123"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.065842,2.3520174)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-0-2-0-1-3"
+         cx="155.2851"
+         cy="-26.693481"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.061457,2.38125)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-0-2-0-1-85-5"
+         cx="155.2851"
+         cy="-26.693481"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.088283,2.8172573)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-0-8-8-1-1-0-5-4"
+         cx="155.29337"
+         cy="-27.032341"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.061457,2.38125)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-96-2-3-3-4-0-1-5"
+         cx="154.72063"
+         cy="-27.618736"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.061457,2.38125)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-7-8-8-8-4"
+         cx="154.77031"
+         cy="-26.437847"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.061457,2.38125)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-0-8-8-8-4-7-7-9-3"
+         cx="154.76204"
+         cy="-27.233521"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.022183,2.3502442)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-0-8-8-8-8-7-4-0-5-5"
+         cx="154.77031"
+         cy="-26.809883"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.061457,2.38125)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-96-2-3-1-7-9-0-1-6"
+         cx="155.80086"
+         cy="-27.642345"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.061457,2.38125)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-96-2-3-1-7-9-0-1-4-6"
+         cx="155.80086"
+         cy="-27.642345"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.695495,2.7446404)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-96-2-3-1-7-9-0-1-4-4-2"
+         cx="155.80086"
+         cy="-27.642345"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.727864,3.2950221)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-7-0"
+         cx="155.80086"
+         cy="-26.464378"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.061457,2.38125)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-7-3-7"
+         cx="155.80086"
+         cy="-26.464378"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.044716,1.9966884)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-0-8-8-8-8-8-8-4-6-7-1"
+         cx="155.77632"
+         cy="-27.279175"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.061457,2.38125)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 154.85609,-26.460416 0.33676,-0.184652"
+         id="path52579-3-9-3-6-8"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         transform="translate(26.061457,2.38125)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 155.38534,-27.390595 0.0435,-0.01463 0.31481,-0.204204"
+         id="path52581-0-0-5-4-3"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         transform="translate(26.061457,2.38125)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 155.3524,-26.623905 0.16344,0.181875 0.16449,5.04e-4"
+         id="path52583-1-3-3-0-2"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         sodipodi:nodetypes="ccc"
+         transform="translate(26.061457,2.38125)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.0491794;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 155.3524,-26.623905 0.16344,0.181875 0.16449,5.04e-4"
+         id="path52583-1-3-3-0-7-2"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         sodipodi:nodetypes="ccc"
+         transform="matrix(-1.0008624,3.6881015e-4,8.3850133e-4,1.0327563,337.32759,3.3948558)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.0522837;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 155.3524,-26.623905 0.16344,0.181875 0.16449,5.04e-4"
+         id="path52583-1-3-3-0-7-7-3"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         sodipodi:nodetypes="ccc"
+         transform="matrix(1.0339129,3.1588303e-4,-8.6619039e-4,0.88454774,20.252841,-0.52741952)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.0989693;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 151.8905,-26.898167 h 0.77483 l 0.29598,-0.365642 h 0.63732 l 0.28869,-0.35663 h 0.67985"
+         id="path168945-6-7"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         transform="matrix(1.0196583,0,0,1.0012551,23.075553,2.4154633)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 152.61528,-26.274693 1.91334,0.0058 0.13784,-0.110994"
+         id="path169300-3-6"
+         sodipodi:nodetypes="ccc"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         transform="translate(26.061457,2.38125)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 155.88604,-27.639825 0.19878,-0.0088 0.29332,0.298699"
+         id="path169575-1-9"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         transform="translate(26.061457,2.38125)"
+         sodipodi:nodetypes="ccc" />
+      <ellipse
+         style="fill:none;stroke:#6acdd8;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.861357"
+         id="path12585-6-8-3-8-4"
+         cx="151.75836"
+         cy="-26.90489"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.061457,2.38125)" />
+      <ellipse
+         style="fill:none;stroke:#db3256;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-7-7-1-9-7"
+         cx="152.52353"
+         cy="-26.284971"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.061457,2.38125)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 154.80484,-27.613515 h 0.21702 l 0.22181,0.203166"
+         id="path169965-9-9"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         transform="translate(26.061457,2.38125)" />
+      <ellipse
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-1-8-1"
+         cx="155.14339"
+         cy="-28.522749"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="translate(23.336694,3.2904209)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.377953;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 576.14653,-104.97542 v -1.92895 l 1.16752,-1.16752"
+         id="path3894-0"
+         transform="matrix(0.26458333,0,0,0.26458333,26.061457,2.38125)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.343359;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 576.04501,-100.60991 h 3.40104 l 0.47568,-0.54841 h 4.63032"
+         id="path4031-9"
+         transform="matrix(0.27142807,0,0,0.31249911,22.07765,7.2013259)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.192223;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 587.45947,-102.08259 h 0.37689 l 0.64609,-0.71788"
+         id="path4146-9"
+         transform="matrix(0.27625444,0,0,0.24491657,19.207861,0.33630729)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.188976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 585.26993,-101.45445 1.34603,-0.5743"
+         id="path4699-5"
+         transform="matrix(0.26458333,0,0,0.26458333,26.061457,2.38125)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.155328;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 585.32973,-102.70726 1.23744,0.45299"
+         id="path4962-0"
+         transform="matrix(0.31526851,0,0,0.32867003,-3.6643198,8.912729)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.215335;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 585.26344,-103.16384 1.32583,-0.25412"
+         id="path4964-7"
+         transform="matrix(0.27153246,0,0,0.19855881,21.98358,-4.4442649)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         sodipodi:nodetypes="cc" />
+      <ellipse
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-1-8-83-2"
+         cx="155.14339"
+         cy="-28.522749"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="translate(24.517867,3.6358255)" />
+      <ellipse
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-1-8-83-16-6"
+         cx="155.14339"
+         cy="-28.522749"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="translate(25.08124,4.1076776)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.355871;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 581.1875,-103.00781 h 3.28125"
+         id="path5101-6"
+         transform="matrix(0.29843747,0,0,0.26458333,6.2747712,2.38125)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.188976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 587.26323,-101.17152 0.28174,-0.2983 1.18159,-1.22549"
+         id="path5216-5"
+         transform="matrix(0.26458333,0,0,0.26458333,26.061457,2.38125)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         sodipodi:nodetypes="ccc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.377953;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 593.875,-97.0625 v -1.625 l 1.03125,-1.03125 h 1.65625"
+         id="path16112-2"
+         transform="matrix(0.26458333,0,0,0.26458333,26.061457,2.38125)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <ellipse
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-8-0-7-1-8"
+         cx="158.15726"
+         cy="-25.352835"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="translate(25.033625,2.0529653)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.377953;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 581.99751,-93.936374 H 579.5 V -92"
+         id="path16414-0"
+         transform="matrix(0.26458333,0,0,0.26458333,26.061457,2.38125)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#3bd6cf;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-8-4-7-5-1"
+         cx="155.52151"
+         cy="-23.840338"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="translate(23.868905,2.0465473)" />
+      <ellipse
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-8-4-7-1-9"
+         cx="155.52151"
+         cy="-23.840338"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="translate(24.531456,1.3797204)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.188976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 587.2402,-103.34773 1.16605,0.19148"
+         id="path17172-3"
+         transform="matrix(0.26458333,0,0,0.26458333,26.061457,2.38125)"
+         sodipodi:nodetypes="cc"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.377953;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 689.16395,-92.277435 -0.0458,-1.730374"
+         id="path11141-3"
+         transform="matrix(0.26458333,0,0,0.26458333,-2.1166667,0)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <ellipse
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-1-8-83-0-5"
+         cx="155.14339"
+         cy="-28.522749"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="translate(25.069134,3.6498496)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.326137;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 691.76992,-92.454449 1.63438,0.5657"
+         id="path11510-1"
+         transform="matrix(0.20427256,0,0,0.11506146,39.592409,-13.765592)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.188976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 691.49519,-95.636192 0.37565,-0.574525 h 1.24849"
+         id="path11647-6"
+         transform="matrix(0.26458333,0,0,0.26458333,-2.1166667,0)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.188976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 693.92587,-96.155474 h 0.61872 l 0.46956,0.469563"
+         id="path11762-6"
+         transform="matrix(0.26458333,0,0,0.26458333,-2.1166667,0)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#ff7c01;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-1-8-8-9"
+         cx="155.14339"
+         cy="-28.522749"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="translate(23.786624,2.2025318)" />
+      <ellipse
+         style="fill:none;stroke:#b559e2;stroke-width:0.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-0-6-0-8-3-8"
+         cx="152.25769"
+         cy="-26.602179"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.10827215"
+         ry="0.10584628"
+         transform="translate(26.061457,2.38125)" />
+      <path
+         style="fill:none;stroke:#3c3c3c;stroke-width:0.35633;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 676.34764,-91.747105 h 2.60745"
+         id="path24015-51"
+         transform="matrix(0.28063905,0,0,0.28063905,-12.957641,1.4379262)"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600" />
+      <g
+         id="g14894-8-7-9-3"
+         transform="rotate(-174.052,180.9097,-22.80324)"
+         style="stroke:#3bd6cf;stroke-opacity:1"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600">
+        <g
+           id="g6477-8-0-8-4-0"
+           style="stroke:#3bd6cf;stroke-opacity:1"
+           transform="rotate(-58.447478,172.79911,-22.216603)">
+          <path
+             style="fill:none;stroke:#3bd6cf;stroke-width:0.755906;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ExperimentalArrow-9-1-1-8-5)"
+             d="m 662.9375,-54.75 h 2.875"
+             id="path12761-86-2-5-9-9"
+             transform="matrix(0.26458333,0,0,0.26458333,7.8548177,0.94257813)"
+             sodipodi:nodetypes="cc" />
+        </g>
+        <path
+           style="fill:none;stroke:#3bd6cf;stroke-width:7.97366;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 692.62499,-51.187499 H 687.3125"
+           id="path3857-64-5-8-7-7"
+           transform="matrix(0.0690492,-0.11271712,0.02840837,0.01761066,139.29148,52.382237)" />
+      </g>
+      <g
+         id="g14894-8-7-1-2"
+         transform="rotate(-133.95378,177.75518,-18.153777)"
+         style="stroke:#ffd966;stroke-opacity:1"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600">
+        <g
+           id="g6477-8-0-8-9-4"
+           style="stroke:#ffd966;stroke-opacity:1"
+           transform="rotate(-58.447478,172.79911,-22.216603)">
+          <path
+             style="fill:none;stroke:#ffd966;stroke-width:0.755906;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ExperimentalArrow-9-1-1-1-18)"
+             d="m 662.9375,-54.75 h 2.875"
+             id="path12761-86-2-5-1-6"
+             transform="matrix(0.26458333,0,0,0.26458333,7.8548177,0.94257813)"
+             sodipodi:nodetypes="cc" />
+        </g>
+        <path
+           style="fill:none;stroke:#ffd966;stroke-width:7.97366;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 692.62499,-51.187499 H 687.3125"
+           id="path3857-64-5-8-9-8"
+           transform="matrix(0.0690492,-0.11271712,0.02840837,0.01761066,139.29148,52.382237)" />
+      </g>
+      <g
+         id="g14894-8-7-7-6"
+         transform="rotate(6.0621068,251.30764,27.410115)"
+         style="stroke:#6f309e;stroke-opacity:1"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600">
+        <g
+           id="g6477-8-0-8-6-3"
+           style="stroke:#6f309e;stroke-opacity:1"
+           transform="rotate(-58.447478,172.79911,-22.216603)">
+          <path
+             style="fill:none;stroke:#6f309e;stroke-width:0.755906;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ExperimentalArrow-9-1-1-83-4)"
+             d="m 662.9375,-54.75 h 2.875"
+             id="path12761-86-2-5-6-0"
+             transform="matrix(0.26458333,0,0,0.26458333,7.8548177,0.94257813)"
+             sodipodi:nodetypes="cc" />
+        </g>
+        <path
+           style="fill:none;stroke:#6f309e;stroke-width:7.97366;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 692.62499,-51.187499 H 687.3125"
+           id="path3857-64-5-8-5-7"
+           transform="matrix(0.0690492,-0.11271712,0.02840837,0.01761066,139.29148,52.382237)" />
+      </g>
+      <g
+         id="g14894-8-7-7-9-2"
+         transform="rotate(-30.114193,180.04641,-15.045493)"
+         style="stroke:#000000;stroke-opacity:1"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600">
+        <g
+           id="g6477-8-0-8-6-4-7"
+           style="stroke:#000000;stroke-opacity:1"
+           transform="rotate(-58.447478,172.79911,-22.216603)">
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.755906;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ExperimentalArrow-9-1-1-83-5-7)"
+             d="m 662.9375,-54.75 h 2.875"
+             id="path12761-86-2-5-6-8-32"
+             transform="matrix(0.26458333,0,0,0.26458333,7.8548177,0.94257813)"
+             sodipodi:nodetypes="cc" />
+        </g>
+        <path
+           style="fill:none;stroke:#000000;stroke-width:7.97366;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 692.62499,-51.187499 H 687.3125"
+           id="path3857-64-5-8-5-8-7"
+           transform="matrix(0.0690492,-0.11271712,0.02840837,0.01761066,139.29148,52.382237)" />
+      </g>
+      <g
+         id="g14894-8-7-7-9-8-1"
+         transform="matrix(0.29621808,-0.4889942,-0.4889942,-0.29621808,116.30454,61.424383)"
+         style="stroke:#000000;stroke-width:1.74912;stroke-opacity:1"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600">
+        <g
+           id="g6477-8-0-8-6-4-8-3"
+           style="stroke:#000000;stroke-width:1.74912;stroke-opacity:1"
+           transform="rotate(-58.447478,172.53167,-22.687951)">
+          <path
+             style="fill:none;stroke:#000000;stroke-width:1.32216;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ExperimentalArrow-9-1-1-83-5-2-1)"
+             d="m 662.9375,-54.75 h 2.875"
+             id="path12761-86-2-5-6-8-3-0"
+             transform="matrix(0.26458333,0,0,0.26458333,7.8548177,0.94257813)"
+             sodipodi:nodetypes="cc" />
+        </g>
+        <path
+           style="fill:none;stroke:#000000;stroke-width:13.9469;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 696.62803,-51.266226 -27.32932,0.433014"
+           id="path3857-64-5-8-5-8-9-0"
+           transform="matrix(0.0690492,-0.11271712,0.02840837,0.01761066,139.29148,52.382237)"
+           sodipodi:nodetypes="cc" />
+      </g>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.188976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 695.67154,-94.067299 h 0.82312 l 0.99705,-0.0018"
+         id="path56290-9"
+         transform="matrix(0.26458333,0,0,0.26458333,-2.1166667,0)"
+         sodipodi:nodetypes="ccc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.188976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 695.72678,-92.697279 h 0.81207 l 0.94196,-1.090475"
+         id="path57850-3"
+         transform="matrix(0.26458333,0,0,0.26458333,-2.1166667,0)"
+         sodipodi:nodetypes="ccc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.188976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 695.72678,-92.697279 h 0.81207 l 0.90045,0.29831"
+         id="path57850-1-0"
+         transform="matrix(0.26458333,0,0,0.26458333,-2.1096795,0.09094349)"
+         sodipodi:nodetypes="ccc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.188976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 695.79307,-90.962658 h 0.81759 l 0.78721,-0.787209"
+         id="path57885-4"
+         transform="matrix(0.26458333,0,0,0.26458333,-2.1166667,0)" />
+      <g
+         id="g58581-9"
+         transform="translate(-2.1166667)">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.188976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 693.76562,-91.867187 h 0.63282 l 0.625,-0.414063"
+           id="path58498-7"
+           transform="scale(0.26458333)" />
+      </g>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.188976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 695.72678,-92.697279 h 0.81207 l 0.59821,-0.410787"
+         id="path57850-4-5"
+         transform="matrix(0.26458333,0,0,0.26458333,-1.5016407,-0.4027966)"
+         sodipodi:nodetypes="ccc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.188976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 695.72678,-92.697279 h 0.69488 l 0.59821,0.292338"
+         id="path57850-4-7-5"
+         transform="matrix(0.26458333,0,0,0.26458333,-1.4587386,-0.30906692)"
+         sodipodi:nodetypes="ccc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.188976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 695.72678,-92.697279 h 0.81207 l 0.52399,-0.645162"
+         id="path57850-4-2-1"
+         transform="matrix(0.26458333,0,0,0.26458333,-1.4765347,0.11309272)"
+         sodipodi:nodetypes="ccc" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#c00000;stroke-width:0.104871;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-96-2-9-5-0-3-9-6"
+         cx="156.46774"
+         cy="-27.330006"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.15607817"
+         ry="0.14186679"
+         transform="matrix(0.92080298,0,0,0.98746521,38.976593,1.8567733)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#00b050;stroke-width:0.104871;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-0-8-8-2-5-2-9-6-7"
+         cx="156.46774"
+         cy="-26.902897"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.15607817"
+         ry="0.14186679"
+         transform="matrix(0.92080298,0,0,0.98746521,38.976593,1.862127)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.188976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 698.35156,-91.921875 h 0.47266 l 0.54297,0.136719"
+         id="path59952-2"
+         transform="matrix(0.26458333,0,0,0.26458333,-2.1166667,0)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#e0c163;stroke-width:0.104871;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-1-1-8-7-9-7"
+         cx="156.4682"
+         cy="-26.467468"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo.png"
+         inkscape:export-xdpi="600"
+         inkscape:export-ydpi="600"
+         rx="0.15607817"
+         ry="0.14186679"
+         transform="matrix(0.92080298,0,0,0.98746521,38.976629,1.867585)" />
+      <path
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.905417;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 150.79388,-28.493734 1.37961,-0.646792 2.07311,-0.0095 1.66615,0.342939 1.74745,1.130137 0.96869,1.405551 0.009,1.044665 -0.44635,0.40837 -1.23461,0.0095 -0.73126,0.227928 -0.24693,0.322896 0.095,0.322897 -0.12346,0.474848 -0.49384,0.227927 h -0.59831 l -1.18712,-0.379879 h -0.38891 l -0.30392,0.199436 -0.14245,0.465351 -0.81309,0.566909 -1.19077,0.0029 -0.94969,-0.588811 -0.59831,-0.997181 -0.33239,-1.680962 0.65529,-1.661966 z m 5.39297,1.249919"
+         id="path118601-9-2-8-2"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo icon.png"
+         inkscape:export-xdpi="256.70999"
+         inkscape:export-ydpi="256.70999"
+         sodipodi:nodetypes="cccccccccccccccccccccccccc"
+         transform="matrix(0.22379951,0,0,0.21802376,125.45573,-19.259972)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#7030a0;stroke-width:0.452708;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-8-0-5-5"
+         cx="158.15726"
+         cy="-25.352835"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo icon.png"
+         inkscape:export-xdpi="256.70999"
+         inkscape:export-ydpi="256.70999"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="matrix(0.22379951,0,0,0.21802376,124.31928,-19.320182)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.452708;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-8-0-7-3-9"
+         cx="158.15726"
+         cy="-25.352835"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo icon.png"
+         inkscape:export-xdpi="256.70999"
+         inkscape:export-ydpi="256.70999"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="matrix(0.22379951,0,0,0.21802376,125.24071,-19.418859)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.452708;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-1-3-0"
+         cx="155.14339"
+         cy="-28.522749"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo icon.png"
+         inkscape:export-xdpi="256.70999"
+         inkscape:export-ydpi="256.70999"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="matrix(0.22379951,0,0,0.21802376,124.68053,-18.966451)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#3bd6cf;stroke-width:0.452708;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-8-4-7-5-1-9"
+         cx="155.52151"
+         cy="-23.840338"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo icon.png"
+         inkscape:export-xdpi="256.70999"
+         inkscape:export-ydpi="256.70999"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="matrix(0.22379951,0,0,0.21802376,124.64894,-19.370577)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#ff7c01;stroke-width:0.452708;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-8-2-6-8-6-3-1-8-8-9-7"
+         cx="155.14339"
+         cy="-28.522749"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo icon.png"
+         inkscape:export-xdpi="256.70999"
+         inkscape:export-ydpi="256.70999"
+         rx="0.16775306"
+         ry="0.16607912"
+         transform="matrix(0.22379951,0,0,0.21802376,125.18747,-19.080678)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#c00000;stroke-width:0.47476;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-96-2-9-5-0-3-9-6-2"
+         cx="156.46774"
+         cy="-27.330006"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo icon.png"
+         inkscape:export-xdpi="256.70999"
+         inkscape:export-ydpi="256.70999"
+         rx="0.15607817"
+         ry="0.14186679"
+         transform="matrix(0.20607526,0,0,0.21529088,128.07327,-19.374321)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#00b050;stroke-width:0.47476;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-0-8-8-2-5-2-9-6-7-6"
+         cx="156.46774"
+         cy="-26.902897"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo icon.png"
+         inkscape:export-xdpi="256.70999"
+         inkscape:export-ydpi="256.70999"
+         rx="0.15607817"
+         ry="0.14186679"
+         transform="matrix(0.20607526,0,0,0.21529088,127.90769,-19.057054)" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#e0c163;stroke-width:0.47476;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path12585-9-0-4-1-1-8-7-9-7-0"
+         cx="156.4682"
+         cy="-26.467468"
+         inkscape:export-filename="P:\Research\iSTAGING\Nature Communications\Figures\logo icon.png"
+         inkscape:export-xdpi="256.70999"
+         inkscape:export-ydpi="256.70999"
+         rx="0.15607817"
+         ry="0.14186679"
+         transform="matrix(0.20607526,0,0,0.21529088,126.90671,-19.131126)" />
+    </g>
+  </g>
+</svg>
