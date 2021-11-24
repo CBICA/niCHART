@@ -61,16 +61,21 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def SetupConnections(self):
         self.actionAbout.triggered.connect(self.OnAboutClicked)
+        self.actionHelp.triggered.connect(self.OnHelpClicked)
  
     def SetupUi(self):
         root = os.path.dirname(__file__)
         self.ui = uic.loadUi(os.path.join(root, 'mainwindow.ui'), self)
-        self.ui.setWindowTitle('Neuro-imaging brain aging chart')
-        self.setWindowIcon(QtGui.QIcon(":/icons/icon.png"))
+        self.ui.setWindowTitle('NiBAx')
+        self.setWindowIcon(QtGui.QIcon(":/images/NiBAX Logo.png"))
         self.aboutdialog = AboutDialog(self)
 
     def OnAboutClicked(self):
         self.aboutdialog.show()
+
+    def OnHelpClicked(self):
+        url = QtCore.QUrl('https://github.com/CBICA/iSTAGING-Tools')
+        QtGui.QDesktopServices.openUrl(url)
 
     def OnCloseClicked(self):
         #close currently loaded data and model
