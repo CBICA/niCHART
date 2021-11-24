@@ -20,7 +20,7 @@
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -107,14 +107,6 @@
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QLabel" name="label_6">
-           <property name="text">
-            <string>Region of Interest: 
-Right Hippocampus (MUSE_Volume_47)</string>
-           </property>
-          </widget>
-         </item>
          <item>
           <widget class="QPushButton" name="load_other_model_Btn">
            <property name="text">
