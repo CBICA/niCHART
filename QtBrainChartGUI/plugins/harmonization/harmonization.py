@@ -349,7 +349,7 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
         start_index = len(self.datamodel.harmonization_model['SITE_labels'])
         sex_icv_effect = np.dot(muse[['Sex','DLICV_baseline']],self.datamodel.harmonization_model['B_hat'][start_index:(start_index+2),:])
         ROIs_ICV_Sex_Residuals = ['RES_ICV_Sex_' + x for x in self.datamodel.harmonization_model['ROIs']]
-        muse.loc[:,ROIs_ICV_Sex_Residuals] = muse[['H_' + x for x in self.datamodel.harmonization_model['ROIs']]] - sex_icv_effect
+        muse[ROIs_ICV_Sex_Residuals] = muse[['H_' + x for x in self.datamodel.harmonization_model['ROIs']]] - sex_icv_effect
 
         muse.loc[:,'Sex'] = muse['Sex'].map({1:'M',0:'F'})
         ROIs_Residuals = ['RES_' + x for x in self.datamodel.harmonization_model['ROIs']]
