@@ -77,4 +77,6 @@ class Data(QtWidgets.QWidget,IPlugin):
         self.datamodel.SetMUSEDictionaries(MUSEDictNAMEtoID, MUSEDictIDtoNAME)
 
         #set data in model
+        self.datamodel.SetDataFilePath(filename)
         self.datamodel.SetData(d)
+
