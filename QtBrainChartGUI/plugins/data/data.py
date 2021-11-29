@@ -64,7 +64,8 @@ class Data(QtWidgets.QWidget,IPlugin):
         self.ui.tableWidget.setHorizontalHeaderLabels(colNames)
 
     def OnDataChanged(self):
-        self.PopulateTable()
+        pass
+        #self.PopulateTable()
 
     def ReadData(self,filename):
         #read input data
