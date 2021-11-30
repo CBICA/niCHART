@@ -5,6 +5,33 @@ import sys, os
 import pandas as pd
 from QtBrainChartGUI.plugins.data.dataio import DataIO
 
+
+class PandasModel(QtCore.QAbstractTableModel):
+    def __init__(self, data, parent=None):
+        QtCore.QAbstractTableModel.__init__(self, parent)
+        self._data = data
+        self.header_labels = None
+
+    def rowCount(self, parent=None):
+        return len(self._data.values)
+
+    def columnCount(self, parent=None):
+        return self._data.columns.size
+
+    def headerData(self, section, orientation, role=QtCore.Qt.DisplayRole):
+        self.header_labels = self._data.keys()
+        if role == QtCore.Qt.DisplayRole and orientation == QtCore.Qt.Horizontal:
+            return self.header_labels[section]
+        return QtCore.QAbstractTableModel.headerData(self, section, orientation, role)
+
+    def data(self, index, role=QtCore.Qt.DisplayRole):
+        if index.isValid():
+            if role == QtCore.Qt.DisplayRole:
+                return QtCore.QVariant(str(
+                    self._data.iloc[index.row()][index.column()]))
+        return QtCore.QVariant()
+
+
 class Data(QtWidgets.QWidget,IPlugin):
 
     def __init__(self):
@@ -12,6 +39,8 @@ class Data(QtWidgets.QWidget,IPlugin):
         self.datamodel = None
         root = os.path.dirname(__file__)
         self.ui = uic.loadUi(os.path.join(root, 'data.ui'),self)
+        self.dataView = QtWidgets.QTableView()
+        self.ui.verticalLayout_2.addWidget(self.dataView)
 
 
     def SetupConnections(self):
@@ -46,26 +75,17 @@ class Data(QtWidgets.QWidget,IPlugin):
                 print('Selected file must be a dataframe.')
             else:
                 self.ReadData(filename[0])
-            self.ui.tableWidget
-        self.ui.tableWidget
 
 
     def PopulateTable(self):
-        df = self.datamodel.GetCompleteData()
-        colNames = self.datamodel.GetColumnHeaderNames()
+        model = PandasModel(self.datamodel.data.head(20))
+        self.dataView.setModel(model)
 
-        self.ui.tableWidget.setColumnCount(len(df.columns))
-        self.ui.tableWidget.setRowCount(len(df.index))
-        #for i in range(len(df.index)):
-        for i in range(20):
-            for j in range(len(df.columns)):
-                self.ui.tableWidget.setItem(i,j,QtWidgets.QTableWidgetItem(str(df.iloc[i, j])))
 
-        self.ui.tableWidget.setHorizontalHeaderLabels(colNames)
 
     def OnDataChanged(self):
-        pass
-        #self.PopulateTable()
+        self.PopulateTable()
+
 
     def ReadData(self,filename):
         #read input data
