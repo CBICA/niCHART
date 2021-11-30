@@ -13,7 +13,7 @@ import os, sys
 from QtBrainChartGUI.core.model.datamodel import DataModel
 from .aboutdialog import AboutDialog
 from QtBrainChartGUI.resources import resources
-
+from PyQt5.QtWidgets import QAction
 import pandas as pd
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -58,6 +58,10 @@ class MainWindow(QtWidgets.QMainWindow):
             pass
             #if SPARE model file provided on cmd line, load it
             #self.OnSPAREModelFileOpenClicked(SPAREModelFile)
+        
+        # Include Mac menu bar
+        self.ui.actionHelp.setMenuRole(QAction.NoRole)
+        self.ui.actionAbout.setMenuRole(QAction.NoRole)
 
     def SetupConnections(self):
         self.actionAbout.triggered.connect(self.OnAboutClicked)
