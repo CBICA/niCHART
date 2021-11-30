@@ -37,6 +37,13 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="dtale_Btn">
+       <property name="text">
+        <string>Explore...</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
