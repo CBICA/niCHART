@@ -69,6 +69,8 @@ class computeSPAREs(QtWidgets.QWidget,IPlugin):
             self.model['BrainAge'], self.model['AD'] = joblib.load(fileName)
             self.ui.compute_SPARE_scores_Btn.setEnabled(True)
             self.ui.SPARE_model_info.setText('File: %s' % (fileName))
+        else:
+            return
         
         self.ui.stackedWidget.setCurrentIndex(0)
 
