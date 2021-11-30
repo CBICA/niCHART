@@ -343,13 +343,14 @@ class Harmonization(QtWidgets.QWidget,IPlugin):
             print('Skipping out-of-sample harmonization because `UseForComBatGAMHarmonization` does not exist.')
 
         if 'isTrainMUSEHarmonization' in self.datamodel.data.columns:
-            muse = pd.concat([self.datamodel.data['isTrainMUSEHarmonization'],covars, pd.DataFrame(bayes_data, columns=['H_' + s for s in self.datamodel.harmonization_model['ROIs']])],axis=1)    
+            muse = pd.concat([self.datamodel.data['isTrainMUSEHarmonization'].copy(), covars, pd.DataFrame(bayes_data, columns=['H_' + s for s in self.datamodel.harmonization_model['ROIs']])],axis=1)
         else:
             muse = pd.concat([covars,pd.DataFrame(bayes_data, columns=['H_' + s for s in self.datamodel.harmonization_model['ROIs']])],axis=1)
+
         start_index = len(self.datamodel.harmonization_model['SITE_labels'])
-        sex_icv_effect = np.dot(muse[['Sex','DLICV_baseline']],self.datamodel.harmonization_model['B_hat'][start_index:(start_index+2),:])
+        sex_icv_effect = np.dot(muse[['Sex','DLICV_baseline']].copy(), self.datamodel.harmonization_model['B_hat'][start_index:(start_index+2),:])
         ROIs_ICV_Sex_Residuals = ['RES_ICV_Sex_' + x for x in self.datamodel.harmonization_model['ROIs']]
-        muse[ROIs_ICV_Sex_Residuals] = muse[['H_' + x for x in self.datamodel.harmonization_model['ROIs']]] - sex_icv_effect
+        muse.loc[:,ROIs_ICV_Sex_Residuals] = muse[['H_' + x for x in self.datamodel.harmonization_model['ROIs']]] - sex_icv_effect
 
         muse.loc[:,'Sex'] = muse['Sex'].map({1:'M',0:'F'})
         ROIs_Residuals = ['RES_' + x for x in self.datamodel.harmonization_model['ROIs']]
