@@ -4,7 +4,7 @@ from PyQt5 import QtGui, QtCore, QtWidgets, uic
 import sys, os
 import pandas as pd
 from QtBrainChartGUI.plugins.data.dataio import DataIO
-
+import dtale
 
 class PandasModel(QtCore.QAbstractTableModel):
     def __init__(self, data, parent=None):
@@ -47,6 +47,14 @@ class Data(QtWidgets.QWidget,IPlugin):
         self.ui.open_data_file_Btn.clicked.connect(lambda: self.OnOpenDataFileBtnClicked())
         self.datamodel.data_changed.connect(lambda: self.OnDataChanged())
         self.ui.save_data_Btn.clicked.connect(lambda: self.OnSaveDataBtClicked())
+        self.ui.dtale_Btn.clicked.connect(lambda: self.OnDtaleBtnClicked())
+
+
+    def OnDtaleBtnClicked(self):
+        if ('level_0' in self.datamodel.data.keys()):
+            self.datamodel.data.drop('level_0', axis=1, inplace=True)
+        d = dtale.show(self.datamodel.data.reset_index(drop=True))
+        d.open_browser()
 
 
     def OnSaveDataBtClicked(self):
