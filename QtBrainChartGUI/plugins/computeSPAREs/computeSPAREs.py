@@ -123,7 +123,10 @@ class computeSPAREs(QtWidgets.QWidget,IPlugin):
 
 
     def OnAddToDataFrame(self):
-        pass
+        print('Adding SPARE-* scores to data frame...')
+        self.datamodel.data.loc[:,'SPARE_AD'] = self.SPAREs['SPARE_AD']
+        self.datamodel.data.loc[:,'SPARE_BA'] = self.SPAREs['SPARE_BA']
+        self.datamodel.data_changed.emit()
 
 
     def OnShowSPAREs(self):
@@ -178,7 +181,7 @@ class BrainAgeWorker(QtCore.QObject):
         y_hat_test /= n_ensembles
         y_hat.loc[idx, 'SPARE_BA'] = y_hat_test
 
-        idx = ~self.data[self.model['BrainAge']['predictors'][0]].isnull()
+        idx = ~self.data[self.model['AD']['predictors'][0]].isnull()
 
         y_hat_test = np.zeros((np.sum(idx),))
         n_ensembles = np.zeros((np.sum(idx),))
