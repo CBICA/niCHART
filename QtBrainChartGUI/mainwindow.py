@@ -29,22 +29,32 @@ class MainWindow(QtWidgets.QMainWindow):
         self.manager = PluginManager(categories_filter={ "UI": IPlugin})
         root = os.path.dirname(__file__)
         self.manager.setPluginPlaces([os.path.join(root, 'plugins')])
-        #self.manager.setPluginPlaces(["plugins"])
 
         # Load plugins
         self.manager.locatePlugins()
-        p = self.manager.loadPlugins()
+        self.manager.loadPlugins()
 
         self.Plugins = {}
-        for plugin in self.manager.getPluginsOfCategory("UI"):
+        for plugin in self.manager.getAllPlugins():
             # plugin.plugin_object is an instance of the plugin
             po = plugin.plugin_object
             po.datamodel = self.datamodel
             po.SetupConnections()
             self.Plugins[plugin.name] = po
             print("plugins: ", plugin.name)
-            #self.ui.tabWidget.addTab(po.getUI(),plugin.name)
-            self.ui.tabWidget.addTab(po,plugin.name)
+            #organize plugins in order:Data -> Characteristics -> Age Trends -> Harmonization -> SPARE-*
+            if(plugin.name == 'Data'):
+                self.ui.tabWidget.insertTab(0,po,plugin.name)
+            elif(plugin.name == 'Data Characteristics'):
+                self.ui.tabWidget.insertTab(1,po,plugin.name)
+            elif(plugin.name == 'Age Trends'):
+                self.ui.tabWidget.insertTab(2,po,plugin.name)
+            elif(plugin.name == 'Harmonization'):
+                self.ui.tabWidget.insertTab(3,po,plugin.name)
+            elif(plugin.name == 'SPARE-*'):
+                self.ui.tabWidget.insertTab(4,po,plugin.name)
+            else:
+                self.ui.tabWidget.addTab(po,plugin.name)
 
         if dataFile is not None:
             # if datafile provided on cmd line, load it
