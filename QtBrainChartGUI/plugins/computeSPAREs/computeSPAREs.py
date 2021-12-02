@@ -25,6 +25,9 @@ class computeSPAREs(QtWidgets.QWidget,IPlugin):
         self.ui.stackedWidget.setCurrentIndex(0)
         self.ui.factorial_progressBar.setValue(0)
 
+        # Initialize thread
+        self.thread = QtCore.QThread()
+
 
     def getUI(self):
         return self.ui
@@ -35,7 +38,7 @@ class computeSPAREs(QtWidgets.QWidget,IPlugin):
         self.ui.load_SPARE_model_Btn.clicked.connect(lambda: self.OnLoadSPAREModel())
         self.ui.load_other_model_Btn.clicked.connect(lambda: self.OnLoadSPAREModel())
         self.ui.add_to_dataframe_Btn.clicked.connect(lambda: self.OnAddToDataFrame())
-        self.ui.compute_SPARE_scores_Btn.clicked.connect(lambda: self.OnComputeSPAREs())
+        self.ui.compute_SPARE_scores_Btn.clicked.connect(lambda check: self.OnComputeSPAREs(check))
         self.ui.show_SPARE_scores_from_data_Btn.clicked.connect(lambda: self.OnShowSPAREs())
         self.datamodel.data_changed.connect(lambda: self.OnDataChanged())
 
@@ -46,7 +49,7 @@ class computeSPAREs(QtWidgets.QWidget,IPlugin):
             'SPARE_AD' in self.datamodel.GetColumnHeaderNames()):
             self.ui.show_SPARE_scores_from_data_Btn.setStyleSheet("background-color: rgb(230,230,255)")
             self.ui.show_SPARE_scores_from_data_Btn.setEnabled(True)
-            self.ui.show_SPARE_scoresfrom_data_Btn.setToolTip('The data frame has variables `SPARE_AD` and `SPARE_BA` so these can be plotted.')
+            self.ui.show_SPARE_scores_from_data_Btn.setToolTip('The data frame has variables `SPARE_AD` and `SPARE_BA` so these can be plotted.')
         else:
             self.ui.show_SPARE_scores_from_data_Btn.setEnabled(False)
 
@@ -75,8 +78,18 @@ class computeSPAREs(QtWidgets.QWidget,IPlugin):
         self.ui.stackedWidget.setCurrentIndex(0)
 
         if 'RES_ICV_Sex_MUSE_Volume_47' in self.datamodel.GetColumnHeaderNames():
-            self.ui.compute_SPARE_scores_Btn.setStyleSheet("background-color: rgb(230,255,230)")
+            self.ui.compute_SPARE_scores_Btn.setStyleSheet("QPushButton"
+                             "{"
+                             "background-color : rgb(230,255,230);"
+                             "}"
+                             "QPushButton::checked"
+                             "{"
+                             "background-color : rgb(255,230,230);"
+                             "border: none;"
+                             "}"
+                             )
             self.ui.compute_SPARE_scores_Btn.setEnabled(True)
+            self.ui.compute_SPARE_scores_Btn.setChecked(False)
             self.ui.compute_SPARE_scores_Btn.setToolTip('Model loaded and `RES_ICV_Sex_MUSE_Volmue_*` available so the MUSE volumes can be harmonized.')
         else:
             self.ui.compute_SPARE_scores_Btn.setStyleSheet("background-color: rgb(255,230,230)")
@@ -90,26 +103,54 @@ class computeSPAREs(QtWidgets.QWidget,IPlugin):
 
     def OnComputationDone(self, y_hat):
         self.SPAREs = y_hat
+        self.ui.compute_SPARE_scores_Btn.setText('Compute SPARE-*')
+        if self.SPAREs.empty:
+            return
+        self.ui.compute_SPARE_scores_Btn.setChecked(False)
         self.plotSPAREs()
         self.ui.stackedWidget.setCurrentIndex(1)
+        # Activate buttons
+        self.ui.compute_SPARE_scores_Btn.setEnabled(False)
+        if ('SPARE_BA' in self.datamodel.GetColumnHeaderNames() and
+            'SPARE_AD' in self.datamodel.GetColumnHeaderNames()):
+            self.ui.show_SPARE_scores_from_data_Btn.setEnabled(True)
+            #self.ui.show_SPARE_scores_from_data_Btn.setStyleSheet("background-color: rgb(230,230,255)")
+        else:
+            self.ui.show_SPARE_scores_from_data_Btn.setEnabled(False)
+        self.ui.load_SPARE_model_Btn.setEnabled(True)
         
 
 
-    def OnComputeSPAREs(self):
+    def OnComputeSPAREs(self, checked):
         # Setup tasks for long running jobs
         # Using this example: https://realpython.com/python-pyqt-qthread/
-        self.thread = QtCore.QThread()
-        self.worker = BrainAgeWorker(self.datamodel.data, self.model)
-        self.worker.moveToThread(self.thread)
-        self.thread.started.connect(self.worker.run)
-        self.worker.done.connect(self.thread.quit)
-        self.worker.done.connect(self.worker.deleteLater)
-        self.thread.finished.connect(self.thread.deleteLater)
-        self.worker.progress.connect(self.updateProgress)
-        self.worker.done.connect(lambda y_hat: self.OnComputationDone(y_hat))
-        self.ui.factorial_progressBar.setRange(0, len(self.model['BrainAge']['scaler'])-1)
-        self.thread.start()
-        self.ui.compute_SPARE_scores_Btn.setEnabled(False)
+        # Disable buttons
+        if checked is not True:
+            self.thread.requestInterruption()
+        else:
+            self.ui.compute_SPARE_scores_Btn.setStyleSheet("QPushButton"
+                             "{"
+                             "background-color : rgb(230,255,230);"
+                             "}"
+                             "QPushButton::checked"
+                             "{"
+                             "background-color : rgb(255,230,230);"
+                             "}"
+                             )
+            self.ui.compute_SPARE_scores_Btn.setText('Cancel computation')
+            self.ui.show_SPARE_scores_from_data_Btn.setEnabled(False)
+            self.ui.load_SPARE_model_Btn.setEnabled(False)
+            self.thread = QtCore.QThread()
+            self.worker = BrainAgeWorker(self.datamodel.data, self.model)
+            self.worker.moveToThread(self.thread)
+            self.thread.started.connect(self.worker.run)
+            self.worker.done.connect(self.thread.quit)
+            self.worker.done.connect(self.worker.deleteLater)
+            self.thread.finished.connect(self.thread.deleteLater)
+            self.worker.progress.connect(self.updateProgress)
+            self.worker.done.connect(lambda y_hat: self.OnComputationDone(y_hat))
+            self.ui.factorial_progressBar.setRange(0, len(self.model['BrainAge']['scaler'])-1)
+            self.thread.start()
 
 
     def plotSPAREs(self):
@@ -169,6 +210,10 @@ class BrainAgeWorker(QtCore.QObject):
         for i,_ in enumerate(self.model['BrainAge']['scaler']):
             # Predict validation (fold) and test
             self.progress.emit('Computing SPARE-BA | Task 1 of 2', i)
+            if QtCore.QThread.currentThread().isInterruptionRequested():
+                self.progress.emit('Cancelled.', 0)
+                self.done.emit(pd.DataFrame())
+                return
             test = np.logical_not(self.data[idx]['participant_id'].isin(np.concatenate(self.model['BrainAge']['train']))) | self.data[idx]['participant_id'].isin(self.model['BrainAge']['validation'][i])
             X = self.data[idx].loc[test, self.model['BrainAge']['predictors']].values
             X = self.model['BrainAge']['scaler'][i].transform(X)
@@ -186,7 +231,11 @@ class BrainAgeWorker(QtCore.QObject):
         for i,_ in enumerate(self.model['AD']['scaler']):
             # Predict validation (fold) and test
             self.progress.emit('Computing SPARE-AD | Task 2 of 2', i)
-
+            if QtCore.QThread.currentThread().isInterruptionRequested():
+                self.progress.emit('Cancelled.', 0)
+                # Emit the result
+                self.done.emit(pd.DataFrame())
+                return
             test = np.logical_not(self.data[idx]['participant_id'].isin(np.concatenate(self.model['AD']['train']))) | self.data[idx]['participant_id'].isin(self.model['AD']['validation'][i])
             X = self.data[idx].loc[test, self.model['AD']['predictors']].values
             X = self.model['AD']['scaler'][i].transform(X)
