@@ -76,6 +76,12 @@
          <property name="text">
           <string>Compute SPARE-*</string>
          </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
         </widget>
        </item>
        <item>
