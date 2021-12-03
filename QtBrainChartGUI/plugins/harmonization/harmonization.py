@@ -1,14 +1,13 @@
 from PyQt5.QtGui import *
-from yapsy.IPlugin import IPlugin
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 import sys, os
 import neuroHarmonize as nh
-
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from QtBrainChartGUI.core.plotcanvas import PlotCanvas
+from QtBrainChartGUI.core.baseplugin import BasePlugin
 
 class ExtendedComboBox(QtWidgets.QComboBox):
     def __init__(self, parent=None):
@@ -54,13 +53,14 @@ class ExtendedComboBox(QtWidgets.QComboBox):
         self.pFilterModel.setFilterKeyColumn(column)
         super(ExtendedComboBox, self).setModelColumn(column)  
 
-class Harmonization(QtWidgets.QWidget,IPlugin):
+class Harmonization(QtWidgets.QWidget,BasePlugin):
 
     #constructor
     def __init__(self):
         super(Harmonization,self).__init__()
         self.datamodel = None
         root = os.path.dirname(__file__)
+        self.readAdditionalInformation(root)
         self.ui = uic.loadUi(os.path.join(root, 'harmonization.ui'),self)
         self.ui.Harmonization_Model_Loaded_Lbl.setHidden(True)
         self.ui.comboBoxROI = ExtendedComboBox(self.ui)

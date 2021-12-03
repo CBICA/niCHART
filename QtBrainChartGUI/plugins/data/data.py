@@ -1,10 +1,10 @@
 from PyQt5.QtGui import *
-from yapsy.IPlugin import IPlugin
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 import sys, os
 import pandas as pd
 from QtBrainChartGUI.plugins.data.dataio import DataIO
 import dtale
+from QtBrainChartGUI.core.baseplugin import BasePlugin
 
 class PandasModel(QtCore.QAbstractTableModel):
     def __init__(self, data, parent=None):
@@ -32,16 +32,16 @@ class PandasModel(QtCore.QAbstractTableModel):
         return QtCore.QVariant()
 
 
-class Data(QtWidgets.QWidget,IPlugin):
+class Data(QtWidgets.QWidget,BasePlugin):
 
     def __init__(self):
         super(Data,self).__init__()
         self.datamodel = None
         root = os.path.dirname(__file__)
+        self.readAdditionalInformation(root)
         self.ui = uic.loadUi(os.path.join(root, 'data.ui'),self)
         self.dataView = QtWidgets.QTableView()
         self.ui.verticalLayout_2.addWidget(self.dataView)
-
 
     def SetupConnections(self):
         self.ui.open_data_file_Btn.clicked.connect(lambda: self.OnOpenDataFileBtnClicked())
