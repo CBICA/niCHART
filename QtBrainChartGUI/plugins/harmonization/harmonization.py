@@ -124,10 +124,17 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
                 model_text2 = ('SITES in training set: '+ ' '.join([str(elem) for elem in list(self.datamodel.harmonization_model['SITE_labels'])]))
                 model_text2 = wrap_by_word(model_text2,4)
                 model_text1 += '\n\n'+model_text2
+                if 'Covariates' in self.datamodel.harmonization_model:
+                    covariates = self.datamodel.harmonization_model['Covariates']
+                    model_text3 = ('Harmonization Covariates: '+ str(covariates))
+                    model_text1 += '\n'+model_text3
+                else:
+                    model_text3 = ('Harmonization Covariates Unavailable')
+                    model_text1 += '\n'+model_text3
                 age_max = self.datamodel.harmonization_model['smooth_model']['bsplines_constructor'].knot_kwds[0]['upper_bound']
                 age_min = self.datamodel.harmonization_model['smooth_model']['bsplines_constructor'].knot_kwds[0]['lower_bound']
-                model_text3 = ('Valid Age Range: [' + str(age_min) + ', ' + str(age_max) + ']')
-                model_text1 += '\n'+model_text3
+                model_text4 = ('Valid Age Range: [' + str(age_min) + ', ' + str(age_max) + ']')
+                model_text1 += '\n'+model_text4
                 self.ui.Harmonized_Data_Information_Lbl.setText(model_text1)
                 self.ui.apply_model_to_dataset_Btn.setEnabled(True)
                 self.ui.apply_model_to_dataset_Btn.setStyleSheet("background-color: lightGreen; color: white")
@@ -153,12 +160,10 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
     def OnShowDataBtnClicked(self):
         self.MUSE = self.datamodel.data
         self.PopulateROI()
-        self.UpdatePlot()
     
     def OnApplyModelToDatasetBtnClicked(self):
         self.MUSE= self.DoHarmonization()
         self.PopulateROI()
-        self.UpdatePlot()
 
     def UpdatePlot(self):
 
@@ -197,32 +202,29 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         if 'isTrainMUSEHarmonization' in self.MUSE: 
             print('Plotting controls only')
             data = self.MUSE[self.MUSE['isTrainMUSEHarmonization']==1]
-            cSite = sns.color_palette("Paired", n_colors=22)
-            c = cSite.copy()
-            cSite[1:] = c[0:-1]
-            cSite[0] = (0.5, 0.5, 0.5)
-            cSite[3:] = c[1:-2]
-            cSite[2] = (0.3, 0.6,0.8)
-            cSite[6:] = c[2:-4]
-            cSite[4] = (0.7, 0.9, 0.5)
-            cSite[5] = (0.5, 0.9, 0.6)
-            cSite[6] = (0.2, 0.7, 0.2)
-            cSite[7] = (0.2, 0.5, 0.2)
-            cSite[14] = (0.4, 0.05, 0.5)
-            cSite[15] = (0.9, 0.8, 0.2)
-            cSite[16] = (0.7, 0.6, 0.1)
-            cSite[17] = (0.3, 0.3, 0.3)
-            cSite[18] = (0.6, 0.1, 0.6)
-            cSite[19] = (0.1, 0.6, 0.5)
-            cSite[20] = (0.5, 0.2, 0.2)
-            cSite[21] = (0.2, 0.2, 0.5)
-        else:
+        else: 
             data = self.MUSE
-            self.MUSE.dropna(subset=[raw_res],inplace=True)
-            cSite=sns.color_palette("hls", len(list(self.MUSE.SITE.unique())))
+            data.dropna(subset=[raw_res],inplace=True)
 
         data.loc[:,'SITE'] = pd.Categorical(data['SITE'])
         data.loc[:,'SITE'] = data.SITE.cat.remove_unused_categories()
+
+        # make palette
+        if 'SITE_colors' in self.datamodel.harmonization_model:
+            print('Creating color palette from model...')
+            cSite = self.datamodel.harmonization_model['SITE_colors'] 
+            wanted = set(data.SITE.unique()).intersection(set(self.datamodel.harmonization_model['SITE_labels']))
+            cSite = { your_key: cSite[your_key] for your_key in wanted }
+            site_extra = list(set(data.SITE.unique())-set(self.datamodel.harmonization_model['SITE_labels']))
+            palette_extra= sns.color_palette("Set2", n_colors=len(site_extra))
+            cSite_extra = dict(zip(site_extra,palette_extra))
+            cSite.update(cSite_extra)
+        else:
+            print('Color palette not available in model. Creating new color palette...')
+            colors=sns.color_palette("cubehelix", n_colors=len(list(data.SITE.unique())))
+            cSite = dict(zip(list(data.SITE.unique()),colors))
+        
+        labels = sorted([x + ' (N=' for x in list(cSite.keys())])
 
         sd_raw = data[raw_res].std()
         sd_h = data[h_res].std()
@@ -247,7 +249,7 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         nobs1 = data['SITE'].value_counts().sort_index(ascending=True).values
         nobs1 = [str(x) for x in nobs1.tolist()]
         nobs1 = [i for i in nobs1]
-        labels = [x + ' (N=' for x in self.datamodel.harmonization_model['SITE_labels']]
+        #labels = [x + ' (N=' for x in self.datamodel.harmonization_model['SITE_labels']]
         labels = [''.join(i) for i in zip(labels, nobs1)]
         labels = [x + ')' for x in labels]
         self.plotCanvas.axes1.axvline(ci_plus_raw,color='grey',ls='--')
@@ -333,6 +335,7 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
                     print('New site `'+site+'` has less than 25 reference data points. Skipping harmonization.')
                     continue
 
+                print('Harmonizing '+ site)           
                 gamma_hat_site = np.mean(((Raw_ROIs_Residuals[new_site_is_train,:])/np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[new_site_is_train,:].shape[0]))).T),0)
                 gamma_hat_site = gamma_hat_site[:,np.newaxis]
                 delta_hat_site = pow(np.std(((Raw_ROIs_Residuals[new_site_is_train,:])/np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[new_site_is_train,:].shape[0]))).T),0),2)
