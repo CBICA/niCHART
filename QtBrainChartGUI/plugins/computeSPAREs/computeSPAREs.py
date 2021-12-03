@@ -1,22 +1,22 @@
 from PyQt5.QtGui import *
 from matplotlib.backends.backend_qt5 import FigureCanvasQT
-from yapsy.IPlugin import IPlugin
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 import joblib
 import sys, os, time
-
 import seaborn as sns
 import numpy as np
 import pandas as pd
 from QtBrainChartGUI.core.plotcanvas import PlotCanvas
+from QtBrainChartGUI.core.baseplugin import BasePlugin
 
-class computeSPAREs(QtWidgets.QWidget,IPlugin):
+class computeSPAREs(QtWidgets.QWidget,BasePlugin):
 
     #constructor
     def __init__(self):
         super(computeSPAREs,self).__init__()
         self.model = {'BrainAge': None, 'AD': None}
         root = os.path.dirname(__file__)
+        self.readAdditionalInformation(root)
         self.ui = uic.loadUi(os.path.join(root, 'computeSPAREs.ui'),self)
         self.plotCanvas = PlotCanvas(self.ui.page_2)
         self.ui.verticalLayout.addWidget(self.plotCanvas)

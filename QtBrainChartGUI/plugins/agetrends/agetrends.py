@@ -1,8 +1,8 @@
 from PyQt5.QtGui import *
-from yapsy.IPlugin import IPlugin
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 import sys, os
 import neuroHarmonize as nh
+from QtBrainChartGUI.core.baseplugin import BasePlugin
 
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -56,13 +56,14 @@ class ExtendedComboBox(QtWidgets.QComboBox):
         super(ExtendedComboBox, self).setModelColumn(column)   
 
 
-class AgeTrends(QtWidgets.QWidget,IPlugin):
+class AgeTrends(QtWidgets.QWidget,BasePlugin):
 
     #constructor
     def __init__(self):
         super(AgeTrends,self).__init__()
         self.datamodel = None
         root = os.path.dirname(__file__)
+        self.readAdditionalInformation(root)
         self.ui = uic.loadUi(os.path.join(root, 'agetrends.ui'),self)
         self.plotCanvas = PlotCanvas(self.ui)
         self.ui.comboBoxROI = ExtendedComboBox(self.ui)

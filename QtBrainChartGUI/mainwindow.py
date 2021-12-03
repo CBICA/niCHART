@@ -15,6 +15,7 @@ from .aboutdialog import AboutDialog
 from QtBrainChartGUI.resources import resources
 from PyQt5.QtWidgets import QAction
 import pandas as pd
+from QtBrainChartGUI.core.baseplugin import BasePlugin
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, dataFile=None, harmonizationModelFile=None, SPAREModelFile=None):
@@ -26,7 +27,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.datamodel = DataModel()
 
         # Create plugin manager
-        self.manager = PluginManager(categories_filter={ "UI": IPlugin})
+        self.manager = PluginManager(categories_filter={ "Tabs": BasePlugin})
         root = os.path.dirname(__file__)
         self.manager.setPluginPlaces([os.path.join(root, 'plugins')])
 
@@ -34,6 +35,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.manager.locatePlugins()
         self.manager.loadPlugins()
 
+        #create dictionary of plugins with key = plugin name, value = plugin instance
         self.Plugins = {}
         for plugin in self.manager.getAllPlugins():
             # plugin.plugin_object is an instance of the plugin
@@ -42,23 +44,19 @@ class MainWindow(QtWidgets.QMainWindow):
             po.SetupConnections()
             self.Plugins[plugin.name] = po
             print("plugins: ", plugin.name)
-            #organize plugins in order:Data -> Characteristics -> Age Trends -> Harmonization -> SPARE-*
-            if(plugin.name == 'Data'):
-                self.ui.tabWidget.insertTab(0,po,plugin.name)
-            elif(plugin.name == 'Data Characteristics'):
-                self.ui.tabWidget.insertTab(1,po,plugin.name)
-            elif(plugin.name == 'Age Trends'):
-                self.ui.tabWidget.insertTab(2,po,plugin.name)
-            elif(plugin.name == 'Harmonization'):
-                self.ui.tabWidget.insertTab(3,po,plugin.name)
-            elif(plugin.name == 'SPARE-*'):
-                self.ui.tabWidget.insertTab(4,po,plugin.name)
-            else:
-                self.ui.tabWidget.addTab(po,plugin.name)
+
+        #organize plugins in order:Data -> Characteristics -> Age Trends -> Harmonization -> SPARE-*
+        for num in range(len(self.Plugins)):
+            for key,value in self.Plugins.items():
+                if(num == value.getTabPosition()):
+                    self.ui.tabWidget.insertTab(value.getTabPosition(),value,key)
+                    break
+
+        self.ui.tabWidget.setCurrentIndex(0) # always display first tab
 
         if dataFile is not None:
             # if datafile provided on cmd line, load it
-            self.Plugins['data'].ReadData(dataFile)
+            self.Plugins['Data'].ReadData(dataFile)
 
         if harmonizationModelFile is not None:
             pass

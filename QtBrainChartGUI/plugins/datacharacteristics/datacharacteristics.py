@@ -1,15 +1,16 @@
 from PyQt5.QtGui import *
-from yapsy.IPlugin import IPlugin
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 import sys, os
+from QtBrainChartGUI.core.baseplugin import BasePlugin
 
-class DataCharacteristics(QtWidgets.QWidget,IPlugin):
+class DataCharacteristics(QtWidgets.QWidget,BasePlugin):
     priority = 0
 
     def __init__(self):
         super(DataCharacteristics,self).__init__()
         self.datamodel = None
         root = os.path.dirname(__file__)
+        self.readAdditionalInformation(root)
         self.ui = uic.loadUi(os.path.join(root, 'datacharacteristics.ui'),self)
 
     def getUI(self):
