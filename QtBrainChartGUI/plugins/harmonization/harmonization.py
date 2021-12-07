@@ -65,10 +65,12 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         self.ui.Harmonization_Model_Loaded_Lbl.setHidden(True)
         self.ui.comboBoxROI = ExtendedComboBox(self.ui)
         self.plotCanvas = PlotCanvas(self.ui.page_2)
-        self.plotCanvas.axes1 = self.plotCanvas.fig.add_subplot(121)
-        self.plotCanvas.axes2 = self.plotCanvas.fig.add_subplot(122)
-        self.ui.verticalLayout.addWidget(self.plotCanvas) 
+        self.plotCanvas.axes1 = self.plotCanvas.fig.add_subplot(131)
+        self.plotCanvas.axes2 = self.plotCanvas.fig.add_subplot(132)
+        self.plotCanvas.axes3 = self.plotCanvas.fig.add_subplot(133)
+        self.ui.horizontalLayout_4.insertWidget(0,self.plotCanvas) 
         self.ui.horizontalLayout_3.insertWidget(0,self.comboBoxROI)
+
         self.MUSE = None
 
         self.ui.stackedWidget.setCurrentIndex(0) 
@@ -193,11 +195,14 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
 
         self.plotCanvas.axes1.clear()
         self.plotCanvas.axes2.clear()
+        self.plotCanvas.axes3.clear()
 
         # select roi
         currentROI = plotOptions['ROI']
         h_res = 'RES_'+currentROI
         raw_res = 'RAW_RES_'+currentROI
+        selected_gamma = 'gamma_'+currentROI
+        selected_delta = 'delta_'+currentROI
         
         if 'isTrainMUSEHarmonization' in self.MUSE: 
             print('Plotting controls only')
@@ -242,6 +247,20 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
             'capprops':{'color':'black'}
         }
 
+        gamma_ROIs = ['gamma_'+ x for x in self.datamodel.harmonization_model['ROIs']]
+        delta_ROIs = ['delta_'+ x for x in self.datamodel.harmonization_model['ROIs']]
+        model_gamma= pd.DataFrame(self.datamodel.harmonization_model['gamma_star'],columns=gamma_ROIs,index=[x for x in self.datamodel.harmonization_model['SITE_labels']])
+        model_delta = pd.DataFrame(self.datamodel.harmonization_model['delta_star'],columns=delta_ROIs,index=[x for x in self.datamodel.harmonization_model['SITE_labels']])
+        model_parameters = pd.concat([model_gamma,model_delta],axis=1).sort_index()
+        parameters = pd.concat([model_parameters,self.calculated_parameters],axis=0).sort_index()
+        parameters = parameters[parameters.index.isin(list(cSite.keys()))]
+        parameters['SITE']=parameters.index
+        gamma_values = [str(x) for x in parameters[selected_gamma].values.round(3).tolist()]
+        delta_values = [str(x) for x in parameters[selected_delta].values.round(3).tolist()]
+        zipped = zip(['g='+x for x in gamma_values],[' d='+y for y in delta_values])
+        parameter_labels = [str(m)+str(n) for m,n in zipped]
+        parameters.loc[:,'parameter_labels'] = parameter_labels
+
         self.plotCanvas.axes1.get_figure().set_tight_layout(True)
         self.plotCanvas.axes1.set_xlim(-4*sd_raw, 4*sd_raw)
         sns.set(style='white')
@@ -249,7 +268,6 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         nobs1 = data['SITE'].value_counts().sort_index(ascending=True).values
         nobs1 = [str(x) for x in nobs1.tolist()]
         nobs1 = [i for i in nobs1]
-        #labels = [x + ' (N=' for x in self.datamodel.harmonization_model['SITE_labels']]
         labels = [''.join(i) for i in zip(labels, nobs1)]
         labels = [x + ')' for x in labels]
         self.plotCanvas.axes1.axvline(ci_plus_raw,color='grey',ls='--')
@@ -258,27 +276,48 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         self.plotCanvas.axes1.xaxis.set_ticks_position('bottom')
         a.tick_params(axis='both', which='major', length=4)
         a.set_xlabel('Residuals before harmonization')
-        
+
         self.plotCanvas.axes2.get_figure().set_tight_layout(True)
-        self.plotCanvas.axes2.set_xlim(-4*sd_raw, 4*sd_raw)
+        upper_limit = max(parameters[selected_gamma]+parameters[selected_delta])
+        lower_limit = min(parameters[selected_gamma]-parameters[selected_delta])
+        limit = max(abs(upper_limit),abs(lower_limit))
+        self.plotCanvas.axes2.set_xlim(-limit,limit)
         sns.set(style='white')
-        b = sns.boxplot(x=h_res, y="SITE", data=data, palette=cSite,linewidth=0.25,showfliers = False,ax=self.plotCanvas.axes2,**PROPS)
+        self.plotCanvas.axes2.errorbar(x=parameters[selected_gamma],y=parameters['SITE'],xerr=parameters[selected_delta],ecolor='black',elinewidth=0.25,capsize=1,zorder=-1,fmt='none')
+        b = sns.scatterplot(x=selected_gamma,y='SITE',data=parameters.reset_index(),hue='SITE',palette=cSite,marker='s',zorder=1,ax=self.plotCanvas.axes2,legend=False)
+        for count,site in enumerate(parameters['SITE']):
+            self.plotCanvas.axes2.get_yticks()
+            b.text(-1,self.plotCanvas.axes2.get_yticks()[count]-0.2,parameters.loc[site]['parameter_labels'],fontsize=10)
+        b.set_title('Shift, Scale')
+        b.set_xlabel('')
+        b.set_ylabel('')
+        self.plotCanvas.axes2.set_ylim( self.plotCanvas.axes1.get_ylim() )
+        b.set(yticklabels=[])
+        self.plotCanvas.axes2.xaxis.set_ticks_position('bottom')
+        b.tick_params(axis='both',left=False,right=False, length=4)
+        self.plotCanvas.axes2.axvline(0,color='black',linewidth=0.25)
+        sns.despine(ax=self.plotCanvas.axes2, left=True)
+        
+        self.plotCanvas.axes3.get_figure().set_tight_layout(True)
+        self.plotCanvas.axes3.set_xlim(-4*sd_raw, 4*sd_raw)
+        sns.set(style='white')
+        c = sns.boxplot(x=h_res, y="SITE", data=data, palette=cSite,linewidth=0.25,showfliers = False,ax=self.plotCanvas.axes3,**PROPS)
         nobs2 = data['SITE'].value_counts().sort_index(ascending=True).values
         nobs2 = [str(x) for x in nobs2.tolist()]
         nobs2 = [i for i in nobs2]
         if nobs1 != nobs2:
             print('not equal sample sizes')
         a.set_yticklabels(labels)
-        self.plotCanvas.axes2.axvline(ci_plus_h,color='grey',ls='--')
-        self.plotCanvas.axes2.axvline(ci_minus_h,color='grey',ls='--')
-        self.plotCanvas.axes2.yaxis.set_ticks_position('left')
-        self.plotCanvas.axes2.xaxis.set_ticks_position('bottom')
-        b.set(yticklabels=[])
-        b.tick_params(axis='both', which='major', length=4)
-        b.set_xlabel('Residuals after harmonization')
-        b.set_ylabel('')
-        sns.despine(fig=self.plotCanvas.axes1.get_figure(), trim=True)
-        sns.despine(fig=self.plotCanvas.axes2.get_figure(), trim=True)
+        self.plotCanvas.axes3.axvline(ci_plus_h,color='grey',ls='--')
+        self.plotCanvas.axes3.axvline(ci_minus_h,color='grey',ls='--')
+        self.plotCanvas.axes3.yaxis.set_ticks_position('left')
+        self.plotCanvas.axes3.xaxis.set_ticks_position('bottom')
+        c.tick_params(axis='both', which='major', length=4)
+        c.set_xlabel('Residuals after harmonization')
+        c.set_ylabel('')
+        c.set(yticklabels=[])
+        sns.despine(ax=self.plotCanvas.axes1, trim=True)
+        sns.despine(ax=self.plotCanvas.axes3, trim=True)
 
         self.plotCanvas.draw()
 
@@ -299,6 +338,7 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         self.ui.stackedWidget.setCurrentIndex(0)
         self.plotCanvas.axes1.clear()
         self.plotCanvas.axes2.clear()
+        self.plotCanvas.axes3.clear()
         self.MUSE=None
         if ('RES_MUSE_Volume_47' in self.datamodel.GetColumnHeaderNames() and
             'RAW_RES_MUSE_Volume_47' in self.datamodel.GetColumnHeaderNames()):
@@ -325,6 +365,11 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
 
         var_pooled = self.datamodel.harmonization_model['var_pooled']
 
+        # for parameter table
+        gamma_ROIs = ['gamma_'+ x for x in self.datamodel.harmonization_model['ROIs']]
+        delta_ROIs = ['delta_'+ x for x in self.datamodel.harmonization_model['ROIs']]
+        calculated_gamma = pd.DataFrame([])
+        calculated_delta = pd.DataFrame([])
         if 'UseForComBatGAMHarmonization' in self.datamodel.data.columns:
             for site in new_sites:
                 missing = np.array(self.datamodel.data['SITE']==site,dtype=bool)
@@ -332,6 +377,10 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
                 new_site_is_train = np.logical_and(missing, training)
 
                 if np.count_nonzero(new_site_is_train)<25:
+                    site_gamma = pd.DataFrame(np.nan,columns=gamma_ROIs,index=[site])
+                    calculated_gamma = calculated_gamma.append(site_gamma)
+                    site_delta = pd.DataFrame(np.nan,columns=delta_ROIs,index=[site])
+                    calculated_delta = calculated_delta.append(site_delta)
                     print('New site `'+site+'` has less than 25 reference data points. Skipping harmonization.')
                     continue
 
@@ -341,9 +390,22 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
                 delta_hat_site = pow(np.std(((Raw_ROIs_Residuals[new_site_is_train,:])/np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[new_site_is_train,:].shape[0]))).T),0),2)
                 delta_hat_site = delta_hat_site[:,np.newaxis]
 
+                site_gamma = pd.DataFrame(gamma_hat_site.T,columns=gamma_ROIs,index=[site])
+                calculated_gamma = calculated_gamma.append(site_gamma)
+                site_delta = pd.DataFrame(delta_hat_site.T,columns=delta_ROIs,index=[site])
+                calculated_delta = calculated_delta.append(site_delta)
+
                 bayes_data[missing,:] = ((Raw_ROIs_Residuals[missing,:]/np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[missing,:].shape[0]))).T) - np.dot(gamma_hat_site,np.ones((1,Raw_ROIs_Residuals[missing,:].shape[0]))).T)*np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[missing,:].shape[0]))).T/np.dot(np.sqrt(delta_hat_site),np.ones((1,Raw_ROIs_Residuals[missing,:].shape[0]))).T + stand_mean[missing,:]
         else:
             print('Skipping out-of-sample harmonization because `UseForComBatGAMHarmonization` does not exist.')
+            for site in new_sites:
+                site_gamma = pd.DataFrame(np.nan,columns=gamma_ROIs,index=[site])
+                calculated_gamma = calculated_gamma.append(site_gamma)
+                site_delta = pd.DataFrame(np.nan,columns=delta_ROIs,index=[site])
+                calculated_delta = calculated_delta.append(site_delta)
+
+        # populate calculated parameter table
+        self.calculated_parameters = pd.concat([calculated_gamma,calculated_delta],axis=1).sort_index()
 
         if 'isTrainMUSEHarmonization' in self.datamodel.data.columns:
             muse = pd.concat([self.datamodel.data['isTrainMUSEHarmonization'].copy(), covars, pd.DataFrame(bayes_data, columns=['H_' + s for s in self.datamodel.harmonization_model['ROIs']])],axis=1)
