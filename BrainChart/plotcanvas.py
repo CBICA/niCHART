@@ -107,6 +107,17 @@ class PlotCanvas(FigureCanvas):
             spare_data.loc[:, 'SPARE_BA'] = spare_data['SPARE_BA'] - spare_data['Age'] 
             sns.scatterplot(x='SPARE_AD', y='SPARE_BA', hue=currentHue,ax=self.axes,
                             s=5, data=spare_data)
+            self.axes.axvline(x=0.0, alpha=0.5, ls='--', color='k')
+            self.axes.axhline(y=0.0, alpha=0.5, ls='--', color='k')
+            self.axes.text(x=-2, y=0, s='Brain age == chronological age',
+                     va='center', ha='center', backgroundcolor='white')
+            self.axes.text(x=-2, y=+20., s='Advanced brain brain age',
+                        va='center', ha='center', backgroundcolor='white')
+            self.axes.text(x=-2, y=-20., s='Resilient brain age',
+                        va='center', ha='center', backgroundcolor='white')
+            self.axes.arrow(-4, +12.5, 0., +1.7, head_width=.1, head_length=1.3, edgecolor=None, facecolor='k')
+            self.axes.arrow(-4, -12.5, 0., -1.7, head_width=.1, head_length=1.3, edgecolor=None, facecolor='k')
+            self.axes.set(xlim=[-5, 5], ylim=[-30,40])
         else:
             # Set error text on plot
             self.axes.text(0.5,0.5,'No SPARE-* scores available.',
