@@ -9,6 +9,52 @@ import pandas as pd
 from QtBrainChartGUI.core.plotcanvas import PlotCanvas
 from QtBrainChartGUI.core.baseplugin import BasePlugin
 
+
+class ExtendedComboBox(QtWidgets.QComboBox):
+    def __init__(self, parent=None):
+        super(ExtendedComboBox, self).__init__(parent)
+
+        self.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.setEditable(True)
+
+        # add a filter model to filter matching items
+        self.pFilterModel = QtCore.QSortFilterProxyModel(self)
+        self.pFilterModel.setFilterCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.pFilterModel.setSourceModel(self.model())
+
+        # add a completer, which uses the filter model
+        self.completer = QtWidgets.QCompleter(self.pFilterModel, self)
+        # always show all (filtered) completions
+        self.completer.setCompletionMode(QtWidgets.QCompleter.UnfilteredPopupCompletion)
+        self.setCompleter(self.completer)
+
+        # connect signals
+        self.lineEdit().textEdited.connect(self.pFilterModel.setFilterFixedString)
+        self.completer.activated.connect(self.on_completer_activated)
+
+
+    # on selection of an item from the completer, select the corresponding item from combobox 
+    def on_completer_activated(self, text):
+        if text:
+            index = self.findText(text)
+            self.setCurrentIndex(index)
+            self.activated[str].emit(self.itemText(index))
+
+
+    # on model change, update the models of the filter and completer as well 
+    def setModel(self, model):
+        super(ExtendedComboBox, self).setModel(model)
+        self.pFilterModel.setSourceModel(model)
+        self.completer.setModel(self.pFilterModel)
+
+
+    # on model column change, update the model column of the filter and completer as well
+    def setModelColumn(self, column):
+        self.completer.setCompletionColumn(column)
+        self.pFilterModel.setFilterKeyColumn(column)
+        super(ExtendedComboBox, self).setModelColumn(column)   
+
+
 class computeSPAREs(QtWidgets.QWidget,BasePlugin):
 
     #constructor
@@ -18,6 +64,8 @@ class computeSPAREs(QtWidgets.QWidget,BasePlugin):
         root = os.path.dirname(__file__)
         self.readAdditionalInformation(root)
         self.ui = uic.loadUi(os.path.join(root, 'computeSPAREs.ui'),self)
+        self.ui.comboBoxHue = ExtendedComboBox(self.ui)
+        self.ui.horizontalLayout_3.addWidget(self.comboBoxHue)
         self.plotCanvas = PlotCanvas(self.ui.page_2)
         self.ui.verticalLayout.addWidget(self.plotCanvas)
         self.plotCanvas.axes = self.plotCanvas.fig.add_subplot(111)
@@ -41,6 +89,7 @@ class computeSPAREs(QtWidgets.QWidget,BasePlugin):
         self.ui.compute_SPARE_scores_Btn.clicked.connect(lambda check: self.OnComputeSPAREs(check))
         self.ui.show_SPARE_scores_from_data_Btn.clicked.connect(lambda: self.OnShowSPAREs())
         self.datamodel.data_changed.connect(lambda: self.OnDataChanged())
+        self.ui.comboBoxHue.currentIndexChanged.connect(self.plotSPAREs)
 
         self.ui.add_to_dataframe_Btn.setStyleSheet("background-color: green; color: white")
         # Set `Show SPARE-* from data` button to visible when SPARE-* columns
@@ -107,8 +156,10 @@ class computeSPAREs(QtWidgets.QWidget,BasePlugin):
         if self.SPAREs.empty:
             return
         self.ui.compute_SPARE_scores_Btn.setChecked(False)
-        self.plotSPAREs()
         self.ui.stackedWidget.setCurrentIndex(1)
+        self.ui.comboBoxHue.setVisible(False)
+        self.plotSPAREs(False)
+
         # Activate buttons
         self.ui.compute_SPARE_scores_Btn.setEnabled(False)
         if ('SPARE_BA' in self.datamodel.GetColumnHeaderNames() and
@@ -153,14 +204,38 @@ class computeSPAREs(QtWidgets.QWidget,BasePlugin):
             self.thread.start()
 
 
-    def plotSPAREs(self):
+    def PopulateHue(self):
+        #add the list items to comboBoxHue
+        datakeys = self.datamodel.GetColumnHeaderNames()
+        datatypes = self.datamodel.GetColumnDataTypes()
+        categoryList = ['Sex','Study','A','T','N','PIB_Status'] + [k for k,d in zip(datakeys, datatypes) if d.name=='category']
+        categoryList = list(set(categoryList).intersection(set(datakeys)))
+        self.ui.comboBoxHue.clear()
+        self.ui.comboBoxHue.addItems(categoryList)
+
+
+    def plotSPAREs(self, useExistingSPAREs=True):
         # Plot data
-        sns.scatterplot(x='SPARE_AD', y='SPARE_BA', data=self.SPAREs,
+        if self.ui.stackedWidget.currentIndex() == 0:
+            return
+        self.plotCanvas.axes.clear()
+        plotOptions = {'HUE': self.ui.comboBoxHue.currentText()}
+
+        if useExistingSPAREs:
+            sns.scatterplot(x='SPARE_AD', y='SPARE_BA', data=self.SPAREs,
+                        ax=self.plotCanvas.axes, linewidth=0, hue=plotOptions['HUE'],
+                        facecolor=(0.5, 0.5, 0.5, 0.5), size=1) 
+        else:
+            sns.scatterplot(x='SPARE_AD', y='SPARE_BA', data=self.SPAREs,
                         ax=self.plotCanvas.axes, linewidth=0,
                         facecolor=(0.5, 0.5, 0.5, 0.5), size=1, legend=None)
+            
+
+
         sns.despine(ax=self.plotCanvas.axes, trim=True)
         self.plotCanvas.axes.set(ylabel='SPARE-BA', xlabel='SPARE-AD')
         self.plotCanvas.axes.get_figure().set_tight_layout(True)
+        self.plotCanvas.draw()
 
 
     def OnAddToDataFrame(self):
@@ -168,25 +243,30 @@ class computeSPAREs(QtWidgets.QWidget,BasePlugin):
         self.datamodel.data.loc[:,'SPARE_AD'] = self.SPAREs['SPARE_AD']
         self.datamodel.data.loc[:,'SPARE_BA'] = self.SPAREs['SPARE_BA']
         self.datamodel.data_changed.emit()
+        self.OnShowSPAREs()
 
 
     def OnShowSPAREs(self):
-        self.SPAREs = pd.DataFrame.from_dict({
-            'SPARE_BA': self.datamodel.data['SPARE_BA'].values,
-            'SPARE_AD': self.datamodel.data['SPARE_AD'].values})
-        self.plotSPAREs()
+        allHues = [self.ui.comboBoxHue.itemText(i) for i in range(self.ui.comboBoxHue.count())]
+
+        self.SPAREs = self.datamodel.data[['SPARE_BA', 'SPARE_AD'] + allHues]
         self.ui.stackedWidget.setCurrentIndex(1)
+        self.ui.comboBoxHue.setVisible(True)
+        self.plotSPAREs()
 
 
     def OnDataChanged(self):
         # Set `Show SPARE-* from data` button to visible when SPARE-* columns
         # are present in data frame
+        self.ui.stackedWidget.setCurrentIndex(0)
         if ('SPARE_BA' in self.datamodel.GetColumnHeaderNames() and
             'SPARE_AD' in self.datamodel.GetColumnHeaderNames()):
             self.ui.show_SPARE_scores_from_data_Btn.setEnabled(True)
             self.ui.show_SPARE_scores_from_data_Btn.setStyleSheet("background-color: rgb(230,230,255)")
         else:
             self.ui.show_SPARE_scores_from_data_Btn.setEnabled(False)
+        
+        self.PopulateHue()
 
 
 class BrainAgeWorker(QtCore.QObject):
