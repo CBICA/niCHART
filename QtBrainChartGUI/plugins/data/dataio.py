@@ -8,6 +8,9 @@ Use of this source code is governed by license located in license file: https://
 import pandas as pd
 import joblib
 import os, sys
+from QtBrainChartGUI.core import iStagingLogger
+
+logger = iStagingLogger.get_logger(__name__)
 
 class DataIO:
     def __init__(self):
@@ -24,14 +27,16 @@ class DataIO:
 
     def ReadMUSEDictionary(self):
         # Load MUSE dictionary file
-        MUSEDict = os.path.join(os.path.dirname(__file__), 'MUSE_ROI_Dictionary.csv')
-        MUSEDict = pd.read_csv(MUSEDict)
+        MUSEDictfile = os.path.join(os.path.dirname(__file__), 'MUSE_ROI_Dictionary.csv')
+        MUSEDict = pd.read_csv(MUSEDictfile)
 
         # Create lookup from name to ID and vice-versa
         # e.g. name to ID: Hippocampus right -> MUSE_Volume_48
         MUSEDictNAMEtoID = dict(zip(MUSEDict['ROI_NAME'], MUSEDict['ROI_COL']))
         # e.g. ID to name; MUSE_Volume_48 -> Hippocampus right
         MUSEDictIDtoNAME = dict(zip(MUSEDict['ROI_COL'], MUSEDict['ROI_NAME']))
+
+        logger.info('MUSE dictionary read from file: %s', MUSEDictfile)
 
         return MUSEDictNAMEtoID, MUSEDictIDtoNAME
 

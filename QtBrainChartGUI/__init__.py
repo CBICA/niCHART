@@ -10,9 +10,7 @@ import argparse
 import os, sys
 from QtBrainChartGUI.mainwindow import MainWindow
 
-
 def main():
-    print("inside main")
     parser = argparse.ArgumentParser(description='iSTAGING Data Visualization and Preparation')
     parser.add_argument('--data_file', type=str, help='Data file containing data frame.', default=None, required=False)
     parser.add_argument('--harmonization_model_file', type=str, help='Harmonization model file.', default=None, required=False)
@@ -29,6 +27,7 @@ def main():
                     harmonizationModelFile=harmonization_model_file,
                     SPAREModelFile=SPARE_model_file)
     mw.show()
+
     sys.exit(app.exec_())
 
 if __name__ == '__main__':

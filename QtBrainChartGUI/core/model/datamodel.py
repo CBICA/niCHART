@@ -14,6 +14,9 @@ import sys
 import joblib
 from PyQt5.QtCore import QObject, pyqtSignal
 from PyQt5 import QtCore
+from QtBrainChartGUI.core import iStagingLogger
+
+logger = iStagingLogger.get_logger(__name__)
 
 class DataModel(QObject):
     """This class holds the data model."""
@@ -68,6 +71,7 @@ class DataModel(QObject):
     def SetData(self,d):
         """Setter for data"""
         self.data = d
+        logger.info('Data changed in datamodel')
         self.data_changed.emit()
 
 
