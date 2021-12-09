@@ -16,10 +16,17 @@ from QtBrainChartGUI.resources import resources
 from PyQt5.QtWidgets import QAction
 import pandas as pd
 from QtBrainChartGUI.core.baseplugin import BasePlugin
+from QtBrainChartGUI.core import iStagingLogger
+
+logger = iStagingLogger.get_logger(__name__)
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, dataFile=None, harmonizationModelFile=None, SPAREModelFile=None):
         super(MainWindow,self).__init__()
+
+        #log
+        logger.info('New NiBAx session starting...')
+
         self.SetupUi()
         self.SetupConnections()
 
@@ -43,7 +50,8 @@ class MainWindow(QtWidgets.QMainWindow):
             po.datamodel = self.datamodel
             po.SetupConnections()
             self.Plugins[plugin.name] = po
-            print("plugins: ", plugin.name)
+
+        logger.info("Loaded Plugins: %s", self.Plugins.keys())
 
         #organize plugins in order:Data -> Characteristics -> Age Trends -> Harmonization -> SPARE-*
         for num in range(len(self.Plugins)):
@@ -70,6 +78,9 @@ class MainWindow(QtWidgets.QMainWindow):
         # Include Mac menu bar
         self.ui.actionHelp.setMenuRole(QAction.NoRole)
         self.ui.actionAbout.setMenuRole(QAction.NoRole)
+
+    def __del__(self):
+        logger.info('NiBAx session ending...')
 
     def SetupConnections(self):
         self.actionAbout.triggered.connect(self.OnAboutClicked)

@@ -5,6 +5,9 @@ import pandas as pd
 from QtBrainChartGUI.plugins.data.dataio import DataIO
 import dtale
 from QtBrainChartGUI.core.baseplugin import BasePlugin
+from QtBrainChartGUI.core import iStagingLogger
+
+logger = iStagingLogger.get_logger(__name__)
 
 class PandasModel(QtCore.QAbstractTableModel):
     def __init__(self, data, parent=None):
@@ -89,16 +92,15 @@ class Data(QtWidgets.QWidget,BasePlugin):
         model = PandasModel(self.datamodel.data.head(20))
         self.dataView.setModel(model)
 
-
-
     def OnDataChanged(self):
         self.PopulateTable()
-
 
     def ReadData(self,filename):
         #read input data
         dio = DataIO()
         d = dio.ReadPickleFile(filename)
+
+        logger.info('New data read from file: %s', filename)
 
         #also read MUSE dictionary
         MUSEDictNAMEtoID, MUSEDictIDtoNAME = dio.ReadMUSEDictionary()
