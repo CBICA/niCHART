@@ -4,6 +4,7 @@ import sys, os
 import neuroHarmonize as nh
 import seaborn as sns
 import matplotlib.pyplot as plt
+import matplotlib.patches as pat
 import numpy as np
 import pandas as pd
 from QtBrainChartGUI.core.plotcanvas import PlotCanvas
@@ -86,14 +87,14 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         self.ui.apply_model_to_dataset_Btn.clicked.connect(lambda: self.OnApplyModelToDatasetBtnClicked())
         self.ui.add_to_dataframe_Btn.clicked.connect(lambda: self.OnAddToDataFrame())
         self.ui.comboBoxROI.currentIndexChanged.connect(self.UpdatePlot)
-        self.ui.add_to_dataframe_Btn.setStyleSheet("background-color: green; color: white")
+        self.ui.add_to_dataframe_Btn.setStyleSheet("background-color: rgb(230,255,230); color: black")
         self.datamodel.data_changed.connect(lambda: self.OnDataChanged())
         self.ui.apply_model_to_dataset_Btn.setEnabled(False)
 
         if ('RES_MUSE_Volume_47' in self.datamodel.GetColumnHeaderNames() and
             'RAW_RES_MUSE_Volume_47' in self.datamodel.GetColumnHeaderNames()):
             self.ui.show_data_Btn.setEnabled(True)
-            self.ui.show_data_Btn.setStyleSheet("background-color: lightBlue; color: white")
+            self.ui.show_data_Btn.setStyleSheet("background-color: rgb(230,230,255); color: black")
         else:
             self.ui.show_data_Btn.setEnabled(False)
 
@@ -139,7 +140,7 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
                 model_text1 += '\n'+model_text4
                 self.ui.Harmonized_Data_Information_Lbl.setText(model_text1)
                 self.ui.apply_model_to_dataset_Btn.setEnabled(True)
-                self.ui.apply_model_to_dataset_Btn.setStyleSheet("background-color: lightGreen; color: white")
+                self.ui.apply_model_to_dataset_Btn.setStyleSheet("background-color: rgb(230,255,230); color: black")
         self.ui.stackedWidget.setCurrentIndex(0) 
 
     def PopulateROI(self):
@@ -255,11 +256,13 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         parameters = pd.concat([model_parameters,self.calculated_parameters],axis=0).sort_index()
         parameters = parameters[parameters.index.isin(list(cSite.keys()))]
         parameters['SITE']=parameters.index
-        gamma_values = [str(x) for x in parameters[selected_gamma].values.round(3).tolist()]
-        delta_values = [str(x) for x in parameters[selected_delta].values.round(3).tolist()]
-        zipped = zip(['g='+x for x in gamma_values],[' d='+y for y in delta_values])
-        parameter_labels = [str(m)+str(n) for m,n in zipped]
-        parameters.loc[:,'parameter_labels'] = parameter_labels
+        gamma_values = [x for x in parameters[selected_gamma].values.round(3).tolist()]
+        gamma_values = [str("{:.3f}".format(x)) for x in gamma_values]
+        delta_values = [x for x in parameters[selected_delta].values.round(3).tolist()]
+        delta_values = [str("{:.3f}".format(x)) for x in delta_values]
+        parameters.loc[:,'gamma_values'] = gamma_values
+        parameters.loc[:,'delta_values'] = delta_values
+
 
         self.plotCanvas.axes1.get_figure().set_tight_layout(True)
         self.plotCanvas.axes1.set_xlim(-4*sd_raw, 4*sd_raw)
@@ -282,16 +285,24 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         lower_limit = min(parameters[selected_gamma]-parameters[selected_delta])
         limit = max(abs(upper_limit),abs(lower_limit))
         self.plotCanvas.axes2.set_xlim(-limit,limit)
+        self.plotCanvas.axes2.set_ylim(self.plotCanvas.axes1.get_ylim())
         sns.set(style='white')
-        self.plotCanvas.axes2.errorbar(x=parameters[selected_gamma],y=parameters['SITE'],xerr=parameters[selected_delta],ecolor='black',elinewidth=0.25,capsize=1,zorder=-1,fmt='none')
-        b = sns.scatterplot(x=selected_gamma,y='SITE',data=parameters.reset_index(),hue='SITE',palette=cSite,marker='s',zorder=1,ax=self.plotCanvas.axes2,legend=False)
+        self.plotCanvas.axes2.errorbar(x=parameters[selected_gamma],y=parameters['SITE'],xerr=parameters[selected_delta],ecolor='black',elinewidth=0.25,capsize=0.25,zorder=-1,fmt='none')
+        kws = {"s": 4, "facecolor": "black", "linewidth": 0.5}
+        color = parameters[parameters[selected_gamma].notna()]['SITE'].map(cSite)
+        b = sns.scatterplot(x=selected_gamma,y='SITE',data=parameters.reset_index(),marker='s',edgecolor=color,zorder=1,**kws,ax=self.plotCanvas.axes2,legend=False)
+        b.text(-0.05,self.plotCanvas.axes2.get_yticks()[0]-1.3,'Location (\u03B3*)',ha='right',fontsize='small')
+        b.text(0,self.plotCanvas.axes2.get_yticks()[0]-1.3,'|',ha='center',fontsize='small')
+        b.text(0.05,self.plotCanvas.axes2.get_yticks()[0]-1.3,'Scale (\u03B4*)',ha='left',fontsize='small')
         for count,site in enumerate(parameters['SITE']):
             self.plotCanvas.axes2.get_yticks()
-            b.text(-1,self.plotCanvas.axes2.get_yticks()[count]-0.2,parameters.loc[site]['parameter_labels'],fontsize=10)
-        b.set_title('Shift, Scale')
+            if 'nan' in parameters.loc[site]['gamma_values']:
+                b.text(-0.05,self.plotCanvas.axes2.get_yticks()[count]-0.2,' nan',fontsize='x-small',ha='right')
+            else:
+                b.text(-0.05,self.plotCanvas.axes2.get_yticks()[count]-0.2,parameters.loc[site]['gamma_values'],fontsize='x-small',ha='right')
+                b.text(0.05,self.plotCanvas.axes2.get_yticks()[count]-0.2,parameters.loc[site]['delta_values'],fontsize='x-small',ha='left')
         b.set_xlabel('')
         b.set_ylabel('')
-        self.plotCanvas.axes2.set_ylim( self.plotCanvas.axes1.get_ylim() )
         b.set(yticklabels=[])
         self.plotCanvas.axes2.xaxis.set_ticks_position('bottom')
         b.tick_params(axis='both',left=False,right=False, length=4)
@@ -300,6 +311,7 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         
         self.plotCanvas.axes3.get_figure().set_tight_layout(True)
         self.plotCanvas.axes3.set_xlim(-4*sd_raw, 4*sd_raw)
+        self.plotCanvas.axes3.set_ylim( self.plotCanvas.axes1.get_ylim() )
         sns.set(style='white')
         c = sns.boxplot(x=h_res, y="SITE", data=data, palette=cSite,linewidth=0.25,showfliers = False,ax=self.plotCanvas.axes3,**PROPS)
         nobs2 = data['SITE'].value_counts().sort_index(ascending=True).values
