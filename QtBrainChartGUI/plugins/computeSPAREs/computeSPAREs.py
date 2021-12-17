@@ -177,13 +177,16 @@ class computeSPAREs(QtWidgets.QWidget,BasePlugin):
         plotOptions = {'HUE': self.ui.comboBoxHue.currentText()}
 
         if useExistingSPAREs:
+            print(self.SPAREs[plotOptions['HUE']].value_counts())
+            kws = {"s": 20}
             sns.scatterplot(x='SPARE_AD', y='SPARE_BA', data=self.SPAREs,
                         ax=self.plotCanvas.axes, linewidth=0, hue=plotOptions['HUE'],
-                        facecolor=(0.5, 0.5, 0.5, 0.5), size=1) 
+                        facecolor=(0.5, 0.5, 0.5, 0.5), **kws) 
         else:
+            kws = {"s": 20}
             sns.scatterplot(x='SPARE_AD', y='SPARE_BA', data=self.SPAREs,
                         ax=self.plotCanvas.axes, linewidth=0,
-                        facecolor=(0.5, 0.5, 0.5, 0.5), size=1, legend=None)
+                        facecolor=(0.5, 0.5, 0.5, 0.5), legend=None)
             
 
 

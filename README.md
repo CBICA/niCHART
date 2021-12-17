@@ -9,6 +9,10 @@ QtBrainChart
 where `istaging.pkl.gz` and `MUSE_harmonization_model.pkl` are the data and
 harmonization models, respectively.
 
+#
+![](QtBrainChartGUI/resources/workflow.gif)
+
+
 ## Setup for development
 Install Python version 3.8.8 or newer. Verify with
 
