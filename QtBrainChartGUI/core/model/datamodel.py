@@ -7,7 +7,6 @@ Use of this source code is governed by license located in license file: https://
 
 import pandas as pd
 import numpy as np
-from BrainChart.dataio import DataIO
 import neuroHarmonize as nh
 import importlib.resources as pkg_resources
 import sys
@@ -21,7 +20,7 @@ logger = iStagingLogger.get_logger(__name__)
 class DataModel(QObject):
     """This class holds the data model."""
 
-    data_changed = QtCore.Signal()
+    data_changed = QtCore.pyqtSignal()
 
     def __init__(self):
         QObject.__init__(self)
