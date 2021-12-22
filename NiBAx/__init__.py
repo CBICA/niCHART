@@ -8,7 +8,7 @@ Use of this source code is governed by license located in license file: https://
 from PyQt5 import QtCore, QtGui, QtWidgets
 import argparse
 import os, sys
-from QtBrainChartGUI.mainwindow import MainWindow
+from NiBAx.mainwindow import MainWindow
 
 def main():
     parser = argparse.ArgumentParser(description='iSTAGING Data Visualization and Preparation')

@@ -10,13 +10,13 @@ from yapsy.PluginManager import PluginManager
 from yapsy.IPlugin import IPlugin
 import os, sys
 #from BrainChart.dataio import DataIO
-from QtBrainChartGUI.core.model.datamodel import DataModel
+from NiBAx.core.model.datamodel import DataModel
 from .aboutdialog import AboutDialog
-from QtBrainChartGUI.resources import resources
+from NiBAx.resources import resources
 from PyQt5.QtWidgets import QAction
 import pandas as pd
-from QtBrainChartGUI.core.baseplugin import BasePlugin
-from QtBrainChartGUI.core import iStagingLogger
+from NiBAx.core.baseplugin import BasePlugin
+from NiBAx.core import iStagingLogger
 
 logger = iStagingLogger.get_logger(__name__)
 

@@ -8,7 +8,7 @@ Use of this source code is governed by license located in license file: https://
 import pandas as pd
 import joblib
 import os, sys
-from QtBrainChartGUI.core import iStagingLogger
+from NiBAx.core import iStagingLogger
 
 logger = iStagingLogger.get_logger(__name__)
 

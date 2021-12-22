@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as pat
 import numpy as np
 import pandas as pd
-from QtBrainChartGUI.core.plotcanvas import PlotCanvas
-from QtBrainChartGUI.core.baseplugin import BasePlugin
-from QtBrainChartGUI.core.gui.SearchableQComboBox import SearchableQComboBox
+from NiBAx.core.plotcanvas import PlotCanvas
+from NiBAx.core.baseplugin import BasePlugin
+from NiBAx.core.gui.SearchableQComboBox import SearchableQComboBox
 
 class Harmonization(QtWidgets.QWidget,BasePlugin):
 

@@ -24,6 +24,5 @@ if __name__ == "__main__":
                    long_description=readme,
                    long_description_content_type="text/markdown",
                    entry_points = {
-                        'console_scripts': ['BrainChart=BrainChart:main',
-                                            'QtBrainChart=QtBrainChartGUI:main']}
+                        'console_scripts': ['NiBAx=NiBAx:main']}
                   )

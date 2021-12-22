@@ -8,7 +8,7 @@ Author: Ashish Singh
 
 from PyQt5 import QtCore, QtWidgets, uic
 import os
-from QtBrainChartGUI.resources import resources
+from NiBAx.resources import resources
 
 class AboutDialog(QtWidgets.QDialog):
     def __init__(self,parent=None):

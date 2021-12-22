@@ -1,7 +1,7 @@
 from PyQt5.QtGui import *
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 import sys, os
-from QtBrainChartGUI.core.baseplugin import BasePlugin
+from NiBAx.core.baseplugin import BasePlugin
 
 class DataCharacteristics(QtWidgets.QWidget,BasePlugin):
     priority = 0
