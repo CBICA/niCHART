@@ -13,7 +13,7 @@ import sys
 import joblib
 from PyQt5.QtCore import QObject, pyqtSignal
 from PyQt5 import QtCore
-from QtBrainChartGUI.core import iStagingLogger
+from NiBAx.core import iStagingLogger
 
 logger = iStagingLogger.get_logger(__name__)
 

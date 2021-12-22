@@ -2,10 +2,10 @@ from PyQt5.QtGui import *
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 import sys, os
 import pandas as pd
-from QtBrainChartGUI.plugins.data.dataio import DataIO
+from NiBAx.plugins.data.dataio import DataIO
 import dtale
-from QtBrainChartGUI.core.baseplugin import BasePlugin
-from QtBrainChartGUI.core import iStagingLogger
+from NiBAx.core.baseplugin import BasePlugin
+from NiBAx.core import iStagingLogger
 
 logger = iStagingLogger.get_logger(__name__)
 
