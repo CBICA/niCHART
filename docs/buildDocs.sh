@@ -110,11 +110,11 @@ cat > index.html <<EOF
 <!DOCTYPE html>
 <html>
    <head>
-      <title>helloWorld Docs</title>
-      <meta http-equiv = "refresh" content="0; url='/${REPO_NAME}/en/master/'" />
+      <title>NiBAx Docs</title>
+      <meta http-equiv = "refresh" content="0; url='/${REPO_NAME}/en/main/'" />
    </head>
    <body>
-      <p>Please wait while you're redirected to our <a href="/${REPO_NAME}/en/master/">documentation</a>.</p>
+      <p>Please wait while you're redirected to our <a href="/${REPO_NAME}/en/main/">documentation</a>.</p>
    </body>
 </html>
 EOF
@@ -126,11 +126,11 @@ cat > README.md <<EOF
 Nothing to see here. The contents of this branch are essentially a cache that's not intended to be viewed on github.com.
  
  
-If you're looking to update our documentation, check the relevant development branch's 'docs/' dir.
+If you're looking to update our documentation, check the 'docs/' dir.
  
-For more information on how this documentation is built using Sphinx, Read the Docs, and GitHub Actions/Pages, see:
+If you are looking for documentation, please see:
  
- * https://tech.michaelaltfield.net/2020/07/18/sphinx-rtd-github-pages-1
+ * https://cbica.github.io/NiBAx/
 EOF
  
 # copy the resulting html pages built from sphinx above to our new git repo
