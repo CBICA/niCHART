@@ -6,5 +6,4 @@
 Installation
 ======================================
 
-contents go here
-
+**The documentation is under active development.**
