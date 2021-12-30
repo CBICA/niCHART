@@ -148,7 +148,7 @@ msg="Updating Docs for commit ${GITHUB_SHA} made on `date -d"@${SOURCE_DATE_EPOC
 git commit -am "${msg}"
  
 # convert LFS objects to binary files
-git lfs migrate export --yes --include "*.png,*.gif" --include-ref HEAD
+git lfs migrate export --yes --include "*.png,*.gif,*.svg" --include-ref HEAD
 
 # overwrite the contents of the gh-pages branch on our github.com repo
 git push deploy gh-pages --force
