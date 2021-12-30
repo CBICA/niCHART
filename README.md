@@ -1,6 +1,8 @@
 # [NiBAx] The neuro-imaging brain aging chart
 
-**This software is under development!**
+| :construction:  This software and documentation is under development! Check out up-to-date documentation in [cbica.github.io/NiBAx/](https://cbica.github.io/NiBAx/)  :construction: |
+|-----------------------------------------|
+
 
 ![](NiBAx/resources/workflow.gif)
 

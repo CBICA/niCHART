@@ -19,14 +19,14 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'NiBAx'
+project = 'NiBAχ'
 copyright = '2022, CBICA, University of Pennsylvania'
 author = 'Ashish Singh'
 
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags
-release = '1.0.0'
+release = '0.1'
 
 
 # -- General configuration ---------------------------------------------------
@@ -39,11 +39,18 @@ release = '1.0.0'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'myst_parser',
     'sphinx_rtd_theme',
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
+    'sphinx_tabs.tabs',
+    'rst2pdf.pdfbuilder',
+    'autoapi.extension',
+    'sphinx_gallery.gen_gallery',
 ]
+
+autoapi_dirs = ['../NiBAx']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -51,7 +58,8 @@ templates_path = ['_templates']
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
-source_suffix = ['.rst', '.md']
+source_suffix = {'.rst': 'restructuredtext',
+                 '.txt': 'markdown'}
 #source_suffix = '.rst'
 
 # The master toctree document.
@@ -85,12 +93,17 @@ html_theme = 'sphinx_rtd_theme'
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {
+    'logo_only': True,
+    'display_version': True,
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+html_logo = "contents/images/NiBAx.png"
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
@@ -155,7 +168,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'NiBAx', 'NiBAx Documentation',
-     author, 'NiBAx', 'One line description of project.',
+     author, 'Ahmed Abdulkadir', 'The neuro-imaging brain aging chart',
      'Miscellaneous'),
 ]
 

@@ -12,7 +12,7 @@ jobs:
  
     steps:
  
-    - name: Prereqs
+    - name: Preparation
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
@@ -21,7 +21,7 @@ jobs:
         git clone "https://token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" .
       shell: bash
  
-    - name: Execute script to build our documentation and update pages
+    - name: Build documentation and update Github Pages
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
