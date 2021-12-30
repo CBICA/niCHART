@@ -13,9 +13,16 @@ set -x
 ###################
  
 apt-get update
-apt-get -y install git rsync python3-sphinx python3-sphinx-rtd-theme python3-stemmer python3-git python3-pip python3-virtualenv python3-setuptools
- 
-python3 -m pip install --upgrade rinohtype pygments
+apt-get -y install git git-lfs rsync python3-stemmer python3-git python3-pip \
+                   python3-virtualenv python3-setuptools zlib1g zlib1g-dev libjpeg-dev \
+                   python3-pandas python3-matplotlib python3-seaborn
+
+python3 -m pip install --upgrade docutils==0.16
+python3 -m pip install --upgrade rinohtype Pygments myst_parser sphinx_tabs \
+                                 sphinx_rtd_theme sphinx rst2pdf sphinx-autoapi \
+                                 sphinx_gallery
+
+git lfs install
  
 #####################
 # DECLARE VARIABLES #
@@ -132,7 +139,7 @@ If you are looking for documentation, please see:
  
  * https://cbica.github.io/NiBAx/
 EOF
- 
+
 # copy the resulting html pages built from sphinx above to our new git repo
 git add .
  
@@ -140,6 +147,9 @@ git add .
 msg="Updating Docs for commit ${GITHUB_SHA} made on `date -d"@${SOURCE_DATE_EPOCH}" --iso-8601=seconds` from ${GITHUB_REF} by ${GITHUB_ACTOR}"
 git commit -am "${msg}"
  
+# convert LFS objects to binary files
+git lfs migrate export --yes --include "*.png,*.gif" --include-ref HEAD
+
 # overwrite the contents of the gh-pages branch on our github.com repo
 git push deploy gh-pages --force
  
