@@ -1,7 +1,11 @@
 Data Pre-Processing
 ===================
 
-**The documentation is under active development.**
+.. warning::
+   The documentation is under active development.
+   Statistical and machine learning models will be made available once fully
+   validated.
+
 
 ## MUSE/RAVENS Pipeline
 The MUSE/RAVENS pipeline performs the anatomical segmentation and parcellation.

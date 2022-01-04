@@ -4,6 +4,9 @@ Developer Guide
 
 .. warning::
    The documentation and GUI is under active development.
+   Statistical and machine learning models will be made available once fully
+   validated.
+
 
 ***************************
 Build documentation locally
