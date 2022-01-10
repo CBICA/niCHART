@@ -1,0 +1,13 @@
+[Core]
+Name = MUSE QC
+Module = MUSEQC
+
+[Documentation]
+Author = Ahmed Abdulkadir
+Version = 0.1
+Website = 
+Description = Pricnicple component analysis based quality control (outlier detection) for MUSE volumes.
+
+[Tab]
+#tab position starts from 0
+Position = 5
