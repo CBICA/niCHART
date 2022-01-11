@@ -4,6 +4,8 @@ import sklearn.decomposition
 from sklearn.decomposition import PCA
 from sys import argv
 from sklearn.preprocessing import StandardScaler
+from joblib import dump
+from joblib import load
 import muse_qc
 
 # test on v1.1/istaging.pkl.gz MUSE ROIs
@@ -24,11 +26,16 @@ ref_data_prepare_np = reference.to_numpy()
 #get MHD results, reference-based scaler and reference-based PCA model by providing test ROIs and reference ROIs 
 res, ref_scaler, ref_model = muse_qc.getMHD_from_RefROIs(roi_data_prepare_np, ref_data_prepare_np,3)
 
+#save reference-based scaler and reference-based model
+dump(ref_scaler, 'ref_based_scaler.joblib')
+dump(ref_model, 'ref_based_PCA_model.joblib')
+
+#load reference-based scaler and reference-based model
+ref_scaler = load('ref_based_scaler.joblib')
+ref_model = load('ref_based_PCA_model.joblib')
+
 #get MHD results by providing test ROIs, reference-based scaler and reference-based PCA model 
-scaler_test = StandardScaler()
-ROIsReference_test = scaler_test.fit_transform(ref_data_prepare_np) 
-pca = PCA(n_components = 3,svd_solver='randomized',random_state=100)
-pca_ref = pca.fit(ROIsReference_test)
-res2 = muse_qc.getMHD_from_RefModel(roi_data_prepare_np, scaler_test,pca_ref,3)
+res2 = muse_qc.getMHD_from_RefModel(roi_data_prepare_np, ref_scaler,ref_model,3)
+
 
 
