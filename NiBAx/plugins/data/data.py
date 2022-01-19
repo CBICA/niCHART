@@ -46,6 +46,10 @@ class Data(QtWidgets.QWidget,BasePlugin):
         self.dataView = QtWidgets.QTableView()
         self.ui.verticalLayout_2.addWidget(self.dataView)
 
+        # WORKAROUND: Deactivate explore button
+        self.ui.dtale_Btn.setVisible(False)
+
+
     def SetupConnections(self):
         self.ui.open_data_file_Btn.clicked.connect(lambda: self.OnOpenDataFileBtnClicked())
         self.datamodel.data_changed.connect(lambda: self.OnDataChanged())
