@@ -3,7 +3,7 @@ from PyQt5 import QtGui, QtCore, QtWidgets, uic
 import sys, os
 import pandas as pd
 from NiBAx.plugins.data.dataio import DataIO
-import dtale
+# import dtale
 from NiBAx.core.baseplugin import BasePlugin
 from NiBAx.core import iStagingLogger
 
