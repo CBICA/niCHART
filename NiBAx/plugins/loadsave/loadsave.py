@@ -2,7 +2,7 @@ from PyQt5.QtGui import *
 from PyQt5 import QtGui, QtCore, QtWidgets, uic
 import sys, os
 import pandas as pd
-from NiBAx.plugins.data.dataio import DataIO
+from NiBAx.plugins.loadsave.dataio import DataIO
 # import dtale
 from NiBAx.core.baseplugin import BasePlugin
 from NiBAx.core import iStagingLogger
@@ -35,14 +35,14 @@ class PandasModel(QtCore.QAbstractTableModel):
         return QtCore.QVariant()
 
 
-class Data(QtWidgets.QWidget,BasePlugin):
+class LoadSave(QtWidgets.QWidget,BasePlugin):
 
     def __init__(self):
-        super(Data,self).__init__()
+        super(LoadSave,self).__init__()
         self.datamodel = None
         root = os.path.dirname(__file__)
         self.readAdditionalInformation(root)
-        self.ui = uic.loadUi(os.path.join(root, 'data.ui'),self)
+        self.ui = uic.loadUi(os.path.join(root, 'loadsave.ui'),self)
         self.dataView = QtWidgets.QTableView()
         self.ui.verticalLayout_2.addWidget(self.dataView)
 
