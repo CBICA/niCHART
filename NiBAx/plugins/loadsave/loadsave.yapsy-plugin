@@ -1,12 +1,12 @@
 [Core]
-Name = Data
-Module = data
+Name = Load Save
+Module = loadsave
 
 [Documentation]
 Author = Ashish Singh
 Version = 0.1
 Website = 
-Description = data model
+Description = Load & Save data
 
 [Tab]
 #tab position starts from 0
