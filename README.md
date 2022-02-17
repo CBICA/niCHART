@@ -51,6 +51,7 @@ cloned from https://github.com/CBICA/NiBAx.git.
 python -m venv .env
 & .env/Scripts/Activate.ps1
 python -m pip install --upgrade pip
+poetry install
 ```
 
 ### Install the [NiBAx] software
