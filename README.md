@@ -60,7 +60,8 @@ desired version, use one of the following commands to install it.
 
 ```shell
 # Editable version for development after cloning https://github.com/CBICA/NiBAx.git 
-python -m pip install -U -e . 
+python -m pip install -U -e .
+poetry install
 
 # Version from pull request (#57 in this example) for testing proposed changes
 python -m pip install -U git+https://github.com/CBICA/NiBAx.git@refs/pull/57/head
