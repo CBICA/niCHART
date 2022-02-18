@@ -16,7 +16,10 @@ authors = [
 keywords = ["neuro-imaging", "MRI", "big data"]
 
 readme = "README.md"
-include = ["NiBAx/plugins/data/MUSE_ROI_Dictionary.csv"]
+packages = [
+    {include = "NiBAx"},
+    {include = "NiBAx/plugins/data/MUSE_ROI_Dictionary.csv"},
+]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.11"
