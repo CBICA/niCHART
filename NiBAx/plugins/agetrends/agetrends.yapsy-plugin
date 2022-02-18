@@ -1,6 +1,6 @@
 [Core]
 Name = Age Trends
-Module = ageTrends
+Module = agetrends
 
 [Documentation]
 Author = Ashish Singh
