@@ -1,5 +1,5 @@
 [Core]
-Name = Load Save
+Name = Load and Save Data
 Module = loadsave
 
 [Documentation]
