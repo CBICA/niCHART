@@ -36,9 +36,21 @@ class DataIO:
         # e.g. ID to name; MUSE_Volume_48 -> Hippocampus right
         MUSEDictIDtoNAME = dict(zip(MUSEDict['ROI_COL'], MUSEDict['ROI_NAME']))
 
+        MUSEDictDataFrame = MUSEDict
+
         logger.info('MUSE dictionary read from file: %s', MUSEDictfile)
 
-        return MUSEDictNAMEtoID, MUSEDictIDtoNAME
+        return MUSEDictNAMEtoID, MUSEDictIDtoNAME, MUSEDictDataFrame
+    
+    def ReadDerivedMUSEMap(self):
+        # Load MUSE dictionary file
+        DerivedMapfile = os.path.join(os.path.dirname(__file__), 'MUSE_DerivedROIs_Mappings.csv')
+        DerivedMUSEMap = pd.read_csv(DerivedMapfile,
+        header=None, engine='python').reset_index().rename(columns={'level_0':'ROI_INDEX','level_1':'ROI_NAME'}).set_index('ROI_INDEX').drop(columns=['ROI_NAME'])
+
+        logger.info('Derived MUSE dictionary read from file: %s', DerivedMapfile)
+
+        return DerivedMUSEMap
 
         
     def ReadSPAREModel(self, filename):

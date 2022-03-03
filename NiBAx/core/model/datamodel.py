@@ -36,10 +36,15 @@ class DataModel(QObject):
         self.ADModel = None
 
 
-    def SetMUSEDictionaries(self, MUSEDictNAMEtoID, MUSEDictIDtoNAME):
+    def SetMUSEDictionaries(self, MUSEDictNAMEtoID, MUSEDictIDtoNAME,MUSEDictDataFrame):
         """Setter for MUSE dictionary"""
         self.MUSEDictNAMEtoID = MUSEDictNAMEtoID
         self.MUSEDictIDtoNAME = MUSEDictIDtoNAME
+        self.MUSEDictDataFrame = MUSEDictDataFrame
+    
+    def SetDerivedMUSEMap(self,DerivedMUSEMap):
+        """Setter for Derived MUSE dictionary"""
+        self.DerivedMUSEMap = DerivedMUSEMap
 
 
     def SetDataFilePath(self,p):
@@ -65,6 +70,14 @@ class DataModel(QObject):
     def GetMUSEDictionaries(self):
         """Get the MUSE dictionaries to map from ID to name and vice-versa"""
         return self.MUSEDictNAMEtoID, self.MUSEDictIDtoNAME
+    
+    def GetDerivedMUSEMap(self):
+        """Get the derived MUSE dictionary to map from SINGLE to DERIVED ROIs"""
+        return self.DerivedMUSEMap
+    
+    def GetMUSEDictDataFrame(self):
+        """Get the MUSE dictionaries to map from ID to name and vice-versa"""
+        return self.MUSEDictDataFrame
 
         
     def SetData(self,d):

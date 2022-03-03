@@ -107,8 +107,12 @@ class LoadSave(QtWidgets.QWidget,BasePlugin):
         logger.info('New data read from file: %s', filename)
 
         #also read MUSE dictionary
-        MUSEDictNAMEtoID, MUSEDictIDtoNAME = dio.ReadMUSEDictionary()
-        self.datamodel.SetMUSEDictionaries(MUSEDictNAMEtoID, MUSEDictIDtoNAME)
+        MUSEDictNAMEtoID, MUSEDictIDtoNAME, MUSEDictDataFrame = dio.ReadMUSEDictionary()
+        self.datamodel.SetMUSEDictionaries(MUSEDictNAMEtoID, MUSEDictIDtoNAME,MUSEDictDataFrame)
+
+        #also read Derived MUSE dictionary 
+        DerivedMUSEMap = dio.ReadDerivedMUSEMap()
+        self.datamodel.SetDerivedMUSEMap(DerivedMUSEMap)
 
         #set data in model
         self.datamodel.SetDataFilePath(filename)
