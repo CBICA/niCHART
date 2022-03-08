@@ -357,7 +357,7 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
     def DoHarmonization(self):
         print('Running harmonization.')
 
-        covars = self.datamodel.data[['SITE','Age','Sex','DLICV_baseline']].copy()
+        covars = self.datamodel.data[['SITE','Age','Sex','DLICV_baseline']].reset_index(drop=True).copy()
         covars.loc[:,'Sex'] = covars['Sex'].map({'M':1,'F':0})
         covars.loc[covars.Age>100, 'Age']=100
         bayes_data, stand_mean = nh.harmonizationApply(self.datamodel.data[[x for x in self.datamodel.harmonization_model['ROIs']]].values,
@@ -414,9 +414,7 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         self.calculated_parameters = pd.concat([calculated_gamma,calculated_delta],axis=1).sort_index()
 
         if 'isTrainMUSEHarmonization' in self.datamodel.data.columns:
-            muse = pd.concat([self.datamodel.data['isTrainMUSEHarmonization'].copy(), covars, pd.DataFrame(bayes_data, columns=['H_' + s for s in self.datamodel.harmonization_model['ROIs']])],axis=1)
-        if 'UseForComBatGAMHarmonization' in self.datamodel.data.columns:
-            muse = pd.concat([self.datamodel.data['UseForComBatGAMHarmonization'].copy(), covars, pd.DataFrame(bayes_data, columns=['H_' + s for s in self.datamodel.harmonization_model['ROIs']])],axis=1)
+            muse = pd.concat([self.datamodel.data['isTrainMUSEHarmonization'].reset_index(drop=True).copy(), covars, pd.DataFrame(bayes_data, columns=['H_' + s for s in self.datamodel.harmonization_model['ROIs']])],axis=1)
         else:
             muse = pd.concat([covars,pd.DataFrame(bayes_data, columns=['H_' + s for s in self.datamodel.harmonization_model['ROIs']])],axis=1)
         
