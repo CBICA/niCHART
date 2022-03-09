@@ -271,6 +271,19 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         b.tick_params(axis='both',left=False,right=False, length=4)
         self.plotCanvas.axes2.axvline(0,color='black',linewidth=0.25)
         sns.despine(ax=self.plotCanvas.axes2, left=True)
+
+        # get title as ROI name relative to scale/shift label
+        _, MUSEDictIDtoNAME = self.datamodel.GetMUSEDictionaries()
+        title = currentROI
+        if title.startswith('MUSE_'):
+            title = '(MUSE) ' + list(map(MUSEDictIDtoNAME.get, [currentROI]))[0]
+
+        if title.startswith('WMLS_'):
+            title = '(WMLS) ' + list(map(MUSEDictIDtoNAME.get, [currentROI.replace('WMLS_', 'MUSE_')]))[0]
+
+        self.plotCanvas.axes2.get_figure().subplots_adjust(top=.8)
+        self.plotCanvas.axes2.get_figure().suptitle(title)
+        
         
         self.plotCanvas.axes3.get_figure().set_tight_layout(True)
         self.plotCanvas.axes3.set_xlim(-4*sd_raw, 4*sd_raw)
