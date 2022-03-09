@@ -5,6 +5,7 @@ Copyright (c) 2018 University of Pennsylvania. All rights reserved.
 Use of this source code is governed by license located in license file: https://github.com/CBICA/BrainChart/blob/main/LICENSE
 """
 from PyQt5 import QtCore, QtWidgets
+import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 import matplotlib as mpl
