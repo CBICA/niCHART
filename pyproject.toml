@@ -90,7 +90,9 @@ requires = ['cycler==0.10.0',
 'six==1.16.0',
 'statsmodels==0.13.0',
 'wheel>=0.37.1',
-'Yapsy==1.12.2']
+'Yapsy==1.12.2',
+'pytest==7.0.1',
+'pytest-qt==4.0.2']
 
 
 [tool.poetry.dependencies]
@@ -122,6 +124,8 @@ six = "^1.16.0"
 statsmodels = "^0.13.0"
 Yapsy = "^1.12.2"
 Jinja2 = "^2.11.3"
+pytest = "7.0.1"
+pytest-qt = "4.0.2"
 
 [tool.poetry.urls]
 homepage = "https://cbica.github.io/NiBAx"
