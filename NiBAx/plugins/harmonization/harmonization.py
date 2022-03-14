@@ -225,8 +225,7 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         delta_values = [str("{:.3f}".format(x)) for x in delta_values]
         parameters.loc[:,'gamma_values'] = gamma_values
         parameters.loc[:,'delta_values'] = delta_values
-
-
+        
         self.plotCanvas.axes1.get_figure().set_tight_layout(True)
         self.plotCanvas.axes1.set_xlim(-4*sd_raw, 4*sd_raw)
         sns.set(style='white')
@@ -244,9 +243,9 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         a.set_xlabel('Residuals before harmonization')
 
         self.plotCanvas.axes2.get_figure().set_tight_layout(True)
-        upper_limit = max(parameters[selected_gamma]+parameters[selected_delta])
-        lower_limit = min(parameters[selected_gamma]-parameters[selected_delta])
-        limit = max(abs(upper_limit),abs(lower_limit))
+        upper_limit = np.nanmax(parameters[selected_gamma]+parameters[selected_delta])
+        lower_limit = np.nanmin(parameters[selected_gamma]-parameters[selected_delta])
+        limit = max(abs(upper_limit),abs(lower_limit)) 
         self.plotCanvas.axes2.set_xlim(-limit,limit)
         self.plotCanvas.axes2.set_ylim(self.plotCanvas.axes1.get_ylim())
         sns.set(style='white')
