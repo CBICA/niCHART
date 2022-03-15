@@ -218,6 +218,8 @@ class DataModel(QObject):
         stats['numObservations'] = self.data.shape[0]
 
         sex = self.data[['participant_id','Sex']].drop_duplicates()
+        sex['Sex'] = sex['Sex'].astype('category')
+        sex['Sex'] = sex['Sex'].cat.set_categories(['M', 'F'])
         stats['countsPerSex'] = sex['Sex'].value_counts()
 
         return stats
