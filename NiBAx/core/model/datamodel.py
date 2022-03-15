@@ -107,14 +107,22 @@ class DataModel(QObject):
     def GetModel(self):
         """Returns harmonization model."""
         return self.harmonization_model
+    
+    def GetMaxAgeOfMUSEHarmonizationModel(self):
+        """Returns model age maximum."""
+        return self.harmonization_model['smooth_model']['bsplines_constructor'].knot_kwds[0]['upper_bound']
 
+    def GetMinAgeOfMUSEHarmonizationModel(self):
+        """Returns model age minimum."""
+        return self.harmonization_model['smooth_model']['bsplines_constructor'].knot_kwds[0]['lower_bound']
+        
 
     def GetNormativeRange(self,roi):
         """Return normative range"""
         
         # Constructig the visualization of the normative range based on GAM
         # model
-        covariates = pd.DataFrame(np.linspace(25, 95, 200), columns=['Age'])
+        covariates = pd.DataFrame(np.linspace(self.GetMinAgeOfMUSEHarmonizationModel(), self.GetMaxAgeOfMUSEHarmonizationModel(), 200), columns=['Age'])
         # Fix ICV roughly to population average
         covariates['ICV'] = 1450000 # mean ICV
         # Fix Sex variable

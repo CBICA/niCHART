@@ -12,6 +12,10 @@ from NiBAx.core.plotcanvas import PlotCanvas
 from NiBAx.core.baseplugin import BasePlugin
 from NiBAx.core.gui.SearchableQComboBox import SearchableQComboBox
 
+from NiBAx.core import iStagingLogger
+
+logger = iStagingLogger.get_logger(__name__)
+
 class Harmonization(QtWidgets.QWidget,BasePlugin):
 
     #constructor
@@ -112,6 +116,15 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         roiList = list(set(self.datamodel.GetColumnHeaderNames()).intersection(set(MUSEDictDataFrame[MUSEDictDataFrame['ROI_LEVEL']=='SINGLE']['ROI_COL'])))
         roiList.sort()
         roiList = ['(MUSE) ' + list(map(MUSEDictIDtoNAME.get, [k]))[0] if k.startswith('MUSE_') else k for k in roiList]
+        
+        if ('MUSE_Volume_301' in list(self.datamodel.harmonization_model['ROIs'])):
+            logger.info('Model includes derived volumes')
+            derivedROIs = list(set(self.datamodel.GetColumnHeaderNames()).intersection(set(MUSEDictDataFrame[MUSEDictDataFrame['ROI_LEVEL']=='DERIVED']['ROI_COL'])))
+            derivedROIs.sort()
+            derivedROIs = ['(MUSE) ' + list(map(MUSEDictIDtoNAME.get, [k]))[0] if k.startswith('MUSE_') else k for k in derivedROIs]
+            roiList = roiList + derivedROIs
+        else:
+            logger.info('No derived volumes in model')
 
         #add the list items to comboBox
         self.ui.comboBoxROI.blockSignals(True)
@@ -310,11 +323,17 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
 
     def OnAddToDataFrame(self):
         print('Saving modified data to pickle file...')
-        MUSEDictDataFrame= self.datamodel.GetMUSEDictDataFrame()
-        Derived_numbers = list(MUSEDictDataFrame[MUSEDictDataFrame['ROI_LEVEL']=='DERIVED']['ROI_INDEX'])
-        Derived_MUSE_Volumes = list('MUSE_Volume_' + str(x) for x in Derived_numbers)
-        ROI_list = list(self.datamodel.harmonization_model['ROIs']) + Derived_MUSE_Volumes
-        ROI_list.remove('MUSE_Volume_702')
+
+        ROI_list = list(self.datamodel.harmonization_model['ROIs'])
+        if ('MUSE_Volume_301' not in ROI_list):
+            logger.info('No derived volumes in model')
+            MUSEDictDataFrame= self.datamodel.GetMUSEDictDataFrame()
+            Derived_numbers = list(MUSEDictDataFrame[MUSEDictDataFrame['ROI_LEVEL']=='DERIVED']['ROI_INDEX'])
+            Derived_MUSE_Volumes = list('MUSE_Volume_' + str(x) for x in Derived_numbers)
+            ROI_list = ROI_list + Derived_MUSE_Volumes
+            ROI_list.remove('MUSE_Volume_702')
+        else:
+            logger.info('Model includes derived volumes')
         H_ROIs = list('H_' + str(x) for x in ROI_list)
         ROIs_ICV_Sex_Residuals = ['RES_ICV_Sex_' + x for x in self.datamodel.harmonization_model['ROIs']]
         ROIs_Residuals = ['RES_' + x for x in self.datamodel.harmonization_model['ROIs']]
@@ -430,14 +449,17 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         else:
             muse = pd.concat([covars,pd.DataFrame(bayes_data, columns=['H_' + s for s in self.datamodel.harmonization_model['ROIs']])],axis=1)
         
-        # harmonize derived volumes 
-        MUSEDictDataFrame= self.datamodel.GetMUSEDictDataFrame()
-        muse_mappings = self.datamodel.GetDerivedMUSEMap()
-        for ROI in MUSEDictDataFrame[MUSEDictDataFrame['ROI_LEVEL']=='DERIVED']['ROI_INDEX']:
-            single_ROIs = muse_mappings.loc[ROI].replace('NaN',np.nan).dropna().astype(np.float)
-            single_ROIs = ['H_MUSE_Volume_%0d' % x for x in single_ROIs]
-            muse['H_MUSE_Volume_%d' % ROI] = muse[single_ROIs].sum(axis=1,skipna=False)
-        muse.drop(columns=['H_MUSE_Volume_702'], inplace=True)
+        # harmonize derived volumes
+        if ('MUSE_Volume_301' not in list(self.datamodel.harmonization_model['ROIs'])):
+            logger.info('No derived volumes in model.')
+            logger.info('Calculating using derived mapping dictionary.')
+            MUSEDictDataFrame= self.datamodel.GetMUSEDictDataFrame()
+            muse_mappings = self.datamodel.GetDerivedMUSEMap()
+            for ROI in MUSEDictDataFrame[MUSEDictDataFrame['ROI_LEVEL']=='DERIVED']['ROI_INDEX']:
+                single_ROIs = muse_mappings.loc[ROI].replace('NaN',np.nan).dropna().astype(np.float)
+                single_ROIs = ['H_MUSE_Volume_%0d' % x for x in single_ROIs]
+                muse['H_MUSE_Volume_%d' % ROI] = muse[single_ROIs].sum(axis=1,skipna=False)
+            muse.drop(columns=['H_MUSE_Volume_702'], inplace=True)
 
         start_index = len(self.datamodel.harmonization_model['SITE_labels'])
         sex_icv_effect = np.dot(muse[['Sex','DLICV_baseline']].copy(), self.datamodel.harmonization_model['B_hat'][start_index:(start_index+2),:])
