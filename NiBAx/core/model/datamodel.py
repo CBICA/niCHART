@@ -83,13 +83,14 @@ class DataModel(QObject):
     def SetData(self,d):
         """Setter for data"""
         self.data = d
-        logger.info('Data changed in datamodel')
+        logger.info('Data changed in datamodel. Signal emitted.')
         self.data_changed.emit()
 
 
     def SetHarmonizationModel(self,m):
         """Setter for neuroHarmonize model"""
         self.harmonization_model = m
+        logger.info('neuroHarmonize model set.')
 
 
     def SetSPAREModel(self,BrainAgeModel, ADModel):
@@ -148,15 +149,18 @@ class DataModel(QObject):
         return d
 
 
-    def IsValidData(self):
+    def IsValidData(self, data=None):
         """Checks if the data is valid or not."""
-        if not isinstance(self.data, pd.DataFrame):
+        if data is None:
+            data = self.data
+        
+        if not isinstance(data, pd.DataFrame):
             return False
-        if 'participant_id' not in self.data.columns:
+        if 'participant_id' not in data.columns:
             return False
-        elif 'Age' not in self.data.columns:
+        elif 'Age' not in data.columns:
             return False
-        elif 'Sex' not in self.data.columns:
+        elif 'Sex' not in data.columns:
             return False
         else:
             return True

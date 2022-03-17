@@ -78,18 +78,14 @@ class LoadSave(QtWidgets.QWidget,BasePlugin):
 
     def OnOpenDataFileBtnClicked(self):
         filename = QtWidgets.QFileDialog.getOpenFileName(None,
-        'Open data file',
-        QtCore.QDir().homePath(),
-        "Pickle files (*.pkl.gz *.pkl)")
+        caption = 'Open data file',
+        directory = QtCore.QDir().homePath(),
+        filter = "Pickle/CSV files (*.pkl.gz *.pkl *.csv)")
 
         if filename[0] == "":
-            print("No data was selected")
+            logger.warning("No file was selected")
         else:
-            file = pd.read_pickle(filename[0])
-            if not (isinstance(file,pd.DataFrame)):
-                print('Selected file must be a dataframe.')
-            else:
-                self.ReadData(filename[0])
+            self.ReadData(filename[0])
 
 
     def PopulateTable(self):
@@ -102,9 +98,12 @@ class LoadSave(QtWidgets.QWidget,BasePlugin):
     def ReadData(self,filename):
         #read input data
         dio = DataIO()
-        d = dio.ReadPickleFile(filename)
-
-        logger.info('New data read from file: %s', filename)
+        if filename.endswith('.pkl.gz') | filename[0].endswith('.pkl'):
+            d = dio.ReadPickleFile(filename)
+        elif filename.endswith('.csv'):
+            d = dio.ReadCSVFile(filename)
+        else:
+            d = None
 
         #also read MUSE dictionary
         MUSEDictNAMEtoID, MUSEDictIDtoNAME, MUSEDictDataFrame = dio.ReadMUSEDictionary()
@@ -115,6 +114,9 @@ class LoadSave(QtWidgets.QWidget,BasePlugin):
         self.datamodel.SetDerivedMUSEMap(DerivedMUSEMap)
 
         #set data in model
-        self.datamodel.SetDataFilePath(filename)
-        self.datamodel.SetData(d)
-
+        if (d is not None) and self.datamodel.IsValidData(d):
+            logger.info('New data read from file: %s', filename)
+            self.datamodel.SetDataFilePath(filename)
+            self.datamodel.SetData(d)
+        else:
+            logger.warning('Loaded data was not valid.')

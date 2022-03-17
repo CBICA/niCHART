@@ -18,7 +18,14 @@ class DataIO:
 
 
     def ReadPickleFile(self,filename):
+        logger.info("Loading pickle file ...")
         data = pd.read_pickle(filename)
+        return data
+
+
+    def ReadCSVFile(self,filename):
+        logger.info("Loading CSV file ...")
+        data = pd.read_csv(filename)
         return data
 
 
