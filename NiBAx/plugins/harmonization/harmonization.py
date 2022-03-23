@@ -410,7 +410,7 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         if 'UseForComBatGAMHarmonization' in self.datamodel.data.columns:
             for site in new_sites:
                 missing = np.array(self.datamodel.data['SITE']==site,dtype=bool)
-                training = np.array(self.datamodel.data['UseForComBatGAMHarmonization'],dtype=bool)
+                training = np.array(self.datamodel.data['UseForComBatGAMHarmonization'].notnull(),dtype=bool)
                 new_site_is_train = np.logical_and(missing, training)
 
                 if np.count_nonzero(new_site_is_train)<25:
