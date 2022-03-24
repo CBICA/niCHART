@@ -9,6 +9,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import argparse
 import os, sys
 from NiBAx.mainwindow import MainWindow
+from NiBAx.core import iStagingLogger
+
+logger = iStagingLogger.get_logger(__name__)
 
 def main():
     parser = argparse.ArgumentParser(description='iSTAGING Data Visualization and Preparation')

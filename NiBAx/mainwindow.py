@@ -9,7 +9,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from yapsy.PluginManager import PluginManager
 from yapsy.IPlugin import IPlugin
 import os, sys
-#from BrainChart.dataio import DataIO
+from NiBAx.plugins.loadsave.dataio import DataIO
 from NiBAx.core.model.datamodel import DataModel
 from .aboutdialog import AboutDialog
 from NiBAx.resources import resources
@@ -67,9 +67,12 @@ class MainWindow(QtWidgets.QMainWindow):
             self.Plugins['Load and Save Data'].ReadData(dataFile)
 
         if harmonizationModelFile is not None:
-            pass
-            #if harmonization model file provided on cmd line, load it
-            #self.OnHarmonizationModelFileOpenClicked(harmonizationModelFile)
+            dio = DataIO()
+            harmonization_model = dio.ReadPickleFile(harmonizationModelFile)
+            if self.datamodel.IsValidHarmonization(harmonization_model):
+                self.datamodel.SetHarmonizationModelFilePath(harmonizationModelFile)
+                self.datamodel.SetHarmonizationModel(harmonization_model)
+
         if SPAREModelFile is not None:
             pass
             #if SPARE model file provided on cmd line, load it

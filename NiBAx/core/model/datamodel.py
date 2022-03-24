@@ -21,6 +21,7 @@ class DataModel(QObject):
     """This class holds the data model."""
 
     data_changed = QtCore.pyqtSignal()
+    harmonization_model_changed = QtCore.pyqtSignal()
 
     def __init__(self):
         QObject.__init__(self)
@@ -90,6 +91,8 @@ class DataModel(QObject):
     def SetHarmonizationModel(self,m):
         """Setter for neuroHarmonize model"""
         self.harmonization_model = m
+        logger.info('MUSE harmonization model changed in datamodel')
+        self.harmonization_model_changed.emit()
 
 
     def SetSPAREModel(self,BrainAgeModel, ADModel):
@@ -170,10 +173,12 @@ class DataModel(QObject):
             return True
 
 
-    def IsValidHarmonization(self):
+    def IsValidHarmonization(self, harmonization_model=None):
         """Checks if the harmonization model is valid or not."""
-        #TODO: Implement checks
-        return True
+        if harmonization_model is None:
+            harmonization_model = self.harmonization_model
+        
+        return isinstance(harmonization_model, dict) and 'SITE_labels' in harmonization_model
 
 
     def IsValidSPARE(self):

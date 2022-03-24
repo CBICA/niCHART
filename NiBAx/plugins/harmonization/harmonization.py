@@ -11,6 +11,7 @@ import re
 from NiBAx.core.plotcanvas import PlotCanvas
 from NiBAx.core.baseplugin import BasePlugin
 from NiBAx.core.gui.SearchableQComboBox import SearchableQComboBox
+from NiBAx.plugins.loadsave.dataio import DataIO
 
 from NiBAx.core import iStagingLogger
 
@@ -54,6 +55,7 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         self.ui.comboBoxROI.currentIndexChanged.connect(self.UpdatePlot)
         self.ui.add_to_dataframe_Btn.setStyleSheet("background-color: rgb(230,255,230); color: black")
         self.datamodel.data_changed.connect(lambda: self.OnDataChanged())
+        self.datamodel.harmonization_model_changed.connect(lambda: self.OnMUSEharmonizationModelChanged())
         self.ui.apply_model_to_dataset_Btn.setEnabled(False)
 
         if ('RES_MUSE_Volume_47' in self.datamodel.GetColumnHeaderNames() and
@@ -77,13 +79,14 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
             self.ui.Harmonized_Data_Information_Lbl.setObjectName('Missing_label')
             self.ui.Harmonized_Data_Information_Lbl.setStyleSheet('QLabel#Missing_label {color: red}')
         else:
-            self.datamodel.harmonization_model = pd.read_pickle(filename)
-            if not (isinstance(self.datamodel.harmonization_model,dict) and 'SITE_labels' in self.datamodel.harmonization_model):
-                text_2=('Selected file is not a viable harmonization model')
-                self.ui.Harmonized_Data_Information_Lbl.setText(text_2)
-                self.ui.Harmonized_Data_Information_Lbl.setObjectName('Error_label')
-                self.ui.Harmonized_Data_Information_Lbl.setStyleSheet('QLabel#Error_label {color: red}')
+            dio = DataIO()
+            harmonization_model = dio.ReadPickleFile(filename)
+            if not self.datamodel.IsValidHarmonization(harmonization_model):
+                self.datamodel.SetHarmonizationModelFilePath(None)
+                self.datamodel.SetHarmonizationModel(None)
             else:
+                self.datamodel.SetHarmonizationModelFilePath(filename)
+                self.datamodel.SetHarmonizationModel(harmonization_model)
                 self.ui.Harmonization_Model_Loaded_Lbl.setHidden(False)
                 self.ui.Harmonization_Model_Loaded_Lbl.setObjectName('correct_label')
                 self.ui.Harmonization_Model_Loaded_Lbl.setStyleSheet('QLabel#correct_label {color: green}')
@@ -108,6 +111,7 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
                 self.ui.Harmonized_Data_Information_Lbl.setText(model_text1)
                 self.ui.apply_model_to_dataset_Btn.setEnabled(True)
                 self.ui.apply_model_to_dataset_Btn.setStyleSheet("background-color: rgb(230,255,230); color: black")
+                logger.info('********************')
         self.ui.stackedWidget.setCurrentIndex(0) 
 
     def PopulateROI(self):
@@ -345,6 +349,43 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
         self.datamodel.data.loc[:,RAW_Residuals] = self.MUSE[RAW_Residuals]
         self.datamodel.data_changed.emit()
 
+
+    def OnMUSEharmonizationModelChanged(self):
+        if self.datamodel.IsValidHarmonization():
+            self.ui.Harmonization_Model_Loaded_Lbl.setHidden(False)
+            self.ui.Harmonization_Model_Loaded_Lbl.setObjectName('correct_label')
+            self.ui.Harmonization_Model_Loaded_Lbl.setStyleSheet('QLabel#correct_label {color: green}')
+            self.ui.Harmonization_Model_Loaded_Lbl.setText('Harmonization model compatible')
+            self.ui.Harmonized_Data_Information_Lbl.setObjectName('correct_label')
+            self.ui.Harmonized_Data_Information_Lbl.setStyleSheet('QLabel#correct_label {color: black}')
+            model_text1 = (os.path.basename(self.datamodel.GetHarmonizationModelFilePath()) +' loaded')
+            model_text2 = ('SITES in training set: '+ ' '.join([str(elem) for elem in list(self.datamodel.harmonization_model['SITE_labels'])]))
+            model_text2 = wrap_by_word(model_text2,4)
+            model_text1 += '\n\n'+model_text2
+            if 'Covariates' in self.datamodel.harmonization_model:
+                covariates = self.datamodel.harmonization_model['Covariates']
+                model_text3 = ('Harmonization Covariates: '+ str(covariates))
+                model_text1 += '\n'+model_text3
+            else:
+                model_text3 = ('Harmonization Covariates Unavailable')
+                model_text1 += '\n'+model_text3
+            age_max = self.datamodel.harmonization_model['smooth_model']['bsplines_constructor'].knot_kwds[0]['upper_bound']
+            age_min = self.datamodel.harmonization_model['smooth_model']['bsplines_constructor'].knot_kwds[0]['lower_bound']
+            model_text4 = ('Valid Age Range: [' + str(age_min) + ', ' + str(age_max) + ']')
+            model_text1 += '\n'+model_text4
+            self.ui.Harmonized_Data_Information_Lbl.setText(model_text1)
+            self.ui.apply_model_to_dataset_Btn.setEnabled(True)
+            self.ui.apply_model_to_dataset_Btn.setStyleSheet("background-color: rgb(230,255,230); color: black")
+            logger.info('*****************')
+        else:
+            text_2=('Selected file is not a valid harmonization model')
+            self.ui.Harmonized_Data_Information_Lbl.setText(text_2)
+            self.ui.Harmonized_Data_Information_Lbl.setObjectName('Error_label')
+            self.ui.Harmonized_Data_Information_Lbl.setStyleSheet('QLabel#Error_label {color: red}')
+            self.ui.apply_model_to_dataset_Btn.setEnabled(False)
+        self.ui.stackedWidget.setCurrentIndex(0)
+
+
     def OnDataChanged(self):
         self.ui.stackedWidget.setCurrentIndex(0)
         self.plotCanvas.axes1.clear()
@@ -368,7 +409,7 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
             else:
                 self.ui.Harmonized_Data_Information_Lbl.setObjectName('correct_label')
                 self.ui.Harmonized_Data_Information_Lbl.setStyleSheet('QLabel#correct_label {color: black}')
-                model_text1 = (self.filename +' loaded')
+                model_text1 = (self.datamodel.harmonization_model_Filepath +' loaded')
                 model_text2 = ('SITES in training set: '+ ' '.join([str(elem) for elem in list(self.datamodel.harmonization_model['SITE_labels'])]))
                 model_text2 = wrap_by_word(model_text2,4)
                 model_text1 += '\n\n'+model_text2
