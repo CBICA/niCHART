@@ -64,7 +64,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         if dataFile is not None:
             # if datafile provided on cmd line, load it
-            self.Plugins['Data'].ReadData(dataFile)
+            self.Plugins['Load and Save Data'].ReadData(dataFile)
 
         if harmonizationModelFile is not None:
             pass
