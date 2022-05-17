@@ -17,7 +17,7 @@ apt-get -y install git git-lfs rsync python3-stemmer python3-git python3-pip \
                    python3-virtualenv python3-setuptools zlib1g zlib1g-dev libjpeg-dev \
                    python3-pandas python3-matplotlib python3-seaborn
 
-python3 -m pip install --upgrade docutils==0.16
+python3 -m pip install --upgrade docutils==0.16 reportlab==3.6.8
 python3 -m pip install --upgrade rinohtype Pygments myst_parser sphinx_tabs \
                                  sphinx_rtd_theme sphinx rst2pdf sphinx-autoapi \
                                  sphinx_gallery
