@@ -48,6 +48,7 @@ extensions = [
     'rst2pdf.pdfbuilder',
     'autoapi.extension',
     'sphinx_gallery.gen_gallery',
+    'sphinx.ext.autosectionlabel',
 ]
 
 autoapi_dirs = ['../NiBAx']
