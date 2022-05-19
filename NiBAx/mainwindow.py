@@ -67,9 +67,9 @@ class MainWindow(QtWidgets.QMainWindow):
             self.Plugins['Load and Save Data'].ReadData(dataFile)
 
         if harmonizationModelFile is not None:
-            pass
             #if harmonization model file provided on cmd line, load it
-            #self.OnHarmonizationModelFileOpenClicked(harmonizationModelFile)
+            self.Plugins['Harmonization']. LoadHarmonizationModel(harmonizationModelFile)
+        
         if SPAREModelFile is not None:
             pass
             #if SPARE model file provided on cmd line, load it

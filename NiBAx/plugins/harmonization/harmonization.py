@@ -62,13 +62,9 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
             self.ui.show_data_Btn.setStyleSheet("background-color: rgb(230,230,255); color: black")
         else:
             self.ui.show_data_Btn.setEnabled(False)
-        
 
-    def OnLoadHarmonizationModelBtnClicked(self):
-        filename, _ = QtWidgets.QFileDialog.getOpenFileName(None,
-        'Open harmonization model file',
-        QtCore.QDir().homePath(),
-        "Pickle files (*.pkl.gz *.pkl)")
+
+    def LoadHarmonizationModel(self, filename):
         self.filename = os.path.basename(filename)
 
         if filename == "":
@@ -109,6 +105,15 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
                 self.ui.apply_model_to_dataset_Btn.setEnabled(True)
                 self.ui.apply_model_to_dataset_Btn.setStyleSheet("background-color: rgb(230,255,230); color: black")
         self.ui.stackedWidget.setCurrentIndex(0) 
+
+
+    def OnLoadHarmonizationModelBtnClicked(self):
+        filename, _ = QtWidgets.QFileDialog.getOpenFileName(None,
+        'Open harmonization model file',
+        QtCore.QDir().homePath(),
+        "Pickle files (*.pkl.gz *.pkl)")
+
+        self.LoadHarmonizationModel(self.filename)
 
     def PopulateROI(self):
         MUSEDictDataFrame = self.datamodel.GetMUSEDictDataFrame()
