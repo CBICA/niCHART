@@ -25,13 +25,33 @@ User documentation is available at
 
 
 ## Setup for development
-Install Python version 3.8.8 or newer.
-The exact procedure depends on the operating system and configuration.
-Verify the version with
+Install Python version 3.8.8 or newer. The exact procedure depends on the operating system and configuration. Verify the version with
 
 ```shell
 python --version # should be 3.8.8 or newer
 ```
+
+If python environment is not 3.8.8 or newer, use the following instructions to prepare a conda environment with the correct version.
+
+### Prepare conda environment
+Assuming current working directory is `NiBAx` and containing the source code
+cloned from https://github.com/CBICA/NiBAx.git.
+
+Ensure Anaconda is installed. Follow instructions for user's operating system [here](https://docs.anaconda.com/anaconda/install/index.html). After Anaconda has been installed, be sure to exit and reopen any 
+command line windows to use `conda` command
+
+To create the enviroment:
+
+```shell
+conda create -n NiBAx python=3.8.8  
+```
+
+Activate conda environment (applicable to PowerShell and Linux)
+```shell
+conda activate NiBAx
+python -m pip install --upgrade pip
+```
+
 
 ### Prepare environment in Linux (CUBIC)
 Assuming current working directory is `NiBAx` and containing the source code
@@ -53,6 +73,7 @@ python -m venv .env
 python -m pip install --upgrade pip
 poetry install
 ```
+
 
 ### Install the [NiBAx] software
 To install the [NiBAx], install it in a virtual environment. Depending on the
