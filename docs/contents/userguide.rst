@@ -64,8 +64,14 @@ Once installed, the GUI is accesible as command `NiBAx`.
 
 
 *********
-Quicstart
+Quickstart
 *********
+
+To quickly set up and use the GUI, download the following test files: 
+
+:download:`Example dataset  <synthetic_MUSE_ROI_dataset.pkl.gz>`
+
+:download:`Example model for MUSE harmonization  <synthetic_MUSE_harmonization_model.pkl>`
 
 After following the previous section, starting the GUI requires activation of
 the virtual Python environment in every terminal window in which the application
@@ -87,7 +93,6 @@ is to be launched. Typically, as follows:
 This will launch the GUI.
 
 .. figure:: workflow.gif
-
 
 ************
 Core Plugins
