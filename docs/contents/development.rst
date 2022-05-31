@@ -17,8 +17,10 @@ and automatically updates when one of the source files changes.
 
 .. code-block:: shell
 
-   sphinx-autobuild.exe doc doc/_build/html
+   sphinx-autobuild.exe docs docs/_build/html
 
 
 The tabbed code blocks require the package ``sphinx-tabs``.
 PDF build requires ``rst2pdf``.
+``myst_parser``, ``sphinx_rtd_theme``, ``sphinx_gallery``, and
+``sphinx-autoapi[extension]``.
