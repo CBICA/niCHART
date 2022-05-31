@@ -102,6 +102,19 @@ The data file can be passed as command line argument `--data_file` as shown belo
 NiBAx --data_file istaging.pkl.gz
 ```
 
+## Build executable package for Windows 10/11
+We use (beeware/briefcase)[https://github.com/beeware/briefcase)] to package
+the software in Windows 10/11.
+
+```shell
+briefcase create 
+briefcase update
+briefcase package
+```
+
+The result is an installer `NiBAx.msi` that will install the app in the
+user's profile. The installation does not require administrator rights.
+
 ## Disclaimer
 - The software has been designed for research purposes only and has neither been reviewed nor approved for clinical use by the Food and Drug Administration (FDA) or by any other federal/state agency.
 - By using NiBAx, the user agrees to the following license: https://www.med.upenn.edu/cbica/software-agreement-non-commercial.html
