@@ -106,6 +106,21 @@ I/O
 ===
 The input and output (I/O) plugin is concerned with loading and saving data
 tables.
+Supported input formats are ``*.csv`` and ``*.pkl/*.pkl.gz``.
+
+AgeTrends
+=========
+This plugin will show MUSE and WMLS volumes as a function of age.
+The data points are colored by category in categorical variables found in the
+data set.
+In the top left drop-down menu, the region of interest can be selected.
+The text field of the menu can be used to search for variable names.
+If a suitable ``neuroHarmonize`` model is loaded (plugin ``Harmonization``),
+the harmonized muse volumes (i.e. ``H_MUSE_Volume_*``) will also show the
+age-conditional normative range for an average intracranial volume.
+
+.. figure:: images/ScreenshotAgeTrend.png
+
 
 MUSE Harmonization
 ==================
@@ -124,18 +139,19 @@ the ``SPARE-*`` plug in.
 
 .. figure:: images/ScreenshotHarmonization.png
 
-MUSE QC
-=======
-TODO: Add screenshot and description
 
 SPARE-*
 =======
-TODO: Add screenshot and description
+This plugin is used to load a SPARE-* model, apply it ot the data set, and
+optionally add the derived scores to the data set.
+Currently only ``SPARE-AD`` and ``SPARE-BA`` are supported.
+After loading the model, the plugin will verify that the loaded model is
+compatible.
+To be applied to the data, harmonized features need to be present in the data
+frame.
+After running the plugin ``Harmonization``, the necessary standardized features
+are available.
+The computation of the scores runs asyncronously, which means that the rest of
+the user interface remains operational.
 
 .. figure:: images/ScreenshotSPARE.png
-
-AgeTrends
-=========
-TODO: Add screenshot and description
-
-.. figure:: images/ScreenshotAgeTrend.png
