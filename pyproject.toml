@@ -27,7 +27,7 @@ packages = [
 
 [tool.briefcase]
 project_name = "NiBAx"
-name = "NiBAx"
+name = "[NiBAx]"
 bundle = "com.example"
 version = "0.1"
 description = "BrainChart Utility and Analysis Package"
@@ -37,9 +37,9 @@ authors = [
     "Randa Melhem <Randa.Melhem@Pennmedicine.upenn.edu>"
 ]
 keywords = ["neuro-imaging", "MRI", "big data"]
-
 readme = "README.md"
-
+icon = "NiBAx/resources/icon"
+installer_icon = "NiBAx/resources/icon"
 include = ["NiBAx/plugins/data/MUSE_ROI_Dictionary.csv",
            "NiBAx/**/*.ui",
            "NiBAx/**/*.yapsy-plugin",
