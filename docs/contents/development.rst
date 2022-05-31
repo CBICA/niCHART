@@ -17,7 +17,7 @@ and automatically updates when one of the source files changes.
 
 .. code-block:: shell
 
-   sphinx-autobuild.exe docs docs/_build/html
+   sphinx-autobuild docs docs/_build/html
 
 
 The tabbed code blocks require the package ``sphinx-tabs``.
