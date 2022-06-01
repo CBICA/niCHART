@@ -112,7 +112,7 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
 
 
     def OnLoadHarmonizationModelBtnClicked(self):
-        filename, _ = QtWidgets.QFileDialog.getOpenFileName(None,
+        self.filename, _ = QtWidgets.QFileDialog.getOpenFileName(None,
         'Open harmonization model file',
         QtCore.QDir().homePath(),
         "Pickle files (*.pkl.gz *.pkl)")
@@ -400,7 +400,14 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
     def DoHarmonization(self):
         print('Running harmonization.')
 
-        covars = self.datamodel.data[['SITE','Age','Sex','DLICV_baseline']].reset_index(drop=True).copy()
+        if 'Covariates' in self.datamodel.harmonization_model:
+            covariates = self.datamodel.harmonization_model['Covariates']
+            logger.info('Covariates hard-coded in model.')
+        else:
+            covariates = ['SITE','Age','Sex','DLICV_baseline']
+            logger.info('Covariates default to `SITE`, `Age`, `Sex`, and `DLICV_baseline`.')
+
+        covars = self.datamodel.data[covariates].reset_index(drop=True).copy()
         covars.loc[:,'Sex'] = covars['Sex'].map({'M':1,'F':0})
         covars.loc[covars.Age>100, 'Age']=100
         bayes_data, stand_mean = nh.harmonizationApply(self.datamodel.data[[x for x in self.datamodel.harmonization_model['ROIs']]].values,
