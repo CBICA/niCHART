@@ -102,8 +102,12 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
                 model_text4 = ('Valid Age Range: [' + str(age_min) + ', ' + str(age_max) + ']')
                 model_text1 += '\n'+model_text4
                 self.ui.Harmonized_Data_Information_Lbl.setText(model_text1)
-                self.ui.apply_model_to_dataset_Btn.setEnabled(True)
-                self.ui.apply_model_to_dataset_Btn.setStyleSheet("background-color: rgb(230,255,230); color: black")
+                if self.datamodel.data is None:
+                    self.ui.apply_model_to_dataset_Btn.setEnabled(False)
+                    self.ui.Harmonized_Data_Information_Lbl.setText('Data must be loaded before model selection or application.\nReturn to Load and Save Data tab to select data.')
+                else:
+                    self.ui.apply_model_to_dataset_Btn.setEnabled(True)
+                    self.ui.apply_model_to_dataset_Btn.setStyleSheet("background-color: rgb(230,255,230); color: black")
         self.ui.stackedWidget.setCurrentIndex(0) 
 
 
@@ -362,12 +366,15 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
             self.ui.show_data_Btn.setStyleSheet("background-color: lightBlue; color: white")
         else:
             self.ui.show_data_Btn.setEnabled(False)
-
+    
         if self.datamodel.data is None:
             self.ui.load_harmonization_model_Btn.setEnabled(False)
+            self.ui.apply_model_to_dataset_Btn.setEnabled(False)
             self.ui.Harmonized_Data_Information_Lbl.setText('Data must be loaded before model selection.\nReturn to Load and Save Data tab to select data.')
         else:
             self.ui.load_harmonization_model_Btn.setEnabled(True)
+            self.ui.apply_model_to_dataset_Btn.setEnabled(True)
+            self.ui.apply_model_to_dataset_Btn.setStyleSheet("background-color: rgb(230,255,230); color: black")
             if self.datamodel.harmonization_model is None:
                 self.ui.Harmonized_Data_Information_Lbl.setText('No harmonization model has been selected')
             else:
