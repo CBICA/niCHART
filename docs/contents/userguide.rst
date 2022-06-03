@@ -12,11 +12,7 @@ User Guide
 Installation
 ************
 
-`Windows <https://github.com/CBICA/NiBAx/releases>`_
-
-`macOS <https://github.com/CBICA/NiBAx/releases>`_
-
-`Linux <https://github.com/CBICA/NiBAx/releases>`_
+The easiest method to install the toolbox is via the binary installers for Windows, macOS, and Linux.
 
 Alternate releases of **[NiBAχ]** can be found `here <https://github.com/CBICA/NiBAx/tags>`_. 
 
