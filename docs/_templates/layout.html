@@ -1,14 +1,29 @@
 {% extends "!layout.html" %}
-  {% block footer %} {{ super() }}
 
-  <style>
-    /* Sidebar header (and topbar for mobile) */
-    .wy-side-nav-search, .wy-nav-top {
-      background: #95b1c2;
-    }
-    /* Sidebar */
-    .wy-nav-side {
-      background: #363745;
-    }
-  </style>
+{%- block extrahead %}
+{{ super() }}
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6752KVNMB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B6752KVNMB');
+</script>
+{% endblock %}
+
+{% block footer %}
+{{ super() }}
+
+<style>
+/* Sidebar header (and topbar for mobile) */
+.wy-side-nav-search, .wy-nav-top {
+  background: #95b1c2;
+}
+/* Sidebar */
+.wy-nav-side {
+  background: #363745;
+}
+</style>
 {% endblock %}
