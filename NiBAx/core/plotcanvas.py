@@ -2,7 +2,7 @@
 """
 contact: software@cbica.upenn.edu
 Copyright (c) 2018 University of Pennsylvania. All rights reserved.
-Use of this source code is governed by license located in license file: https://github.com/CBICA/BrainChart/blob/main/LICENSE
+Use of this source code is governed by license located in license file: https://github.com/CBICA/NiBAx/blob/main/LICENSE
 """
 from PyQt5 import QtCore, QtWidgets
 import matplotlib.pyplot as plt
