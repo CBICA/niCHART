@@ -12,6 +12,15 @@ User Guide
 Installation
 ************
 
+`Windows <https://github.com/CBICA/NiBAx/releases>`_
+
+`macOS <https://github.com/CBICA/NiBAx/releases>`_
+
+`Linux <https://github.com/CBICA/NiBAx/releases>`_
+
+Alternate releases of **[NiBAχ]** can be found `here <https://github.com/CBICA/NiBAx/tags>`_. 
+
+
 Until one-click installation packages are available, we recommend to install
 an up-to-date version of **[NiBAχ]** using `pip`.
 The only requirement is Python 3.8 or newer.
