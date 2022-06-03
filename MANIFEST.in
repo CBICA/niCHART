@@ -1,2 +1,2 @@
-include istaging/MUSE_ROI_Dictionary.csv
+include NiBAx/plugins/loadsave/MUSE_ROI_Dictionary.csv
 include README.md
