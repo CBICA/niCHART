@@ -109,7 +109,18 @@ tables.
 
 MUSE Harmonization
 ==================
-TODO: Add screenshot and description
+This plugin will show the distribution of the residuals of raw and harmonized MUSE volumes, 
+as well as the harmonization parameters ('Location' and 'Scale') associated with each ``SITE``.
+The boxplots are colored by the ``SITE`` variable found in the
+data set.
+After loading the model, the plugin will verify that the loaded model is
+compatible.
+In the top left drop-down menu, the region of interest can be selected.
+The text field of the menu can be used to search for variable names.
+The plugin will provide harmonized MUSE volumes, which can be added to the input data 
+for analysis in the ``AgeTrends`` plugin. It will also add the residuals
+calculated in the harmonization process for use in SPARE-* score calculation in
+the ``SPARE-*`` plug in.
 
 .. figure:: images/ScreenshotHarmonization.png
 
