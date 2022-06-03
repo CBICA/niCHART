@@ -373,11 +373,12 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
             self.ui.Harmonized_Data_Information_Lbl.setText('Data must be loaded before model selection.\nReturn to Load and Save Data tab to select data.')
         else:
             self.ui.load_harmonization_model_Btn.setEnabled(True)
-            self.ui.apply_model_to_dataset_Btn.setEnabled(True)
-            self.ui.apply_model_to_dataset_Btn.setStyleSheet("background-color: rgb(230,255,230); color: black")
             if self.datamodel.harmonization_model is None:
+                self.ui.apply_model_to_dataset_Btn.setEnabled(False)
                 self.ui.Harmonized_Data_Information_Lbl.setText('No harmonization model has been selected')
             else:
+                self.ui.apply_model_to_dataset_Btn.setEnabled(True)
+                self.ui.apply_model_to_dataset_Btn.setStyleSheet("background-color: rgb(230,255,230); color: black")
                 self.ui.Harmonized_Data_Information_Lbl.setObjectName('correct_label')
                 self.ui.Harmonized_Data_Information_Lbl.setStyleSheet('QLabel#correct_label {color: black}')
                 model_text1 = (self.filename +' loaded')
