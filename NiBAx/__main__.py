@@ -2,7 +2,7 @@
 """
 contact: software@cbica.upenn.edu
 Copyright (c) 2018 University of Pennsylvania. All rights reserved.
-Use of this source code is governed by license located in license file: https://github.com/CBICA/BrainChart/blob/main/LICENSE
+Use of this source code is governed by license located in license file: https://github.com/CBICA/NiBAx/blob/main/LICENSE
 """
 
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -11,7 +11,7 @@ import os, sys
 from NiBAx.mainwindow import MainWindow
 
 def main():
-    parser = argparse.ArgumentParser(description='iSTAGING Data Visualization and Preparation')
+    parser = argparse.ArgumentParser(description='NiBAx Data Visualization and Preparation')
     parser.add_argument('--data_file', type=str, help='Data file containing data frame.', default=None, required=False)
     parser.add_argument('--harmonization_model_file', type=str, help='Harmonization model file.', default=None, required=False)
     parser.add_argument('--SPARE_model_file', type=str, help='Model file for SPARE-scores.', default=None, required=False)

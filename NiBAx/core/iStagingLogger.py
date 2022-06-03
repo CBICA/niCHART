@@ -3,7 +3,7 @@
 contact: software@cbica.upenn.edu
 Author: Ashish Singh
 Copyright (c) 2018 University of Pennsylvania. All rights reserved.
-Use of this source code is governed by license located in license file: https://github.com/CBICA/iSTAGING-Tools/blob/main/LICENSE
+Use of this source code is governed by license located in license file: https://github.com/CBICA/NiBAx/blob/main/LICENSE
 """
 
 import logging
