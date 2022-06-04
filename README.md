@@ -88,7 +88,7 @@ python -m pip install -U git+https://github.com/CBICA/NiBAx.git
 ```
 
 
-## Useage
+## Usage
 After proper installation, the standalone graphical user interface can be launched
 in the terminal with:
 
@@ -101,3 +101,10 @@ The data file can be passed as command line argument `--data_file` as shown belo
 ```shell
 NiBAx --data_file istaging.pkl.gz
 ```
+
+## Disclaimer
+- The software has been designed for research purposes only and has neither been reviewed nor approved for clinical use by the Food and Drug Administration (FDA) or by any other federal/state agency.
+- By using NiBAx, the user agrees to the following license: https://www.med.upenn.edu/cbica/software-agreement-non-commercial.html
+
+## Contact
+For more information and support, please post on the [Discussions](https://github.com/CBICA/NiBAx/discussions) section or contact <a href="mailto:software@cbica.upenn.edu">CBICA Software</a>.
