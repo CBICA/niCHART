@@ -10,6 +10,10 @@ from NiBAx.core.plotcanvas import PlotCanvas
 from NiBAx.core.baseplugin import BasePlugin
 from NiBAx.core.gui.SearchableQComboBox import SearchableQComboBox
 
+from NiBAx.core import iStagingLogger
+
+logger = iStagingLogger.get_logger(__name__)
+
 class SPAREs(QtWidgets.QWidget,BasePlugin):
 
     #constructor
@@ -73,7 +77,27 @@ class SPAREs(QtWidgets.QWidget,BasePlugin):
             QtCore.QDir().homePath(),
             "Pickle files (*.pkl.gz *.pkl)")
         if fileName != "":
-            self.model['BrainAge'], self.model['AD'] = joblib.load(fileName)
+            try:
+              self.model['BrainAge'], self.model['AD'] = joblib.load(fileName)
+            except:
+                logger.info("Exception occured. Resetting view.")
+                self.ui.stackedWidget.setCurrentIndex(0)
+                self.ui.SPARE_model_info.setText('No SPARE-* model loaded')
+                self.ui.compute_SPARE_scores_Btn.setEnabled(False)
+                self.ui.compute_SPARE_scores_Btn.setChecked(False)
+                self.ui.compute_SPARE_scores_Btn.setStyleSheet("QPushButton"
+                             "{"
+                             "background-color : rgb(255,255,255);"
+                             "border: none;"
+                             "}"
+                             "QPushButton::checked"
+                             "{"
+                             "background-color : rgb(255,255,255);"
+                             "border: none;"
+                             "}"
+                             )
+                return
+
             self.ui.compute_SPARE_scores_Btn.setEnabled(True)
             self.ui.SPARE_model_info.setText('File: %s' % (fileName))
         else:
@@ -110,6 +134,8 @@ class SPAREs(QtWidgets.QWidget,BasePlugin):
         self.ui.compute_SPARE_scores_Btn.setText('Compute SPARE-*')
         if self.SPAREs.empty:
             return
+        self.ui.SPARE_computation_info.setText('No computation running')
+        self.ui.factorial_progressBar.setValue(0)
         self.ui.compute_SPARE_scores_Btn.setChecked(False)
         self.ui.stackedWidget.setCurrentIndex(1)
         self.ui.comboBoxHue.setVisible(False)
