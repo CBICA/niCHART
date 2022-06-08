@@ -10,15 +10,15 @@ from NiBAx.core.plotcanvas import PlotCanvas
 from NiBAx.core.baseplugin import BasePlugin
 from NiBAx.core.gui.SearchableQComboBox import SearchableQComboBox
 
-class computeSPAREs(QtWidgets.QWidget,BasePlugin):
+class SPAREs(QtWidgets.QWidget,BasePlugin):
 
     #constructor
     def __init__(self):
-        super(computeSPAREs,self).__init__()
+        super(SPAREs,self).__init__()
         self.model = {'BrainAge': None, 'AD': None}
         root = os.path.dirname(__file__)
         self.readAdditionalInformation(root)
-        self.ui = uic.loadUi(os.path.join(root, 'computeSPAREs.ui'),self)
+        self.ui = uic.loadUi(os.path.join(root, 'SPAREs.ui'),self)
         self.ui.comboBoxHue = SearchableQComboBox(self.ui)
         self.ui.horizontalLayout_3.addWidget(self.comboBoxHue)
         self.plotCanvas = PlotCanvas(self.ui.page_2)

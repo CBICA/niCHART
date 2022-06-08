@@ -1,6 +1,6 @@
 [Core]
 Name = SPARE-*
-Module = computeSPAREs
+Module = SPAREs
 
 [Documentation]
 Author = Ahmed Abdulkadir
