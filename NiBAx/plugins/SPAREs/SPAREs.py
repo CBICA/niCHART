@@ -9,6 +9,9 @@ import pandas as pd
 from NiBAx.core.plotcanvas import PlotCanvas
 from NiBAx.core.baseplugin import BasePlugin
 from NiBAx.core.gui.SearchableQComboBox import SearchableQComboBox
+from NiBAx.plugins.loadsave.dataio import DataIO
+from NiBAx.plugins.SPAREs.computeSPAREs import SPAREs
+
 
 from NiBAx.core import iStagingLogger
 
@@ -78,7 +81,7 @@ class SPAREs(QtWidgets.QWidget,BasePlugin):
             "Pickle files (*.pkl.gz *.pkl)")
         if fileName != "":
             try:
-              self.model['BrainAge'], self.model['AD'] = joblib.load(fileName)
+              self.model['BrainAge'], self.model['AD'] = DataIO().ReadSPAREModel(fileName)
             except:
                 logger.info("Exception occured. Resetting view.")
                 self.ui.stackedWidget.setCurrentIndex(0)
@@ -172,17 +175,20 @@ class SPAREs(QtWidgets.QWidget,BasePlugin):
             self.ui.compute_SPARE_scores_Btn.setText('Cancel computation')
             self.ui.show_SPARE_scores_from_data_Btn.setEnabled(False)
             self.ui.load_SPARE_model_Btn.setEnabled(False)
-            self.thread = QtCore.QThread()
-            self.worker = BrainAgeWorker(self.datamodel.data, self.model)
-            self.worker.moveToThread(self.thread)
-            self.thread.started.connect(self.worker.run)
-            self.worker.done.connect(self.thread.quit)
-            self.worker.done.connect(self.worker.deleteLater)
-            self.thread.finished.connect(self.thread.deleteLater)
-            self.worker.progress.connect(self.updateProgress)
-            self.worker.done.connect(lambda y_hat: self.OnComputationDone(y_hat))
-            self.ui.factorial_progressBar.setRange(0, len(self.model['BrainAge']['scaler'])-1)
-            self.thread.start()
+            print('Entering SPAREs.OnComputeSPARES() ******************************')
+            self.SPAREs = SPAREs(self.datamodel.data, self.model)
+            self.SPAREs.getResults()
+            #self.thread = QtCore.QThread()
+            #self.worker = BrainAgeWorker(self.datamodel.data, self.model)
+            #self.worker.moveToThread(self.thread)
+            #self.thread.started.connect(self.worker.run)
+            #self.worker.done.connect(self.thread.quit)
+            #self.worker.done.connect(self.worker.deleteLater)
+            #self.thread.finished.connect(self.thread.deleteLater)
+            #self.worker.progress.connect(self.updateProgress)
+            #self.worker.done.connect(lambda y_hat: self.OnComputationDone(y_hat))
+            #self.ui.factorial_progressBar.setRange(0, len(self.model['BrainAge']['scaler'])-1)
+            #self.thread.start()
 
 
     def PopulateHue(self):
