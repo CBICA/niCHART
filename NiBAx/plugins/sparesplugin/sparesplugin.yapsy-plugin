@@ -1,0 +1,13 @@
+[Core]
+Name = Compute SPARE-BA/AD
+Module = sparesplugin
+
+[Documentation]
+Author = Ahmed Abdulkadir
+Version = 0.1
+Website = 
+Description = Compute SPARE-* scores from existing model. 
+
+[Tab]
+#tab position starts from 0
+Position = 4 

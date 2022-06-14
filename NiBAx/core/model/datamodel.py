@@ -235,3 +235,8 @@ class DataModel(QObject):
         stats['countsPerSex'] = sex['Sex'].value_counts()
 
         return stats
+
+    def AddSparesToDataModel(self,spares):
+        self.data.loc[:,'SPARE_AD'] = spares['SPARE_AD']
+        self.data.loc[:,'SPARE_BA'] = spares['SPARE_BA']
+        self.data_changed.emit()
