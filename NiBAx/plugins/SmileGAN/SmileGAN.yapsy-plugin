@@ -1,0 +1,13 @@
+[Core]
+Name = SmileGAN
+Module = SmileGAN
+
+[Documentation]
+Author = Zhijian Yang
+Version = 0.1
+Website = 
+Description = Compute SmileGAN patterns from existing model. 
+
+[Tab]
+#tab position starts from 0
+Position = 5 
