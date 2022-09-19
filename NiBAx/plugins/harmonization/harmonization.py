@@ -233,12 +233,7 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
             'capprops':{'color':'black'}
         }
 
-        gamma_ROIs = ['gamma_'+ x for x in self.datamodel.harmonization_model['ROIs']]
-        delta_ROIs = ['delta_'+ x for x in self.datamodel.harmonization_model['ROIs']]
-        model_gamma= pd.DataFrame(self.datamodel.harmonization_model['gamma_star'],columns=gamma_ROIs,index=[x for x in self.datamodel.harmonization_model['SITE_labels']])
-        model_delta = pd.DataFrame(self.datamodel.harmonization_model['delta_star'],columns=delta_ROIs,index=[x for x in self.datamodel.harmonization_model['SITE_labels']])
-        model_parameters = pd.concat([model_gamma,model_delta],axis=1).sort_index()
-        parameters = pd.concat([model_parameters,self.calculated_parameters],axis=0).sort_index()
+        parameters = self.parameters 
         parameters = parameters[parameters.index.isin(list(cSite.keys()))]
         parameters['SITE']=parameters.index
         gamma_values = [x for x in parameters[selected_gamma].values.round(3).tolist()]
@@ -408,51 +403,64 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
             covariates = ['SITE','Age','Sex','DLICV_baseline']
             logger.info('Covariates default to `SITE`, `Age`, `Sex`, and `DLICV_baseline`.')
 
-        covars = self.datamodel.data[covariates].reset_index(drop=True).copy()
-        covars.loc[:,'Sex'] = covars['Sex'].map({'M':1,'F':0})
-        covars.loc[covars.Age>100, 'Age']=100
-        bayes_data, stand_mean = nh.harmonizationApply(self.datamodel.data[[x for x in self.datamodel.harmonization_model['ROIs']]].values,
-                                                covars,
-                                                self.datamodel.harmonization_model,True)
-
-        Raw_ROIs_Residuals = self.datamodel.data[self.datamodel.harmonization_model['ROIs']].values - stand_mean
-
         # create list of new SITEs to loop through
         new_sites = set(self.datamodel.data['SITE'].value_counts().index.tolist())^set(self.datamodel.harmonization_model['SITE_labels'])
 
-        var_pooled = self.datamodel.harmonization_model['var_pooled']
+        covars = self.datamodel.data[['SITE','Age','Sex','DLICV_baseline']].reset_index(drop=True).copy()
+        covars.loc[:,'Sex'] = covars['Sex'].map({'M':1,'F':0})
+        covars.loc[covars.Age>100, 'Age']=100
 
-        # for parameter table
+        # Parameter table for plotting 
         gamma_ROIs = ['gamma_'+ x for x in self.datamodel.harmonization_model['ROIs']]
         delta_ROIs = ['delta_'+ x for x in self.datamodel.harmonization_model['ROIs']]
         calculated_gamma = pd.DataFrame([])
         calculated_delta = pd.DataFrame([])
+
         if 'UseForComBatGAMHarmonization' in self.datamodel.data.columns:
+            sites_to_harmonize = []
             for site in new_sites:
-                missing = np.array(self.datamodel.data['SITE']==site,dtype=bool)
+                dataToHarmonize = np.array(self.datamodel.data['SITE']==site,dtype=bool)
                 training = np.array(self.datamodel.data['UseForComBatGAMHarmonization'].notnull(),dtype=bool)
-                new_site_is_train = np.logical_and(missing, training)
-
-                if np.count_nonzero(new_site_is_train)<25:
-                    site_gamma = pd.DataFrame(np.nan,columns=gamma_ROIs,index=[site])
-                    calculated_gamma = calculated_gamma.append(site_gamma)
-                    site_delta = pd.DataFrame(np.nan,columns=delta_ROIs,index=[site])
-                    calculated_delta = calculated_delta.append(site_delta)
-                    print('New site `'+site+'` has less than 25 reference data points. Skipping harmonization.')
-                    continue
-
-                print('Harmonizing '+ site)           
-                gamma_hat_site = np.nanmean(((Raw_ROIs_Residuals[new_site_is_train,:])/np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[new_site_is_train,:].shape[0]))).T),0)
-                gamma_hat_site = gamma_hat_site[:,np.newaxis]
-                delta_hat_site = pow(np.nanstd(((Raw_ROIs_Residuals[new_site_is_train,:])/np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[new_site_is_train,:].shape[0]))).T),0),2)
-                delta_hat_site = delta_hat_site[:,np.newaxis]
-
-                site_gamma = pd.DataFrame(gamma_hat_site.T,columns=gamma_ROIs,index=[site])
-                calculated_gamma = calculated_gamma.append(site_gamma)
-                site_delta = pd.DataFrame(delta_hat_site.T,columns=delta_ROIs,index=[site])
-                calculated_delta = calculated_delta.append(site_delta)
-
-                bayes_data[missing,:] = ((Raw_ROIs_Residuals[missing,:]/np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[missing,:].shape[0]))).T) - np.dot(gamma_hat_site,np.ones((1,Raw_ROIs_Residuals[missing,:].shape[0]))).T)*np.dot(np.sqrt(var_pooled),np.ones((1,Raw_ROIs_Residuals[missing,:].shape[0]))).T/np.dot(np.sqrt(delta_hat_site),np.ones((1,Raw_ROIs_Residuals[missing,:].shape[0]))).T + stand_mean[missing,:]
+                new_site_is_train = np.logical_and(dataToHarmonize, training)
+                new_site_is_train = new_site_is_train[~np.isnan(new_site_is_train).any(axis=0)]
+            
+                if np.count_nonzero(new_site_is_train)<5:
+                        site_gamma = pd.DataFrame(np.nan,columns=gamma_ROIs,index=[site])
+                        calculated_gamma = calculated_gamma.append(site_gamma)
+                        site_delta = pd.DataFrame(np.nan,columns=delta_ROIs,index=[site])
+                        calculated_delta = calculated_delta.append(site_delta)
+                        print('New site `'+site+'` has less than 25 reference data points. Skipping harmonization.')
+                        continue
+                else: 
+                    print('Harmonizing '+ site)  
+                    sites_to_harmonize.append(site)
+            
+            if not sites_to_harmonize:
+                print('No new sites that meet out-of-sample harmonization requirement. Proceeding with harmonization.')
+                bayes_data, stand_mean = nh.harmonizationApply(self.datamodel.data[[x for x in self.datamodel.harmonization_model['ROIs']]].values,
+                                                    covars,
+                                                    self.datamodel.harmonization_model,True)
+                gamma_ROIs = ['gamma_'+ x for x in self.datamodel.harmonization_model['ROIs']]
+                delta_ROIs = ['delta_'+ x for x in self.datamodel.harmonization_model['ROIs']]
+                model_gamma= pd.DataFrame(self.datamodel.harmonization_model['gamma_star'],columns=gamma_ROIs,index=[x for x in self.datamodel.harmonization_model['SITE_labels']])
+                model_delta = pd.DataFrame(self.datamodel.harmonization_model['delta_star'],columns=delta_ROIs,index=[x for x in self.datamodel.harmonization_model['SITE_labels']])
+                self.parameters = pd.concat([model_gamma,model_delta],axis=1).sort_index()                     
+            else:
+                oos_data = self.datamodel.data[self.datamodel.data['SITE'].isin(sites_to_harmonize)].dropna(subset=covariates)[[x for x in self.datamodel.harmonization_model['ROIs']]].values
+                oos_covars = self.datamodel.data[self.datamodel.data.SITE.isin(sites_to_harmonize)].dropna(subset=covariates)[covariates]
+                oos_covars.loc[:,'Sex'] = oos_covars['Sex'].map({'M':1,'F':0})
+                self.model, _ = nh.harmonizationLearn(oos_data, oos_covars,
+                                                smooth_terms=['Age'],
+                                                smooth_term_bounds=(np.floor(np.min(self.datamodel.data.Age)),np.ceil(np.max(self.datamodel.data.Age))),
+                                                orig_model=self.datamodel.harmonization_model,seed=20220601)
+                bayes_data, stand_mean = nh.harmonizationApply(self.datamodel.data[[x for x in self.datamodel.harmonization_model['ROIs']]].values,
+                                                        covars,
+                                                        self.model,True)
+                gamma_ROIs = ['gamma_'+ x for x in self.model['ROIs']]
+                delta_ROIs = ['delta_'+ x for x in self.model['ROIs']]
+                model_gamma= pd.DataFrame(self.model['gamma_star'],columns=gamma_ROIs,index=[x for x in self.model['SITE_labels']])
+                model_delta = pd.DataFrame(self.model['delta_star'],columns=delta_ROIs,index=[x for x in self.model['SITE_labels']])                                                
+                self.parameters = pd.concat([model_gamma,model_delta],axis=1).sort_index()
         else:
             print('Skipping out-of-sample harmonization because `UseForComBatGAMHarmonization` does not exist.')
             for site in new_sites:
@@ -460,15 +468,25 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
                 calculated_gamma = calculated_gamma.append(site_gamma)
                 site_delta = pd.DataFrame(np.nan,columns=delta_ROIs,index=[site])
                 calculated_delta = calculated_delta.append(site_delta)
-
-        # populate calculated parameter table
-        self.calculated_parameters = pd.concat([calculated_gamma,calculated_delta],axis=1).sort_index()
+                # populate calculated parameter table
+                calculated_parameters = pd.concat([calculated_gamma,calculated_delta],axis=1).sort_index()
+            gamma_ROIs = ['gamma_'+ x for x in self.datamodel.harmonization_model['ROIs']]
+            delta_ROIs = ['delta_'+ x for x in self.datamodel.harmonization_model['ROIs']]
+            model_gamma= pd.DataFrame(self.datamodel.harmonization_model['gamma_star'],columns=gamma_ROIs,index=[x for x in self.datamodel.harmonization_model['SITE_labels']])
+            model_delta = pd.DataFrame(self.datamodel.harmonization_model['delta_star'],columns=delta_ROIs,index=[x for x in self.datamodel.harmonization_model['SITE_labels']])
+            model_parameters = pd.concat([model_gamma,model_delta],axis=1).sort_index()
+            self.parameters = pd.concat([model_parameters,calculated_parameters],axis=0).sort_index()     
+            bayes_data, stand_mean = nh.harmonizationApply(self.datamodel.data[[x for x in self.datamodel.harmonization_model['ROIs']]].values,
+                                                    covars,
+                                                    self.datamodel.harmonization_model,True) 
+            
+        Raw_ROIs_Residuals = self.datamodel.data[self.datamodel.harmonization_model['ROIs']].values - stand_mean
 
         if 'isTrainMUSEHarmonization' in self.datamodel.data.columns:
             muse = pd.concat([self.datamodel.data['isTrainMUSEHarmonization'].reset_index(drop=True).copy(), covars, pd.DataFrame(bayes_data, columns=['H_' + s for s in self.datamodel.harmonization_model['ROIs']])],axis=1)
         else:
             muse = pd.concat([covars,pd.DataFrame(bayes_data, columns=['H_' + s for s in self.datamodel.harmonization_model['ROIs']])],axis=1)
-        
+
         # harmonize derived volumes
         if ('MUSE_Volume_301' not in list(self.datamodel.harmonization_model['ROIs'])):
             logger.info('No derived volumes in model.')
