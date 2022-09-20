@@ -52,14 +52,11 @@ class AgeTrends(QtWidgets.QWidget,BasePlugin):
             + ['SPARE_AD','SPARE_BA','Non-existing-ROI','DLICV'])
 
         # !!! remove ROI with no dictionary entry
-        if 'WMLS_Volume_43' in roiList:
-            roiList.remove('WMLS_Volume_43')
-
-        if 'WMLS_Volume_42' in roiList:
-            roiList.remove('WMLS_Volume_42')
-
-        if 'WMLS_Volume_69' in roiList:
-            roiList.remove('WMLS_Volume_69')
+        for invalid_ROI in ['WMLS_Volume_43', 'WMLS_Volume_42', 'WMLS_Volume_69',
+                            'WMLS_Volume_1', 'WMLS_Volume_621', 'WMLS_Volume_622',
+                            'WMLS_Volume_700' ]:
+            if invalid_ROI in roiList:
+                roiList.remove(invalid_ROI)
 
 
         _, MUSEDictIDtoNAME = self.datamodel.GetMUSEDictionaries()
