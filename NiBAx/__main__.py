@@ -31,7 +31,15 @@ def main():
     output_file = args.output_file_name
     noGUI = args.nogui
 
-    if(noGUI == None):
+
+    if(noGUI):
+        app = QtCore.QCoreApplication(sys.argv)
+        if(compute_spares):
+            if((data_file == None) or (SPARE_model_file == None) or (output_file == None)):
+                print("Please provide '--data_file', '--SPARE_model_file' and '--output_file_name' to compute spares.")
+                exit()
+            NiBAxCmdApp().ComputeSpares(data_file,SPARE_model_file,output_file)
+    else:
         app = QtWidgets.QApplication(sys.argv)
         mw = MainWindow(dataFile=data_file,
                         harmonizationModelFile=harmonization_model_file,
@@ -39,9 +47,6 @@ def main():
         mw.show()
 
         sys.exit(app.exec_())
-    else:
-        app = QtCore.QCoreApplication(sys.argv)
-        NiBAxCmdApp().ComputeSpares(data_file,SPARE_model_file,output_file)
 
 if __name__ == '__main__':
     main()
