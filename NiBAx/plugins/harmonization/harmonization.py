@@ -328,6 +328,8 @@ class Harmonization(QtWidgets.QWidget,BasePlugin):
     def OnAddToDataFrame(self):
         print('Saving modified data to pickle file...')
 
+        self.MUSE.set_index(self.datamodel.data.index,inplace=True)
+
         ROI_list = list(self.datamodel.harmonization_model['ROIs'])
         if ('MUSE_Volume_301' not in ROI_list):
             logger.info('No derived volumes in model')
