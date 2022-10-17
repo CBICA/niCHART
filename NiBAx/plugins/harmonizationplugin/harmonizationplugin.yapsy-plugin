@@ -1,0 +1,13 @@
+[Core]
+Name = Harmonization
+Module = harmonizationplugin
+
+[Documentation]
+Author = Ashish Singh
+Version = 0.1
+Website = 
+Description = harmonization 
+
+[Tab]
+#tab position starts from 0
+Position = 3 

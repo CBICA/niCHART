@@ -33,11 +33,17 @@ def main():
 
     if(noGUI):
         app = QtCore.QCoreApplication(sys.argv)
+        if(harmonize):
+            if((data_file == None) or (harmonization_model_file == None) or (output_file == None)):
+                print("Please provide '--data_file', '--harmonization_model_file' and '--output_file_name' to compute harmonized volumes.")
+                exit()
+            NiBAxCmdApp().harmonize(data_file,harmonization_model_file,output_file)
         if(compute_spares):
             if((data_file == None) or (SPARE_model_file == None) or (output_file == None)):
                 print("Please provide '--data_file', '--SPARE_model_file' and '--output_file_name' to compute spares.")
                 exit()
             NiBAxCmdApp().ComputeSpares(data_file,SPARE_model_file,output_file)
+    
     else:
         app = QtWidgets.QApplication(sys.argv)
         mw = MainWindow(dataFile=data_file,
