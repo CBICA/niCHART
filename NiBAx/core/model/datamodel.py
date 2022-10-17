@@ -236,7 +236,7 @@ class DataModel(QObject):
 
         return stats
 
-    def AddSparesToDataModel(self,spares):
-        self.data.loc[:,'SPARE_AD'] = spares['SPARE_AD']
-        self.data.loc[:,'SPARE_BA'] = spares['SPARE_BA']
+    def AddSparesToDataModel(self, spares, SPARE_AD='SPARE_AD', SPARE_BA='SPARE_BA'):
+        self.data.loc[:,SPARE_AD] = spares['SPARE_AD'].set_axis(self.data.index)
+        self.data.loc[:,SPARE_BA] = spares['SPARE_BA'].set_axis(self.data.index)
         self.data_changed.emit()
