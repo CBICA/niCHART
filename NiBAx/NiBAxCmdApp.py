@@ -8,7 +8,7 @@ Use of this source code is governed by license located in license file: https://
 from PyQt5 import QtCore, QtGui, QtWidgets
 import os
 import pandas as pd
-from NiBAx.plugins.loadsave.dataio import DataIO
+from NiBAx.core.dataio import DataIO
 from NiBAx.plugins.sparesplugin.spares import SPARE, BrainAgeWorker
 from NiBAx.core.model.datamodel import DataModel
 

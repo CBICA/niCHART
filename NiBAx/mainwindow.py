@@ -9,7 +9,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from yapsy.PluginManager import PluginManager
 from yapsy.IPlugin import IPlugin
 import os, sys
-#from BrainChart.dataio import DataIO
+from NiBAx.core.dataio import DataIO
 from NiBAx.core.model.datamodel import DataModel
 from .aboutdialog import AboutDialog
 from NiBAx.resources import resources
@@ -50,6 +50,8 @@ class MainWindow(QtWidgets.QMainWindow):
             po.datamodel = self.datamodel
             po.SetupConnections()
             self.Plugins[plugin.name] = po
+            
+            print('PLUGIN ' + str(po))
 
         logger.info("Loaded Plugins: %s", self.Plugins.keys())
 
@@ -57,6 +59,8 @@ class MainWindow(QtWidgets.QMainWindow):
         for num in range(len(self.Plugins)):
             for key,value in self.Plugins.items():
                 if(num == value.getTabPosition()):
+                    print('Loading tab ' + str(num))
+                    print(value)
                     self.ui.tabWidget.insertTab(value.getTabPosition(),value,key)
                     break
 
@@ -64,7 +68,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         if dataFile is not None:
             # if datafile provided on cmd line, load it
-            self.Plugins['Load and Save Data'].ReadData(dataFile)
+            #self.Plugins['Table View'].ReadData(dataFile)
+            self.ReadData(dataFile)
 
         if harmonizationModelFile is not None:
             #if harmonization model file provided on cmd line, load it
@@ -75,16 +80,18 @@ class MainWindow(QtWidgets.QMainWindow):
             #if SPARE model file provided on cmd line, load it
             #self.OnSPAREModelFileOpenClicked(SPAREModelFile)
         
-        # Include Mac menu bar
-        self.ui.actionHelp.setMenuRole(QAction.NoRole)
-        self.ui.actionAbout.setMenuRole(QAction.NoRole)
+        ## Include Mac menu bar
+        #self.ui.menuFile.setMenuRole(QAction.NoRole)
+        #self.ui.actionOpen.setMenuRole(QAction.NoRole)
+        #self.ui.actionSave.setMenuRole(QAction.NoRole)
 
     def __del__(self):
         logger.info('NiBAx session ending...')
 
     def SetupConnections(self):
+        self.actionOpen.triggered.connect(self.OnOpenClicked)
+        self.actionSave.triggered.connect(self.OnSaveClicked)
         self.actionAbout.triggered.connect(self.OnAboutClicked)
-        self.actionHelp.triggered.connect(self.OnHelpClicked)
  
     def SetupUi(self):
         root = os.path.dirname(__file__)
@@ -93,12 +100,60 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setWindowIcon(QtGui.QIcon(":/images/NiBAX Logo.png"))
         self.aboutdialog = AboutDialog(self)
 
-    def OnAboutClicked(self):
-        self.aboutdialog.show()
+    #def _createMenuBar(self):
+        #menuBar = self.menuBar()
+        ## Creating menus using a QMenu object
+        #fileMenu = QMenu("&File", self)
+        #menuBar.addMenu(fileMenu)
+        ## Creating menus using a title
+        #editMenu = menuBar.addMenu("&Edit")
+        #helpMenu = menuBar.addMenu("&Help")
+        
+    def ReadData(self,filename):
+        #read input data
+        dio = DataIO()
+        if filename.endswith('.pkl.gz') | filename[0].endswith('.pkl'):
+            d = dio.ReadPickleFile(filename)
+        elif filename.endswith('.csv'):
+            d = dio.ReadCSVFile(filename)
+        else:
+            d = None
 
-    def OnHelpClicked(self):
+        #also read MUSE dictionary
+        MUSEDictNAMEtoID, MUSEDictIDtoNAME, MUSEDictDataFrame = dio.ReadMUSEDictionary()
+        self.datamodel.SetMUSEDictionaries(MUSEDictNAMEtoID, MUSEDictIDtoNAME,MUSEDictDataFrame)
+
+        #also read Derived MUSE dictionary 
+        DerivedMUSEMap = dio.ReadDerivedMUSEMap()
+        self.datamodel.SetDerivedMUSEMap(DerivedMUSEMap)
+
+        #set data in model
+        #if (d is not None) and self.datamodel.IsValidData(d):
+        if (d is not None):
+            logger.info('New data read from file: %s', filename)
+            self.datamodel.SetDataFilePath(filename)
+            self.datamodel.SetData(d)
+        else:
+            logger.warning('Loaded data was not valid.')
+        
+        
+    def OnOpenClicked(self):
+        filename = QtWidgets.QFileDialog.getOpenFileName(None,
+            caption = 'Open data file',
+            directory = QtCore.QDir().homePath(),
+            filter = "Pickle/CSV files (*.pkl.gz *.pkl *.csv)")
+
+        if filename[0] == "":
+            logger.warning("No file was selected")
+        else:
+            self.ReadData(filename[0])
+
+    def OnSaveClicked(self):
         url = QtCore.QUrl('https://github.com/CBICA/NiBAx')
         QtGui.QDesktopServices.openUrl(url)
+
+    def OnAboutClicked(self):
+        self.aboutdialog.show()
 
     def OnCloseClicked(self):
         #close currently loaded data and model

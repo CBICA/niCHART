@@ -28,11 +28,11 @@ class PlotCanvas(QtWidgets.QWidget):
         self.setParent(parent)
 
         #toolbar
-        self.toolbar = NavigationToolbar(self.canvas, self)
+        #self.toolbar = NavigationToolbar(self.canvas, self)
 
         self.setLayout(QtWidgets.QVBoxLayout())
 
-        self.layout().addWidget(self.toolbar)
+        #self.layout().addWidget(self.toolbar)
         self.layout().addWidget(self.canvas)
 
     def getFigure(self):

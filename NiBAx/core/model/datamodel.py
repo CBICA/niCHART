@@ -21,11 +21,17 @@ class DataModel(QObject):
     """This class holds the data model."""
 
     data_changed = QtCore.pyqtSignal()
+    currdata_changed = QtCore.pyqtSignal()
 
     def __init__(self):
         QObject.__init__(self)
         """The constructor."""
         self.data = None
+        self.currdata = None
+        self.datacols = None
+        self.currdatacols = None        
+        self.sortCols = []
+        self.sortOrders = []
         self.harmonization_model = None
         self.MUSEDictNAMEtoID = None
         self.MUSEDictIDtoNAME = None
@@ -83,9 +89,24 @@ class DataModel(QObject):
     def SetData(self,d):
         """Setter for data"""
         self.data = d
+        self.currdata = d
+        
+        self.datacols = d.columns.tolist()
+        self.currdatacols = d.columns.tolist()
+        
+        print('Num cols : ' + str(len(self.currdatacols)))
+        
         logger.info('Data changed in datamodel. Signal emitted.')
         self.data_changed.emit()
+        self.currdata_changed.emit()
 
+    def SetCurrData(self,d):
+        """Setter for data"""
+        self.currdata = d
+        self.currdatacols = d.columns.tolist()
+        
+        logger.info('Current data changed in datamodel. Signal emitted.')
+        self.currdata_changed.emit()
 
     def SetHarmonizationModel(self,m):
         """Setter for neuroHarmonize model"""
@@ -100,10 +121,34 @@ class DataModel(QObject):
         self.ADModel = ADModel
 
 
-    def GetCompleteData(self):
+    def GetData(self):
         """Returns complete data."""
         return self.data
 
+    def GetCurrentData(self):
+        """Returns complete data."""
+        return self.currentdata
+
+    def GetDataSelCols(self, selCols):
+        """Returns sel cols"""
+        d = self.data[selCols]
+        return d
+    
+    def GetDataColNames(self):
+        """Returns all header names for all columns in the dataset."""
+        if self.data is not None:
+            k = self.data.keys()
+        else:
+            k = []
+        return k
+    
+    def GetCurrDataColNames(self):
+        """Returns all header names for all columns in the dataset."""
+        if self.data is not None:
+            k = self.data.keys()
+        else:
+            k = []
+        return k
 
     def GetModel(self):
         """Returns harmonization model."""
@@ -146,15 +191,16 @@ class DataModel(QObject):
         return covariates['Age'], y, z
 
 
-    def GetData(self,roi,hue):
-        """Returns a subset of data needed for plot.
-        Takes as parameters the roi and hue for the plot.
-        Since the plot always uses 'Age' for X axis, this is always returned."""
-        if not isinstance(roi, list):
-            roi = [roi]
+    #def GetData(self,roi,hue):
+        #"""Returns a subset of data needed for plot.
+        #Takes as parameters the roi and hue for the plot.
+        #Since the plot always uses 'Age' for X axis, this is always returned."""
+        #if not isinstance(roi, list):
+            #roi = [roi]
         
-        d = self.data[roi + ["Age",hue]]
-        return d
+        #d = self.data[roi + ["Age",hue]]
+        #return d
+
 
 
     def IsValidData(self, data=None):
@@ -185,16 +231,13 @@ class DataModel(QObject):
         #TODO: Implement checks
         return True
 
-
     def GetColumnHeaderNames(self):
         """Returns all header names for all columns in the dataset."""
         if self.data is not None:
             k = self.data.keys()
         else:
             k = []
-        
         return k
-
 
     def GetColumnDataTypes(self):
         """Returns all header names for all columns in the dataset."""
@@ -236,7 +279,7 @@ class DataModel(QObject):
 
         return stats
 
-    def AddSparesToDataModel(self, spares, SPARE_AD='SPARE_AD', SPARE_BA='SPARE_BA'):
-        self.data.loc[:,SPARE_AD] = spares['SPARE_AD'].set_axis(self.data.index)
-        self.data.loc[:,SPARE_BA] = spares['SPARE_BA'].set_axis(self.data.index)
+    def AddSparesToDataModel(self,spares):
+        self.data.loc[:,'SPARE_AD'] = spares['SPARE_AD']
+        self.data.loc[:,'SPARE_BA'] = spares['SPARE_BA']
         self.data_changed.emit()

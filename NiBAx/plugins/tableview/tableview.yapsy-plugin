@@ -1,13 +1,13 @@
 [Core]
-Name = Load and Save Data
-Module = loadsave
+Name = Table View
+Module = tableview
 
 [Documentation]
 Author = Ashish Singh
 Version = 0.1
 Website = 
-Description = Load & Save data
+Description = Table View of Data
 
 [Tab]
 #tab position starts from 0
-Position = 0 
+Position = 1
