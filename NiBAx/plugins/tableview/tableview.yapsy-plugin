@@ -10,4 +10,4 @@ Description = Table View of Data
 
 [Tab]
 #tab position starts from 0
-Position = 1
+Position = 0

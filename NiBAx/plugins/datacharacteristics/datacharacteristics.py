@@ -9,11 +9,9 @@ class DataCharacteristics(QtWidgets.QWidget,BasePlugin):
     def __init__(self):
         super(DataCharacteristics,self).__init__()
         self.datamodel = None
-        
         root = os.path.dirname(__file__)
         self.readAdditionalInformation(root)
         self.ui = uic.loadUi(os.path.join(root, 'datacharacteristics.ui'),self)
-
 
     def getUI(self):
         return self.ui

@@ -10,4 +10,4 @@ Description = Compute SPARE-* scores from existing model.
 
 [Tab]
 #tab position starts from 0
-Position = 44 
+Position = 4 

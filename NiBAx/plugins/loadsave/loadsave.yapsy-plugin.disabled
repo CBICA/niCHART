@@ -1,13 +1,13 @@
 [Core]
-Name = Harmonization
-Module = harmonization
+Name = Load and Save Data
+Module = loadsave
 
 [Documentation]
 Author = Ashish Singh
 Version = 0.1
 Website = 
-Description = harmonization 
+Description = Load & Save data
 
 [Tab]
 #tab position starts from 0
-Position = 3 
+Position = 0 
