@@ -1,5 +1,7 @@
 # [NiBAx] The neuro-imaging brain aging chart
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7aadb18130574bd5b85b978cd709fe2c)](https://www.codacy.com/gh/CBICA/NiBAx/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CBICA/NiBAx&amp;utm_campaign=Badge_Grade)
+
 | :construction:
   <font size="+1">This software and documentation is under development!
                   Check out up-to-date documentation at
