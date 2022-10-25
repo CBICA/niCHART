@@ -10,66 +10,71 @@ import os
 import pandas as pd
 from NiBAx.plugins.loadsave.dataio import DataIO
 from NiBAx.plugins.sparesplugin.spares import SPARE, BrainAgeWorker
-from NiBAx.plugins.harmonizationplugin.harmonization import harmonize
+from NiBAx.plugins.harmonizationplugin.harmonization import Harmonize
 from NiBAx.core.model.datamodel import DataModel
 
 class NiBAxCmdApp:
     def __init__(self):
-        pass
+        self.dio = DataIO()
+        self.datamodel = DataModel()
 
-    def harmonize(self,datafile,harmonizationmodelfile,outputfile):
-        print("reading data")
-        dio = DataIO()
-        data = dio.ReadPickleFile(datafile)
+    def LoadData(self, datafile):
+        print("Reading data")
+        data = self.dio.ReadPickleFile(datafile)
+
+        #also read MUSE dictionary
+        MUSEDictNAMEtoID, MUSEDictIDtoNAME, MUSEDictDataFrame = self.dio.ReadMUSEDictionary()
+        self.datamodel.SetMUSEDictionaries(MUSEDictNAMEtoID, MUSEDictIDtoNAME,MUSEDictDataFrame)
+
+        #also read Derived MUSE dictionary 
+        DerivedMUSEMap = self.dio.ReadDerivedMUSEMap()
+        self.datamodel.SetDerivedMUSEMap(DerivedMUSEMap)
 
         #set data into datamodel
-        datamodel = DataModel()
-        if (data is not None) and datamodel.IsValidData(data):
-            datamodel.SetDataFilePath(datafile)
-            datamodel.SetData(data)
+        if (data is not None) and self.datamodel.IsValidData(data):
+            self.datamodel.SetDataFilePath(datafile)
+            self.datamodel.SetData(data)
 
-        print("reading harmonization model")
-        harmonizationmodel = dio.ReadPickleFile(harmonizationmodelfile)
+        return self
 
-        print("harmonizing MUSE ROIs")
-        harmonized_rois = harmonize(datamodel,harmonizationmodel)
-        harmonized_rois.Doharmonization()
+
+    def Harmonize(self, harmonizationmodelfile,outputfile):
+
+        print("Reading harmonization model")
+        harmonizationmodel = self.dio.ReadPickleFile(harmonizationmodelfile)
+
+        print("Harmonizing MUSE ROIs")
+        harmonized_rois = Harmonize(self.datamodel,harmonizationmodel)
+        muse, parameters = harmonized_rois.DoHarmonization()
 
         print('Adding residuals and harmonized volumes to data frame...')
-        datamodel.AddHarmonizedVolumes(harmonized_rois.SPAREs)
+        harmonized_rois.AddHarmonizedMUSE(muse)
 
-        print("saving updated data at specified location")
-        dio.SavePickleFile(datamodel.data,outputfile)
+        print("Saving updated data at specified location")
+        self.dio.SavePickleFile(self.datamodel.data,outputfile)
 
         print("Done")
+        return self
 
-    def ComputeSpares(self,datafile,sparesmodelfile,outputfile):
-        print("reading data")
-        dio = DataIO()
-        data = dio.ReadPickleFile(datafile)
-
-        #set data into datamodel
-        datamodel = DataModel()
-        if (data is not None) and datamodel.IsValidData(data):
-            datamodel.SetDataFilePath(datafile)
-            datamodel.SetData(data)
+    def ComputeSpares(self, sparesmodelfile, outputfile):
 
         print("reading spare model")
         sparemodel = {'BrainAge': None, 'AD': None}
-        sparemodel['BrainAge'], sparemodel['AD'] = dio.ReadSPAREModel(sparesmodelfile)
+        sparemodel['BrainAge'], sparemodel['AD'] = self.dio.ReadSPAREModel(sparesmodelfile)
 
         print("computing SPARE scores")
-        spare_compute_instance = SPARE(datamodel,sparemodel)
+        spare_compute_instance = SPARE(self.datamodel,sparemodel)
         spare_compute_instance.DoSPAREsComputation()
 
         print('Adding SPARE-* scores to data frame...')
-        datamodel.AddSparesToDataModel(spare_compute_instance.SPAREs)
+        self.datamodel.AddSparesToDataModel(spare_compute_instance.SPAREs)
 
         print("saving updated data at specified location")
-        dio.SavePickleFile(datamodel.data,outputfile)
+        self.dio.SavePickleFile(self.datamodel.data,outputfile)
 
         print("Done")
+        return self
 
 
 if __name__ == '__main__':
-    main()
+    pass

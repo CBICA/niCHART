@@ -8,17 +8,16 @@ from NiBAx.core import iStagingLogger
 
 logger = iStagingLogger.get_logger(__name__)
 
-class harmonize(QtCore.QObject):
+class Harmonize(QtCore.QObject):
     """This class is an adapter to the worker class."""
     sendprogress = QtCore.pyqtSignal(str, int)
     done = QtCore.pyqtSignal()
 
     #constructor
     def __init__(self,datamodel, model):
-        super(harmonize,self).__init__()
+        super(Harmonize,self).__init__()
         self.datamodel = datamodel
         self.datamodel.harmonization_model = model
-        self.MUSE = None
 
 
     def DoHarmonization(self):
@@ -119,6 +118,7 @@ class harmonize(QtCore.QObject):
         if ('MUSE_Volume_301' not in list(self.datamodel.harmonization_model['ROIs'])):
             logger.info('No derived volumes in model.')
             logger.info('Calculating using derived mapping dictionary.')
+            
             MUSEDictDataFrame= self.datamodel.GetMUSEDictDataFrame()
             muse_mappings = self.datamodel.GetDerivedMUSEMap()
             for ROI in MUSEDictDataFrame[MUSEDictDataFrame['ROI_LEVEL']=='DERIVED']['ROI_INDEX']:
@@ -140,3 +140,30 @@ class harmonize(QtCore.QObject):
         print('Harmonization done.')
 
         return muse, parameters
+
+
+    def AddHarmonizedMUSE(self, muse):
+        print('Saving modified data to pickle file...')
+
+        muse.set_index(self.datamodel.data.index,inplace=True)
+
+        ROI_list = list(self.datamodel.harmonization_model['ROIs'])
+        if ('MUSE_Volume_301' not in ROI_list):
+            logger.info('No derived volumes in model')
+            MUSEDictDataFrame= self.datamodel.GetMUSEDictDataFrame()
+            Derived_numbers = list(MUSEDictDataFrame[MUSEDictDataFrame['ROI_LEVEL']=='DERIVED']['ROI_INDEX'])
+            Derived_MUSE_Volumes = list('MUSE_Volume_' + str(x) for x in Derived_numbers)
+            ROI_list = ROI_list + Derived_MUSE_Volumes
+            ROI_list.remove('MUSE_Volume_702')
+        else:
+            logger.info('Model includes derived volumes')
+        H_ROIs = list('H_' + str(x) for x in ROI_list)
+        ROIs_ICV_Sex_Residuals = ['RES_ICV_Sex_' + x for x in self.datamodel.harmonization_model['ROIs']]
+        ROIs_Residuals = ['RES_' + x for x in self.datamodel.harmonization_model['ROIs']]
+        RAW_Residuals = ['RAW_RES_' + x for x in self.datamodel.harmonization_model['ROIs']]
+        if ('H_MUSE_Volume_47' not in self.datamodel.data.keys()):
+            self.datamodel.data.loc[:,H_ROIs] = muse[H_ROIs]
+        self.datamodel.data.loc[:,ROIs_ICV_Sex_Residuals] = muse[ROIs_ICV_Sex_Residuals]
+        self.datamodel.data.loc[:,ROIs_Residuals] = muse[ROIs_Residuals]
+        self.datamodel.data.loc[:,RAW_Residuals] = muse[RAW_Residuals]
+        
