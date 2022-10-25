@@ -7,21 +7,21 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as pat
 import numpy as np
 import pandas as pd
-import re
+import copy
 from NiBAx.core.plotcanvas import PlotCanvas
 from NiBAx.core.baseplugin import BasePlugin
 from NiBAx.core.gui.SearchableQComboBox import SearchableQComboBox
-from NiBAx.plugins.harmonizationplugin.harmonization import harmonize
+from NiBAx.plugins.harmonizationplugin.harmonization import Harmonize
 
 from NiBAx.core import iStagingLogger
 
 logger = iStagingLogger.get_logger(__name__)
 
-class harmonizationplugin(QtWidgets.QWidget,BasePlugin):
+class HarmonizationPlugin(QtWidgets.QWidget,BasePlugin):
 
     #constructor
     def __init__(self):
-        super(harmonizationplugin,self).__init__()
+        super(HarmonizationPlugin,self).__init__()
         root = os.path.dirname(__file__)
         self.readAdditionalInformation(root)
         self.ui = uic.loadUi(os.path.join(root, 'harmonization.ui'),self)
@@ -48,7 +48,7 @@ class harmonizationplugin(QtWidgets.QWidget,BasePlugin):
         self.ui.load_other_model_Btn.clicked.connect(lambda: self.OnLoadHarmonizationModelBtnClicked())
         self.ui.show_data_Btn.clicked.connect(lambda: self.OnShowDataBtnClicked())
         self.ui.apply_model_to_dataset_Btn.clicked.connect(lambda: self.OnApplyModelToDatasetBtnClicked())
-        self.ui.add_to_dataframe_Btn.clicked.connect(lambda: self.OnAddToDataFrame())
+        self.ui.add_to_dataframe_Btn.clicked.connect(lambda: self.OnAddHarmonizedMUSE())
         self.ui.comboBoxROI.currentIndexChanged.connect(self.UpdatePlot)
         self.ui.add_to_dataframe_Btn.setStyleSheet("background-color: rgb(230,255,230); color: black")
         self.datamodel.data_changed.connect(lambda: self.OnDataChanged())
@@ -142,7 +142,7 @@ class harmonizationplugin(QtWidgets.QWidget,BasePlugin):
             self.PopulateROI()
     
     def OnApplyModelToDatasetBtnClicked(self):
-        self.MUSE, self.parameters= harmonize.DoHarmonization(self)
+        self.MUSE, self.parameters= Harmonize(self.datamodel, self.datamodel.harmonization_model).DoHarmonization()
         self.PopulateROI()
 
     def UpdatePlot(self):
@@ -190,7 +190,7 @@ class harmonizationplugin(QtWidgets.QWidget,BasePlugin):
             print('Plotting controls only')
             data = self.MUSE[self.MUSE['isTrainMUSEHarmonization']==1]
         else: 
-            data = self.MUSE
+            data = copy.deepcopy(self.MUSE)
             data.dropna(subset=[raw_res],inplace=True)
 
         data.loc[:,'SITE'] = pd.Categorical(data['SITE'])
@@ -321,30 +321,8 @@ class harmonizationplugin(QtWidgets.QWidget,BasePlugin):
 
         self.plotCanvas.draw()
 
-    def OnAddToDataFrame(self):
-        print('Saving modified data to pickle file...')
-
-        self.MUSE.set_index(self.datamodel.data.index,inplace=True)
-
-        ROI_list = list(self.datamodel.harmonization_model['ROIs'])
-        if ('MUSE_Volume_301' not in ROI_list):
-            logger.info('No derived volumes in model')
-            MUSEDictDataFrame= self.datamodel.GetMUSEDictDataFrame()
-            Derived_numbers = list(MUSEDictDataFrame[MUSEDictDataFrame['ROI_LEVEL']=='DERIVED']['ROI_INDEX'])
-            Derived_MUSE_Volumes = list('MUSE_Volume_' + str(x) for x in Derived_numbers)
-            ROI_list = ROI_list + Derived_MUSE_Volumes
-            ROI_list.remove('MUSE_Volume_702')
-        else:
-            logger.info('Model includes derived volumes')
-        H_ROIs = list('H_' + str(x) for x in ROI_list)
-        ROIs_ICV_Sex_Residuals = ['RES_ICV_Sex_' + x for x in self.datamodel.harmonization_model['ROIs']]
-        ROIs_Residuals = ['RES_' + x for x in self.datamodel.harmonization_model['ROIs']]
-        RAW_Residuals = ['RAW_RES_' + x for x in self.datamodel.harmonization_model['ROIs']]
-        if ('H_MUSE_Volume_47' not in self.datamodel.data.keys()):
-            self.datamodel.data.loc[:,H_ROIs] = self.MUSE[H_ROIs]
-        self.datamodel.data.loc[:,ROIs_ICV_Sex_Residuals] = self.MUSE[ROIs_ICV_Sex_Residuals]
-        self.datamodel.data.loc[:,ROIs_Residuals] = self.MUSE[ROIs_Residuals]
-        self.datamodel.data.loc[:,RAW_Residuals] = self.MUSE[RAW_Residuals]
+    def OnAddHarmonizedMUSE(self):
+        Harmonize(self.datamodel, self.datamodel.harmonization_model).AddHarmonizedMUSE(self.MUSE)
         self.datamodel.data_changed.emit()
     
     def OnDataChanged(self):
