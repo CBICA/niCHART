@@ -50,8 +50,9 @@ class NiBAxCmdApp:
         print('Adding residuals and harmonized volumes to data frame...')
         harmonized_rois.AddHarmonizedMUSE(muse)
 
-        print("Saving updated data at specified location")
-        self.dio.SavePickleFile(self.datamodel.data,outputfile)
+        if outputfile:
+            print("Saving updated data at specified location")
+            self.dio.SavePickleFile(self.datamodel.data,outputfile)
 
         print("Done")
         return self
@@ -69,8 +70,9 @@ class NiBAxCmdApp:
         print('Adding SPARE-* scores to data frame...')
         self.datamodel.AddSparesToDataModel(spare_compute_instance.SPAREs)
 
-        print("saving updated data at specified location")
-        self.dio.SavePickleFile(self.datamodel.data,outputfile)
+        if outputfile:
+            print("Saving updated data at specified location")
+            self.dio.SavePickleFile(self.datamodel.data,outputfile)
 
         print("Done")
         return self
