@@ -16,11 +16,11 @@ apt-get update
 apt-get -y install git git-lfs rsync python3-stemmer python3-git python3-pip \
                    python3-virtualenv python3-setuptools zlib1g zlib1g-dev libjpeg-dev \
                    python3-pandas python3-matplotlib python3-seaborn
-
-python3 -m pip install --upgrade docutils==0.16 reportlab==3.6.8
-python3 -m pip install --upgrade rinohtype Pygments myst_parser sphinx_tabs \
-                                 sphinx_rtd_theme sphinx rst2pdf sphinx-autoapi \
-                                 sphinx_gallery
+python3 -m pip install --upgrade sphinx==4.5.0 sphinx_tabs==3.3.1
+python3 -m pip install --upgrade docutils==0.17 reportlab==3.6.8
+python3 -m pip install --upgrade rinohtype Pygments myst_parser \
+                                 sphinx_rtd_theme==1.0.0 sphinx rst2pdf sphinx-autoapi==1.8.4 \
+                                 sphinx_gallery==0.10.1 lazy-object-proxy==1.7.1
 
 git lfs install
  
