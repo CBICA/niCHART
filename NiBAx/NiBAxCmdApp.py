@@ -38,7 +38,7 @@ class NiBAxCmdApp:
         return self
 
 
-    def Harmonize(self, harmonizationmodelfile,outputfile):
+    def Harmonize(self, harmonizationmodelfile,outputfile=None):
 
         print("Reading harmonization model")
         harmonizationmodel = self.dio.ReadPickleFile(harmonizationmodelfile)
@@ -57,7 +57,7 @@ class NiBAxCmdApp:
         print("Done")
         return self
 
-    def ComputeSpares(self, sparesmodelfile, outputfile):
+    def ComputeSpares(self, sparesmodelfile, outputfile=None):
 
         print("reading spare model")
         sparemodel = {'BrainAge': None, 'AD': None}
