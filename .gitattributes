@@ -1,0 +1,3 @@
+*.png text !filter !merge !diff
+*.gif text !filter !merge !diff
+*.svg text !filter !merge !diff

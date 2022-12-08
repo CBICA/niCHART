@@ -1,0 +1,55 @@
+:py:mod:`harmonization`
+=======================
+
+.. py:module:: harmonization
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   harmonization.Harmonize
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   harmonization.logger
+
+
+.. py:data:: logger
+   
+
+   
+
+.. py:class:: Harmonize(datamodel, model)
+
+   Bases: :py:obj:`PyQt5.QtCore.QObject`
+
+   This class is an adapter to the worker class.
+
+   .. py:attribute:: sendprogress
+      
+
+      
+
+   .. py:attribute:: done
+      
+
+      
+
+   .. py:method:: DoHarmonization(self)
+
+
+   .. py:method:: AddHarmonizedMUSE(self, muse)
+
+
+

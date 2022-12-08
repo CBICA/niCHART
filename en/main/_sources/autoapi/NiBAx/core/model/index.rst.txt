@@ -1,0 +1,15 @@
+:py:mod:`NiBAx.core.model`
+==========================
+
+.. py:module:: NiBAx.core.model
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   datamodel/index.rst
+
+

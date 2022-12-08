@@ -1,0 +1,99 @@
+:py:mod:`NiBAx`
+===============
+
+.. py:module:: NiBAx
+
+.. autoapi-nested-parse::
+
+   contact: software@cbica.upenn.edu
+   Copyright (c) 2018 University of Pennsylvania. All rights reserved.
+   Use of this source code is governed by license located in license file: https://github.com/CBICA/NiBAx/blob/main/LICENSE
+
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   core/index.rst
+   plugins/index.rst
+   resources/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   NiBAxCmdApp/index.rst
+   __main__/index.rst
+   aboutdialog/index.rst
+   mainwindow/index.rst
+
+
+Package Contents
+----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.MainWindow
+   NiBAx.NiBAxCmdApp
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.main
+
+
+
+.. py:class:: MainWindow(dataFile=None, harmonizationModelFile=None, SPAREModelFile=None)
+
+   Bases: :py:obj:`PyQt5.QtWidgets.QMainWindow`
+
+   .. py:method:: __del__(self)
+
+
+   .. py:method:: SetupConnections(self)
+
+
+   .. py:method:: SetupUi(self)
+
+
+   .. py:method:: OnAboutClicked(self)
+
+
+   .. py:method:: OnHelpClicked(self)
+
+
+   .. py:method:: OnCloseClicked(self)
+
+
+   .. py:method:: ResetUI(self)
+
+
+
+.. py:class:: NiBAxCmdApp
+
+   .. py:method:: LoadData(self, datafile)
+
+
+   .. py:method:: Harmonize(self, harmonizationmodelfile, outputfile=None)
+
+
+   .. py:method:: ComputeSpares(self, sparesmodelfile, outputfile=None)
+
+
+
+.. py:function:: main()
+
+

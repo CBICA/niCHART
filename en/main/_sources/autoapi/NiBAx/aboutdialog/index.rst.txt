@@ -1,0 +1,41 @@
+:py:mod:`NiBAx.aboutdialog`
+===========================
+
+.. py:module:: NiBAx.aboutdialog
+
+.. autoapi-nested-parse::
+
+   contact: software@cbica.upenn.edu
+   Copyright (c) 2018 University of Pennsylvania. All rights reserved.
+   Use of this source code is governed by license located in license file: https://github.com/CBICA/NiBAx/blob/main/LICENSE
+   Author: Ashish Singh
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.aboutdialog.AboutDialog
+
+
+
+
+.. py:class:: AboutDialog(parent=None)
+
+   Bases: :py:obj:`PyQt5.QtWidgets.QDialog`
+
+   .. py:method:: SetupConnections(self)
+
+
+   .. py:method:: OnOkBtnClicked(self)
+
+
+   .. py:method:: SetupUi(self)
+
+
+

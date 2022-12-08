@@ -1,0 +1,15 @@
+:py:mod:`NiBAx.plugins.harmonization`
+=====================================
+
+.. py:module:: NiBAx.plugins.harmonization
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   harmonization/index.rst
+
+

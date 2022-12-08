@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NiBAx.plugins.datacharacteristics.datacharacteristics &mdash; NiBAχ 0.1 documentation</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="NiBAx.plugins.harmonization" href="../../harmonization/index.html" />
+    <link rel="prev" title="NiBAx.plugins.datacharacteristics" href="../index.html" />
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6752KVNMB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B6752KVNMB');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../../index.html">
+            <img src="../../../../../_static/NiBAx.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                main
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contents/userguide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contents/datapreprocessing.html">Data Pre-Processing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../auto_examples/index.html">Placeholder Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NiBAx</span></code></a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../../index.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../../core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NiBAx.core</span></code></a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NiBAx.plugins</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../resources/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NiBAx.resources</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../index.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../harmonization/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">harmonization</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../harmonizationplugin/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">harmonizationplugin</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../spares/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">spares</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../sparesplugin/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sparesplugin</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contents/development.html">Developer Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">NiBAχ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../../index.html">API Reference</a> &raquo;</li>
+          <li><a href="../../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NiBAx</span></code></a> &raquo;</li>
+          <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NiBAx.plugins</span></code></a> &raquo;</li>
+          <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NiBAx.plugins.datacharacteristics</span></code></a> &raquo;</li>
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">NiBAx.plugins.datacharacteristics.datacharacteristics</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/CBICA/NiBAx/blob/main/docs/autoapi/NiBAx/plugins/datacharacteristics/datacharacteristics/index.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-NiBAx.plugins.datacharacteristics.datacharacteristics">
+<span id="nibax-plugins-datacharacteristics-datacharacteristics"></span><h1><a class="reference internal" href="#module-NiBAx.plugins.datacharacteristics.datacharacteristics" title="NiBAx.plugins.datacharacteristics.datacharacteristics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NiBAx.plugins.datacharacteristics.datacharacteristics</span></code></a><a class="headerlink" href="#module-NiBAx.plugins.datacharacteristics.datacharacteristics" title="Permalink to this heading"></a></h1>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading"></a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics" title="NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataCharacteristics</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NiBAx.plugins.datacharacteristics.datacharacteristics.</span></span><span class="sig-name descname"><span class="pre">DataCharacteristics</span></span><a class="reference internal" href="../../../../../_modules/NiBAx/plugins/datacharacteristics/datacharacteristics.html#DataCharacteristics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QWidget</span></code>, <a class="reference internal" href="../../../core/baseplugin/index.html#NiBAx.core.baseplugin.BasePlugin" title="NiBAx.core.baseplugin.BasePlugin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NiBAx.core.baseplugin.BasePlugin</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics.priority">
+<span class="sig-name descname"><span class="pre">priority</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">0</span></em><a class="reference internal" href="../../../../../_modules/NiBAx/plugins/datacharacteristics/datacharacteristics.html#DataCharacteristics.priority"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics.priority" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics.getUI">
+<span class="sig-name descname"><span class="pre">getUI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/NiBAx/plugins/datacharacteristics/datacharacteristics.html#DataCharacteristics.getUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics.getUI" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics.SetupConnections">
+<span class="sig-name descname"><span class="pre">SetupConnections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/NiBAx/plugins/datacharacteristics/datacharacteristics.html#DataCharacteristics.SetupConnections"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics.SetupConnections" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics.UpdateDataCharacteristics">
+<span class="sig-name descname"><span class="pre">UpdateDataCharacteristics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/NiBAx/plugins/datacharacteristics/datacharacteristics.html#DataCharacteristics.UpdateDataCharacteristics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics.UpdateDataCharacteristics" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics.OnDataChanged">
+<span class="sig-name descname"><span class="pre">OnDataChanged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/NiBAx/plugins/datacharacteristics/datacharacteristics.html#DataCharacteristics.OnDataChanged"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics.OnDataChanged" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="NiBAx.plugins.datacharacteristics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../harmonization/index.html" class="btn btn-neutral float-right" title="NiBAx.plugins.harmonization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, CBICA, University of Pennsylvania.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: main
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Languages</dt>
+        
+           <strong> 
+          <dd><a href="/NiBAx/en/main/">en</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="/NiBAx/es/main/">es</a></dd>
+          
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="/NiBAx/en/main/">main</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/NiBAx/en/main/NiBAχ-docs_en_main.pdf">pdf</a></dd>
+        
+          <dd><a href="/NiBAx/en/main/NiBAχ-docs_en_main.epub">epub</a></dd>
+        
+      </dl>
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<style>
+/* Sidebar header (and topbar for mobile) */
+.wy-side-nav-search, .wy-nav-top {
+  background: #95b1c2;
+}
+/* Sidebar */
+.wy-nav-side {
+  background: #363745;
+}
+</style>
+
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+:py:mod:`NiBAx.plugins.agetrends`
+=================================
+
+.. py:module:: NiBAx.plugins.agetrends
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   agetrends/index.rst
+
+

@@ -1,0 +1,15 @@
+:py:mod:`NiBAx.core.gui`
+========================
+
+.. py:module:: NiBAx.core.gui
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   SearchableQComboBox/index.rst
+
+

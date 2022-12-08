@@ -1,0 +1,29 @@
+:py:mod:`NiBAx.__main__`
+========================
+
+.. py:module:: NiBAx.__main__
+
+.. autoapi-nested-parse::
+
+   contact: software@cbica.upenn.edu
+   Copyright (c) 2018 University of Pennsylvania. All rights reserved.
+   Use of this source code is governed by license located in license file: https://github.com/CBICA/NiBAx/blob/main/LICENSE
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.__main__.main
+
+
+
+.. py:function:: main()
+
+

@@ -1,0 +1,15 @@
+:py:mod:`NiBAx.resources`
+=========================
+
+.. py:module:: NiBAx.resources
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   resources/index.rst
+
+

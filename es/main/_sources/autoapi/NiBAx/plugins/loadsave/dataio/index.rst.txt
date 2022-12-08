@@ -1,0 +1,60 @@
+:py:mod:`NiBAx.plugins.loadsave.dataio`
+=======================================
+
+.. py:module:: NiBAx.plugins.loadsave.dataio
+
+.. autoapi-nested-parse::
+
+   contact: software@cbica.upenn.edu
+   Copyright (c) 2018 University of Pennsylvania. All rights reserved.
+   Use of this source code is governed by license located in license file: https://github.com/CBICA/NiBAx/blob/main/LICENSE
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.plugins.loadsave.dataio.DataIO
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.plugins.loadsave.dataio.logger
+
+
+.. py:data:: logger
+   
+
+   
+
+.. py:class:: DataIO
+
+   .. py:method:: ReadPickleFile(self, filename)
+
+
+   .. py:method:: ReadCSVFile(self, filename)
+
+
+   .. py:method:: SavePickleFile(self, data, filename)
+
+
+   .. py:method:: ReadMUSEDictionary(self)
+
+
+   .. py:method:: ReadDerivedMUSEMap(self)
+
+
+   .. py:method:: ReadSPAREModel(self, filename)
+
+
+

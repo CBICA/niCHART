@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[NiBAχ] The neuro-imaging brain aging chart &mdash; documentación de NiBAχ - 0.1</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="User Guide" href="contents/userguide.html" />
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6752KVNMB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B6752KVNMB');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#">
+            <img src="_static/NiBAx.png" class="logo" alt="Logotipo"/>
+          </a>
+              <div class="version">
+                main
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contents/userguide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/datapreprocessing.html">Data Pre-Processing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Placeholder Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/development.html">Developer Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">NiBAχ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li><strong>[NiBAχ]</strong> The neuro-imaging brain aging chart</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/CBICA/NiBAx/blob/main/docs/index.rst" class="fa fa-github"> Editar en GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="niba-the-neuro-imaging-brain-aging-chart">
+<h1><strong>[NiBAχ]</strong> The neuro-imaging brain aging chart<a class="headerlink" href="#niba-the-neuro-imaging-brain-aging-chart" title="Enlace permanente a este encabezado"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>The documentation and GUI is under active development.
+Statistical and machine learning models will be made available once fully
+validated.</p>
+</div>
+<p>The neuro-imaging brain aging chart <strong>[NiBAχ]</strong> is a comprehensive solution to
+analyze standard structural and functional brain MRI data across studies.
+<strong>[NiBAχ]</strong> and the associated pre-processing tools implement computational
+morphometry, functional signal analysis, quality control, statistical
+harmonization, data standardization, interactive visualization, and extraction
+of expressive imaging signatures.</p>
+<figure class="align-default" id="id1">
+<img alt="_images/data_integration.svg" src="_images/data_integration.svg" /><figcaption>
+<p><span class="caption-text">Pipeline to obtain normative ranges and expressive signatures from standard
+structural and functional MRI data.</span><a class="headerlink" href="#id1" title="Enlace permanente a esta imagen"></a></p>
+</figcaption>
+</figure>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contents/userguide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/datapreprocessing.html">Data Pre-Processing</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Placeholder Gallery</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contents/development.html">Developer Guide</a></li>
+</ul>
+</div>
+<section id="about">
+<h2>About<a class="headerlink" href="#about" title="Enlace permanente a este encabezado"></a></h2>
+<p>By using NiBAx, the user agrees to the following license:
+<a class="reference external" href="https://www.med.upenn.edu/cbica/software-agreement-non-commercial.html">https://www.med.upenn.edu/cbica/software-agreement-non-commercial.html</a></p>
+<p>For more information and support, please post on the <a class="reference external" href="https://github.com/CBICA/NiBAx/discussions">Discussions</a>
+section or contact <a class="reference external" href="mailto:software&#37;&#52;&#48;cbica&#46;upenn&#46;edu">CBICA Software</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="contents/userguide.html" class="btn btn-neutral float-right" title="User Guide" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2022, CBICA, University of Pennsylvania.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: main
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Languages</dt>
+        
+          
+          <dd><a href="/NiBAx/en/main/">en</a></dd>
+          
+        
+           <strong> 
+          <dd><a href="/NiBAx/es/main/">es</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Versiones</dt>
+        
+           <strong> 
+          <dd><a href="/NiBAx/es/main/">main</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Descargas</dt>
+        
+          <dd><a href="/NiBAx/es/main/NiBAχ-docs_es_main.pdf">pdf</a></dd>
+        
+          <dd><a href="/NiBAx/es/main/NiBAχ-docs_es_main.epub">epub</a></dd>
+        
+      </dl>
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<style>
+/* Sidebar header (and topbar for mobile) */
+.wy-side-nav-search, .wy-nav-top {
+  background: #95b1c2;
+}
+/* Sidebar */
+.wy-nav-side {
+  background: #363745;
+}
+</style>
+
+
+</body>
+</html>

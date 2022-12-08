@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>harmonizationplugin &mdash; documentación de NiBAχ - 0.1</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+    <link rel="next" title="spares" href="../spares/index.html" />
+    <link rel="prev" title="harmonization" href="../harmonization/index.html" />
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6752KVNMB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B6752KVNMB');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html">
+            <img src="../../_static/NiBAx.png" class="logo" alt="Logotipo"/>
+          </a>
+              <div class="version">
+                main
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/userguide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/datapreprocessing.html">Data Pre-Processing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Placeholder Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../NiBAx/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">NiBAx</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../harmonization/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">harmonization</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">harmonizationplugin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#classes">Classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#attributes">Attributes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../spares/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">spares</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sparesplugin/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sparesplugin</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/development.html">Developer Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NiBAχ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">API Reference</a> &raquo;</li>
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">harmonizationplugin</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/CBICA/NiBAx/blob/main/docs/autoapi/harmonizationplugin/index.rst" class="fa fa-github"> Editar en GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-harmonizationplugin">
+<span id="harmonizationplugin"></span><h1><a class="reference internal" href="#module-harmonizationplugin" title="harmonizationplugin"><code class="xref py py-mod docutils literal notranslate"><span class="pre">harmonizationplugin</span></code></a><a class="headerlink" href="#module-harmonizationplugin" title="Enlace permanente a este encabezado"></a></h1>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Enlace permanente a este encabezado"></a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Enlace permanente a este encabezado"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#harmonizationplugin.HarmonizationPlugin" title="harmonizationplugin.HarmonizationPlugin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HarmonizationPlugin</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Enlace permanente a este encabezado"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#harmonizationplugin.wrap_by_word" title="harmonizationplugin.wrap_by_word"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wrap_by_word</span></code></a>(s, n)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Enlace permanente a este encabezado"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#harmonizationplugin.logger" title="harmonizationplugin.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt class="sig sig-object py" id="harmonizationplugin.logger">
+<span class="sig-prename descclassname"><span class="pre">harmonizationplugin.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><a class="reference internal" href="../../_modules/harmonizationplugin.html#logger"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#harmonizationplugin.logger" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="harmonizationplugin.HarmonizationPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">harmonizationplugin.</span></span><span class="sig-name descname"><span class="pre">HarmonizationPlugin</span></span><a class="reference internal" href="../../_modules/harmonizationplugin.html#HarmonizationPlugin"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#harmonizationplugin.HarmonizationPlugin" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QWidget</span></code>, <a class="reference internal" href="../NiBAx/core/baseplugin/index.html#NiBAx.core.baseplugin.BasePlugin" title="NiBAx.core.baseplugin.BasePlugin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NiBAx.core.baseplugin.BasePlugin</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="harmonizationplugin.HarmonizationPlugin.getUI">
+<span class="sig-name descname"><span class="pre">getUI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/harmonizationplugin.html#HarmonizationPlugin.getUI"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#harmonizationplugin.HarmonizationPlugin.getUI" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="harmonizationplugin.HarmonizationPlugin.SetupConnections">
+<span class="sig-name descname"><span class="pre">SetupConnections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/harmonizationplugin.html#HarmonizationPlugin.SetupConnections"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#harmonizationplugin.HarmonizationPlugin.SetupConnections" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="harmonizationplugin.HarmonizationPlugin.LoadHarmonizationModel">
+<span class="sig-name descname"><span class="pre">LoadHarmonizationModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/harmonizationplugin.html#HarmonizationPlugin.LoadHarmonizationModel"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#harmonizationplugin.HarmonizationPlugin.LoadHarmonizationModel" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="harmonizationplugin.HarmonizationPlugin.OnLoadHarmonizationModelBtnClicked">
+<span class="sig-name descname"><span class="pre">OnLoadHarmonizationModelBtnClicked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/harmonizationplugin.html#HarmonizationPlugin.OnLoadHarmonizationModelBtnClicked"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#harmonizationplugin.HarmonizationPlugin.OnLoadHarmonizationModelBtnClicked" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="harmonizationplugin.HarmonizationPlugin.PopulateROI">
+<span class="sig-name descname"><span class="pre">PopulateROI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/harmonizationplugin.html#HarmonizationPlugin.PopulateROI"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#harmonizationplugin.HarmonizationPlugin.PopulateROI" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="harmonizationplugin.HarmonizationPlugin.OnShowDataBtnClicked">
+<span class="sig-name descname"><span class="pre">OnShowDataBtnClicked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/harmonizationplugin.html#HarmonizationPlugin.OnShowDataBtnClicked"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#harmonizationplugin.HarmonizationPlugin.OnShowDataBtnClicked" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="harmonizationplugin.HarmonizationPlugin.OnApplyModelToDatasetBtnClicked">
+<span class="sig-name descname"><span class="pre">OnApplyModelToDatasetBtnClicked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/harmonizationplugin.html#HarmonizationPlugin.OnApplyModelToDatasetBtnClicked"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#harmonizationplugin.HarmonizationPlugin.OnApplyModelToDatasetBtnClicked" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="harmonizationplugin.HarmonizationPlugin.UpdatePlot">
+<span class="sig-name descname"><span class="pre">UpdatePlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/harmonizationplugin.html#HarmonizationPlugin.UpdatePlot"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#harmonizationplugin.HarmonizationPlugin.UpdatePlot" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="harmonizationplugin.HarmonizationPlugin.plotMUSE">
+<span class="sig-name descname"><span class="pre">plotMUSE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plotOptions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/harmonizationplugin.html#HarmonizationPlugin.plotMUSE"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#harmonizationplugin.HarmonizationPlugin.plotMUSE" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="harmonizationplugin.HarmonizationPlugin.OnAddHarmonizedMUSE">
+<span class="sig-name descname"><span class="pre">OnAddHarmonizedMUSE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/harmonizationplugin.html#HarmonizationPlugin.OnAddHarmonizedMUSE"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#harmonizationplugin.HarmonizationPlugin.OnAddHarmonizedMUSE" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="harmonizationplugin.HarmonizationPlugin.OnDataChanged">
+<span class="sig-name descname"><span class="pre">OnDataChanged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/harmonizationplugin.html#HarmonizationPlugin.OnDataChanged"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#harmonizationplugin.HarmonizationPlugin.OnDataChanged" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="harmonizationplugin.wrap_by_word">
+<span class="sig-prename descclassname"><span class="pre">harmonizationplugin.</span></span><span class="sig-name descname"><span class="pre">wrap_by_word</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/harmonizationplugin.html#wrap_by_word"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#harmonizationplugin.wrap_by_word" title="Enlazar permanentemente con esta definición"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="../harmonization/index.html" class="btn btn-neutral float-left" title="harmonization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="../spares/index.html" class="btn btn-neutral float-right" title="spares" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2022, CBICA, University of Pennsylvania.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: main
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Languages</dt>
+        
+          
+          <dd><a href="/NiBAx/en/main/">en</a></dd>
+          
+        
+           <strong> 
+          <dd><a href="/NiBAx/es/main/">es</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Versiones</dt>
+        
+           <strong> 
+          <dd><a href="/NiBAx/es/main/">main</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Descargas</dt>
+        
+          <dd><a href="/NiBAx/es/main/NiBAχ-docs_es_main.pdf">pdf</a></dd>
+        
+          <dd><a href="/NiBAx/es/main/NiBAχ-docs_es_main.epub">epub</a></dd>
+        
+      </dl>
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<style>
+/* Sidebar header (and topbar for mobile) */
+.wy-side-nav-search, .wy-nav-top {
+  background: #95b1c2;
+}
+/* Sidebar */
+.wy-nav-side {
+  background: #363745;
+}
+</style>
+
+
+</body>
+</html>

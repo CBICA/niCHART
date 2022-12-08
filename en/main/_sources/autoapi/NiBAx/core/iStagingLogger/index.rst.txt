@@ -1,0 +1,57 @@
+:py:mod:`NiBAx.core.iStagingLogger`
+===================================
+
+.. py:module:: NiBAx.core.iStagingLogger
+
+.. autoapi-nested-parse::
+
+   contact: software@cbica.upenn.edu
+   Author: Ashish Singh
+   Copyright (c) 2018 University of Pennsylvania. All rights reserved.
+   Use of this source code is governed by license located in license file: https://github.com/CBICA/NiBAx/blob/main/LICENSE
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.core.iStagingLogger.get_console_handler
+   NiBAx.core.iStagingLogger.get_file_handler
+   NiBAx.core.iStagingLogger.get_logger
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.core.iStagingLogger.FORMATTER
+   NiBAx.core.iStagingLogger.LOG_FILE
+
+
+.. py:data:: FORMATTER
+   
+
+   
+
+.. py:data:: LOG_FILE
+   
+
+   
+
+.. py:function:: get_console_handler()
+
+
+.. py:function:: get_file_handler()
+
+
+.. py:function:: get_logger(logger_name)
+
+

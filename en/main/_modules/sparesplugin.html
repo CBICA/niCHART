@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sparesplugin &mdash; NiBAχ 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/tabs.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6752KVNMB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B6752KVNMB');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html">
+            <img src="../_static/NiBAx.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                main
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contents/userguide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/datapreprocessing.html">Data Pre-Processing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Placeholder Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contents/development.html">Developer Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NiBAχ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Module code</a> &raquo;</li>
+      <li>sparesplugin</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sparesplugin</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">matplotlib.backends.backend_qt5</span> <span class="kn">import</span> <span class="n">FigureCanvasQT</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">uic</span>
+<span class="kn">import</span> <span class="nn">joblib</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">NiBAx.core.plotcanvas</span> <span class="kn">import</span> <span class="n">PlotCanvas</span>
+<span class="kn">from</span> <span class="nn">NiBAx.core.baseplugin</span> <span class="kn">import</span> <span class="n">BasePlugin</span>
+<span class="kn">from</span> <span class="nn">NiBAx.core.gui.SearchableQComboBox</span> <span class="kn">import</span> <span class="n">SearchableQComboBox</span>
+<span class="kn">from</span> <span class="nn">NiBAx.plugins.sparesplugin.spares</span> <span class="kn">import</span> <span class="n">SPARE</span>
+
+<div class="viewcode-block" id="SparePlugin"><a class="viewcode-back" href="../autoapi/sparesplugin/index.html#sparesplugin.SparePlugin">[docs]</a><span class="k">class</span> <span class="nc">SparePlugin</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span><span class="p">,</span><span class="n">BasePlugin</span><span class="p">):</span>
+
+    <span class="c1">#constructor</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SparePlugin</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;BrainAge&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;AD&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">readAdditionalInformation</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">uic</span><span class="o">.</span><span class="n">loadUi</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s1">&#39;sparesplugin.ui&#39;</span><span class="p">),</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBoxHue</span> <span class="o">=</span> <span class="n">SearchableQComboBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">horizontalLayout_3</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">comboBoxHue</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotCanvas</span> <span class="o">=</span> <span class="n">PlotCanvas</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">page_2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">verticalLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plotCanvas</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotCanvas</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plotCanvas</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">stackedWidget</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">factorial_progressBar</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spare_compute_instance</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="SparePlugin.getUI"><a class="viewcode-back" href="../autoapi/sparesplugin/index.html#sparesplugin.SparePlugin.getUI">[docs]</a>    <span class="k">def</span> <span class="nf">getUI</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span></div>
+
+
+<div class="viewcode-block" id="SparePlugin.SetupConnections"><a class="viewcode-back" href="../autoapi/sparesplugin/index.html#sparesplugin.SparePlugin.SetupConnections">[docs]</a>    <span class="k">def</span> <span class="nf">SetupConnections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">load_SPARE_model_Btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnLoadSPAREModel</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">load_other_model_Btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnLoadSPAREModel</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">add_to_dataframe_Btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnAddToDataFrame</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">compute_SPARE_scores_Btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">check</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnComputeSPAREs</span><span class="p">(</span><span class="n">check</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">show_SPARE_scores_from_data_Btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnShowSPAREs</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">data_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnDataChanged</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBoxHue</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plotSPAREs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">add_to_dataframe_Btn</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;background-color: green; color: white&quot;</span><span class="p">)</span>
+        <span class="c1"># Set `Show SPARE-* from data` button to visible when SPARE-* columns</span>
+        <span class="c1"># are present in data frame</span>
+        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;SPARE_BA&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">GetColumnHeaderNames</span><span class="p">()</span> <span class="ow">and</span>
+            <span class="s1">&#39;SPARE_AD&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">GetColumnHeaderNames</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">show_SPARE_scores_from_data_Btn</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;background-color: rgb(230,230,255)&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">show_SPARE_scores_from_data_Btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">show_SPARE_scores_from_data_Btn</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s1">&#39;The data frame has variables `SPARE_AD` and `SPARE_BA` so these can be plotted.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">show_SPARE_scores_from_data_Btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># Allow loading of SPARE-* model always, even when residuals are not</span>
+        <span class="c1"># calculated yet</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">load_SPARE_model_Btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SparePlugin.updateProgress"><a class="viewcode-back" href="../autoapi/sparesplugin/index.html#sparesplugin.SparePlugin.updateProgress">[docs]</a>    <span class="k">def</span> <span class="nf">updateProgress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">txt</span><span class="p">,</span> <span class="n">vl</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">SPARE_computation_info</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">txt</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">factorial_progressBar</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">vl</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SparePlugin.OnLoadSPAREModel"><a class="viewcode-back" href="../autoapi/sparesplugin/index.html#sparesplugin.SparePlugin.OnLoadSPAREModel">[docs]</a>    <span class="k">def</span> <span class="nf">OnLoadSPAREModel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">fileName</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;Open SPARE-* model file&#39;</span><span class="p">,</span>
+            <span class="n">QtCore</span><span class="o">.</span><span class="n">QDir</span><span class="p">()</span><span class="o">.</span><span class="n">homePath</span><span class="p">(),</span>
+            <span class="s2">&quot;Pickle files (*.pkl.gz *.pkl)&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fileName</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="s1">&#39;BrainAge&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="s1">&#39;AD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fileName</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">compute_SPARE_scores_Btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">SPARE_model_info</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;File: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fileName</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">stackedWidget</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;RES_ICV_Sex_MUSE_Volume_47&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">GetColumnHeaderNames</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">compute_SPARE_scores_Btn</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;QPushButton&quot;</span>
+                             <span class="s2">&quot;{&quot;</span>
+                             <span class="s2">&quot;background-color : rgb(230,255,230);&quot;</span>
+                             <span class="s2">&quot;}&quot;</span>
+                             <span class="s2">&quot;QPushButton::checked&quot;</span>
+                             <span class="s2">&quot;{&quot;</span>
+                             <span class="s2">&quot;background-color : rgb(255,230,230);&quot;</span>
+                             <span class="s2">&quot;border: none;&quot;</span>
+                             <span class="s2">&quot;}&quot;</span>
+                             <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">compute_SPARE_scores_Btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">compute_SPARE_scores_Btn</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">compute_SPARE_scores_Btn</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s1">&#39;Model loaded and `RES_ICV_Sex_MUSE_Volmue_*` available so the MUSE volumes can be harmonized.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">compute_SPARE_scores_Btn</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;background-color: rgb(255,230,230)&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">compute_SPARE_scores_Btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">compute_SPARE_scores_Btn</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s1">&#39;Model loaded but `RES_ICV_Sex_MUSE_Volmue_*` not available so the MUSE volumes can not be harmonized.&#39;</span><span class="p">)</span>
+
+
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No field `RES_ICV_Sex_MUSE_Volume_47` found. &#39;</span> <span class="o">+</span>
+                  <span class="s1">&#39;Make sure to compute and add harmonized residuals first.&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SparePlugin.OnComputationDone"><a class="viewcode-back" href="../autoapi/sparesplugin/index.html#sparesplugin.SparePlugin.OnComputationDone">[docs]</a>    <span class="k">def</span> <span class="nf">OnComputationDone</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">spares</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spare_compute_instance</span><span class="o">.</span><span class="n">SPAREs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">compute_SPARE_scores_Btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Compute SPARE-*&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">spares</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">compute_SPARE_scores_Btn</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">stackedWidget</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBoxHue</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotSPAREs</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># Activate buttons</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">compute_SPARE_scores_Btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;SPARE_BA&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">GetColumnHeaderNames</span><span class="p">()</span> <span class="ow">and</span>
+            <span class="s1">&#39;SPARE_AD&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">GetColumnHeaderNames</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">show_SPARE_scores_from_data_Btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1">#self.ui.show_SPARE_scores_from_data_Btn.setStyleSheet(&quot;background-color: rgb(230,230,255)&quot;)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">show_SPARE_scores_from_data_Btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">load_SPARE_model_Btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
+        
+
+
+<div class="viewcode-block" id="SparePlugin.OnComputeSPAREs"><a class="viewcode-back" href="../autoapi/sparesplugin/index.html#sparesplugin.SparePlugin.OnComputeSPAREs">[docs]</a>    <span class="k">def</span> <span class="nf">OnComputeSPAREs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checked</span><span class="p">):</span>
+        <span class="c1"># Setup tasks for long running jobs</span>
+        <span class="c1"># Using this example: https://realpython.com/python-pyqt-qthread/</span>
+
+        <span class="c1"># Disable buttons</span>
+        <span class="k">if</span> <span class="n">checked</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">spare_compute_instance</span><span class="o">.</span><span class="n">InterruptComputation</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">compute_SPARE_scores_Btn</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;QPushButton&quot;</span>
+                             <span class="s2">&quot;{&quot;</span>
+                             <span class="s2">&quot;background-color : rgb(230,255,230);&quot;</span>
+                             <span class="s2">&quot;}&quot;</span>
+                             <span class="s2">&quot;QPushButton::checked&quot;</span>
+                             <span class="s2">&quot;{&quot;</span>
+                             <span class="s2">&quot;background-color : rgb(255,230,230);&quot;</span>
+                             <span class="s2">&quot;border: none;&quot;</span>
+                             <span class="s2">&quot;}&quot;</span>
+                             <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">compute_SPARE_scores_Btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Compute SPARE-*&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">show_SPARE_scores_from_data_Btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">load_SPARE_model_Btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">spare_compute_instance</span> <span class="o">=</span> <span class="n">SPARE</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">compute_SPARE_scores_Btn</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;QPushButton&quot;</span>
+                             <span class="s2">&quot;{&quot;</span>
+                             <span class="s2">&quot;background-color : rgb(230,255,230);&quot;</span>
+                             <span class="s2">&quot;}&quot;</span>
+                             <span class="s2">&quot;QPushButton::checked&quot;</span>
+                             <span class="s2">&quot;{&quot;</span>
+                             <span class="s2">&quot;background-color : rgb(255,230,230);&quot;</span>
+                             <span class="s2">&quot;}&quot;</span>
+                             <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">compute_SPARE_scores_Btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Cancel computation&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">show_SPARE_scores_from_data_Btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">load_SPARE_model_Btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">factorial_progressBar</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="s1">&#39;BrainAge&#39;</span><span class="p">][</span><span class="s1">&#39;scaler&#39;</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">spare_compute_instance</span><span class="o">.</span><span class="n">DoSPAREsComputation</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">spare_compute_instance</span><span class="o">.</span><span class="n">sendprogress</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">updateProgress</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">spare_compute_instance</span><span class="o">.</span><span class="n">done</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">OnComputationDone</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SparePlugin.PopulateHue"><a class="viewcode-back" href="../autoapi/sparesplugin/index.html#sparesplugin.SparePlugin.PopulateHue">[docs]</a>    <span class="k">def</span> <span class="nf">PopulateHue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1">#add the list items to comboBoxHue</span>
+        <span class="n">datakeys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">GetColumnHeaderNames</span><span class="p">()</span>
+        <span class="n">datatypes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">GetColumnDataTypes</span><span class="p">()</span>
+        <span class="n">categoryList</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">,</span><span class="s1">&#39;Study&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">,</span><span class="s1">&#39;N&#39;</span><span class="p">,</span><span class="s1">&#39;PIB_Status&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">d</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">datakeys</span><span class="p">,</span> <span class="n">datatypes</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">name</span><span class="o">==</span><span class="s1">&#39;category&#39;</span><span class="p">]</span>
+        <span class="n">categoryList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">categoryList</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">datakeys</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBoxHue</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBoxHue</span><span class="o">.</span><span class="n">addItems</span><span class="p">(</span><span class="n">categoryList</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SparePlugin.plotSPAREs"><a class="viewcode-back" href="../autoapi/sparesplugin/index.html#sparesplugin.SparePlugin.plotSPAREs">[docs]</a>    <span class="k">def</span> <span class="nf">plotSPAREs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">useExistingSPAREs</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="c1"># Plot data</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">stackedWidget</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotCanvas</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">plotOptions</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;HUE&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBoxHue</span><span class="o">.</span><span class="n">currentText</span><span class="p">()}</span>
+
+        <span class="k">if</span> <span class="n">useExistingSPAREs</span><span class="p">:</span>
+            <span class="c1">#print(self.SPAREs[plotOptions[&#39;HUE&#39;]].value_counts())</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spare_compute_instance</span><span class="o">.</span><span class="n">SPAREs</span><span class="p">[</span><span class="n">plotOptions</span><span class="p">[</span><span class="s1">&#39;HUE&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+            <span class="n">kws</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;s&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
+            <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;SPARE_AD&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;SPARE_BA&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">spare_compute_instance</span><span class="o">.</span><span class="n">SPAREs</span><span class="p">,</span>
+                        <span class="n">ax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plotCanvas</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="n">plotOptions</span><span class="p">[</span><span class="s1">&#39;HUE&#39;</span><span class="p">],</span>
+                        <span class="n">facecolor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="o">**</span><span class="n">kws</span><span class="p">)</span> 
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">kws</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;s&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
+            <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;SPARE_AD&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;SPARE_BA&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">spare_compute_instance</span><span class="o">.</span><span class="n">SPAREs</span><span class="p">,</span>
+                        <span class="n">ax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plotCanvas</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                        <span class="n">facecolor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">legend</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+            
+
+
+        <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plotCanvas</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotCanvas</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;SPARE-BA&#39;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;SPARE-AD&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotCanvas</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">set_tight_layout</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotCanvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SparePlugin.OnAddToDataFrame"><a class="viewcode-back" href="../autoapi/sparesplugin/index.html#sparesplugin.SparePlugin.OnAddToDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">OnAddToDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">AddSparesToDataModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spare_compute_instance</span><span class="o">.</span><span class="n">SPAREs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">OnShowSPAREs</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SparePlugin.OnShowSPAREs"><a class="viewcode-back" href="../autoapi/sparesplugin/index.html#sparesplugin.SparePlugin.OnShowSPAREs">[docs]</a>    <span class="k">def</span> <span class="nf">OnShowSPAREs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">allHues</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBoxHue</span><span class="o">.</span><span class="n">itemText</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBoxHue</span><span class="o">.</span><span class="n">count</span><span class="p">())]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spare_compute_instance</span><span class="o">.</span><span class="n">SPAREs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">data</span><span class="p">[[</span><span class="s1">&#39;SPARE_BA&#39;</span><span class="p">,</span> <span class="s1">&#39;SPARE_AD&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">allHues</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">stackedWidget</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBoxHue</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotSPAREs</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SparePlugin.OnDataChanged"><a class="viewcode-back" href="../autoapi/sparesplugin/index.html#sparesplugin.SparePlugin.OnDataChanged">[docs]</a>    <span class="k">def</span> <span class="nf">OnDataChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Set `Show SPARE-* from data` button to visible when SPARE-* columns</span>
+        <span class="c1"># are present in data frame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">stackedWidget</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;SPARE_BA&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">GetColumnHeaderNames</span><span class="p">()</span> <span class="ow">and</span>
+            <span class="s1">&#39;SPARE_AD&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">GetColumnHeaderNames</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">show_SPARE_scores_from_data_Btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">show_SPARE_scores_from_data_Btn</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;background-color: rgb(230,230,255)&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">show_SPARE_scores_from_data_Btn</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">PopulateHue</span><span class="p">()</span></div></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, CBICA, University of Pennsylvania.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: main
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Languages</dt>
+        
+           <strong> 
+          <dd><a href="/NiBAx/en/main/">en</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="/NiBAx/es/main/">es</a></dd>
+          
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="/NiBAx/en/main/">main</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/NiBAx/en/main/NiBAχ-docs_en_main.pdf">pdf</a></dd>
+        
+          <dd><a href="/NiBAx/en/main/NiBAχ-docs_en_main.epub">epub</a></dd>
+        
+      </dl>
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<style>
+/* Sidebar header (and topbar for mobile) */
+.wy-side-nav-search, .wy-nav-top {
+  background: #95b1c2;
+}
+/* Sidebar */
+.wy-nav-side {
+  background: #363745;
+}
+</style>
+
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+:py:mod:`NiBAx.mainwindow`
+==========================
+
+.. py:module:: NiBAx.mainwindow
+
+.. autoapi-nested-parse::
+
+   contact: software@cbica.upenn.edu
+   Copyright (c) 2018 University of Pennsylvania. All rights reserved.
+   Use of this source code is governed by license located in license file: https://github.com/CBICA/NiBAx/blob/main/LICENSE
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.mainwindow.MainWindow
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.mainwindow.logger
+
+
+.. py:data:: logger
+   
+
+   
+
+.. py:class:: MainWindow(dataFile=None, harmonizationModelFile=None, SPAREModelFile=None)
+
+   Bases: :py:obj:`PyQt5.QtWidgets.QMainWindow`
+
+   .. py:method:: __del__(self)
+
+
+   .. py:method:: SetupConnections(self)
+
+
+   .. py:method:: SetupUi(self)
+
+
+   .. py:method:: OnAboutClicked(self)
+
+
+   .. py:method:: OnHelpClicked(self)
+
+
+   .. py:method:: OnCloseClicked(self)
+
+
+   .. py:method:: ResetUI(self)
+
+
+

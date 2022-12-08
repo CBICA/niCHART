@@ -1,0 +1,15 @@
+:py:mod:`NiBAx.plugins.customwidget`
+====================================
+
+.. py:module:: NiBAx.plugins.customwidget
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   customwidget/index.rst
+
+

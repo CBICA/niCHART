@@ -1,0 +1,57 @@
+:py:mod:`sparesplugin`
+======================
+
+.. py:module:: sparesplugin
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   sparesplugin.SparePlugin
+
+
+
+
+.. py:class:: SparePlugin
+
+   Bases: :py:obj:`PyQt5.QtWidgets.QWidget`, :py:obj:`NiBAx.core.baseplugin.BasePlugin`
+
+   .. py:method:: getUI(self)
+
+
+   .. py:method:: SetupConnections(self)
+
+
+   .. py:method:: updateProgress(self, txt, vl)
+
+
+   .. py:method:: OnLoadSPAREModel(self)
+
+
+   .. py:method:: OnComputationDone(self)
+
+
+   .. py:method:: OnComputeSPAREs(self, checked)
+
+
+   .. py:method:: PopulateHue(self)
+
+
+   .. py:method:: plotSPAREs(self, useExistingSPAREs=True)
+
+
+   .. py:method:: OnAddToDataFrame(self)
+
+
+   .. py:method:: OnShowSPAREs(self)
+
+
+   .. py:method:: OnDataChanged(self)
+
+
+

@@ -1,0 +1,49 @@
+:py:mod:`NiBAx.core.baseplugin`
+===============================
+
+.. py:module:: NiBAx.core.baseplugin
+
+.. autoapi-nested-parse::
+
+   Author: Ashish Singh
+   contact: software@cbica.upenn.edu
+   Copyright (c) 2018 University of Pennsylvania. All rights reserved.
+   Use of this source code is governed by license located in license file: https://github.com/CBICA/NiBAx/blob/main/LICENSE
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.core.baseplugin.BasePlugin
+
+
+
+
+.. py:class:: BasePlugin
+
+   Bases: :py:obj:`yapsy.IPlugin.IPlugin`
+
+   .. py:method:: activate(self)
+
+      On activation tell that this has been successfull.
+
+
+   .. py:method:: deactivate(self)
+
+      On deactivation check that the 'activated' flag was on then
+      tell everything's ok to the test procedure.
+
+
+   .. py:method:: readAdditionalInformation(self, filename)
+
+
+   .. py:method:: getTabPosition(self)
+
+
+

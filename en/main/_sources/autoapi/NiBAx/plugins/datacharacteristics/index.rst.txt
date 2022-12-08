@@ -1,0 +1,15 @@
+:py:mod:`NiBAx.plugins.datacharacteristics`
+===========================================
+
+.. py:module:: NiBAx.plugins.datacharacteristics
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   datacharacteristics/index.rst
+
+

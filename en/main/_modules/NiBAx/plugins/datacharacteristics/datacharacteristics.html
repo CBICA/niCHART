@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NiBAx.plugins.datacharacteristics.datacharacteristics &mdash; NiBAχ 0.1 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../../_static/tabs.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6752KVNMB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B6752KVNMB');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html">
+            <img src="../../../../_static/NiBAx.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                main
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contents/userguide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contents/datapreprocessing.html">Data Pre-Processing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto_examples/index.html">Placeholder Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../autoapi/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contents/development.html">Developer Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">NiBAχ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+          <li><a href="../../../NiBAx.html">NiBAx</a> &raquo;</li>
+      <li>NiBAx.plugins.datacharacteristics.datacharacteristics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NiBAx.plugins.datacharacteristics.datacharacteristics</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">uic</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">NiBAx.core.baseplugin</span> <span class="kn">import</span> <span class="n">BasePlugin</span>
+
+<div class="viewcode-block" id="DataCharacteristics"><a class="viewcode-back" href="../../../../autoapi/NiBAx/plugins/datacharacteristics/datacharacteristics/index.html#NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics">[docs]</a><span class="k">class</span> <span class="nc">DataCharacteristics</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span><span class="p">,</span><span class="n">BasePlugin</span><span class="p">):</span>
+<div class="viewcode-block" id="DataCharacteristics.priority"><a class="viewcode-back" href="../../../../autoapi/NiBAx/plugins/datacharacteristics/datacharacteristics/index.html#NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics.priority">[docs]</a>    <span class="n">priority</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DataCharacteristics</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">readAdditionalInformation</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">uic</span><span class="o">.</span><span class="n">loadUi</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s1">&#39;datacharacteristics.ui&#39;</span><span class="p">),</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DataCharacteristics.getUI"><a class="viewcode-back" href="../../../../autoapi/NiBAx/plugins/datacharacteristics/datacharacteristics/index.html#NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics.getUI">[docs]</a>    <span class="k">def</span> <span class="nf">getUI</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span></div>
+
+<div class="viewcode-block" id="DataCharacteristics.SetupConnections"><a class="viewcode-back" href="../../../../autoapi/NiBAx/plugins/datacharacteristics/datacharacteristics/index.html#NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics.SetupConnections">[docs]</a>    <span class="k">def</span> <span class="nf">SetupConnections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">data_changed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnDataChanged</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="DataCharacteristics.UpdateDataCharacteristics"><a class="viewcode-back" href="../../../../autoapi/NiBAx/plugins/datacharacteristics/datacharacteristics/index.html#NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics.UpdateDataCharacteristics">[docs]</a>    <span class="k">def</span> <span class="nf">UpdateDataCharacteristics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1">#get data statistics from model</span>
+        <span class="n">stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">GetDataStatistics</span><span class="p">()</span>
+
+        <span class="c1">#add statistics values to UI</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numParticipantsValue_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;numParticipants&#39;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numObservationsValue_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;numObservations&#39;</span><span class="p">]))</span>
+        <span class="n">ageVal</span> <span class="o">=</span> <span class="s2">&quot;[&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;minAge&#39;</span><span class="p">],</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;maxAge&#39;</span><span class="p">],</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ageValue_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">ageVal</span><span class="p">)</span>
+        <span class="n">sexVal</span> <span class="o">=</span> <span class="s2">&quot;[&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;countsPerSex&#39;</span><span class="p">][</span><span class="s1">&#39;M&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;countsPerSex&#39;</span><span class="p">][</span><span class="s1">&#39;F&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sexValue_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">sexVal</span><span class="p">)</span>
+
+        <span class="n">dataFilePath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">GetDataFilePath</span><span class="p">()</span>
+        <span class="n">harmonizationModelFilePath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">GetHarmonizationModelFilePath</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datafileValue_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QFileInfo</span><span class="p">(</span><span class="n">dataFilePath</span><span class="p">)</span><span class="o">.</span><span class="n">fileName</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datafileValue_label</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QFileInfo</span><span class="p">(</span><span class="n">dataFilePath</span><span class="p">)</span><span class="o">.</span><span class="n">absoluteFilePath</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">harmonizationfileValue_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QFileInfo</span><span class="p">(</span><span class="n">harmonizationModelFilePath</span><span class="p">)</span><span class="o">.</span><span class="n">fileName</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">harmonizationfileValue_label</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QFileInfo</span><span class="p">(</span><span class="n">harmonizationModelFilePath</span><span class="p">)</span><span class="o">.</span><span class="n">absoluteFilePath</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="DataCharacteristics.OnDataChanged"><a class="viewcode-back" href="../../../../autoapi/NiBAx/plugins/datacharacteristics/datacharacteristics/index.html#NiBAx.plugins.datacharacteristics.datacharacteristics.DataCharacteristics.OnDataChanged">[docs]</a>    <span class="k">def</span> <span class="nf">OnDataChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">UpdateDataCharacteristics</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, CBICA, University of Pennsylvania.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: main
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Languages</dt>
+        
+           <strong> 
+          <dd><a href="/NiBAx/en/main/">en</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="/NiBAx/es/main/">es</a></dd>
+          
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="/NiBAx/en/main/">main</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/NiBAx/en/main/NiBAχ-docs_en_main.pdf">pdf</a></dd>
+        
+          <dd><a href="/NiBAx/en/main/NiBAχ-docs_en_main.epub">epub</a></dd>
+        
+      </dl>
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<style>
+/* Sidebar header (and topbar for mobile) */
+.wy-side-nav-search, .wy-nav-top {
+  background: #95b1c2;
+}
+/* Sidebar */
+.wy-nav-side {
+  background: #363745;
+}
+</style>
+
+
+</body>
+</html>

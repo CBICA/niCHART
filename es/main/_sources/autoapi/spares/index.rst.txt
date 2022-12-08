@@ -1,0 +1,69 @@
+:py:mod:`spares`
+================
+
+.. py:module:: spares
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   spares.SPARE
+   spares.BrainAgeWorker
+
+
+
+
+.. py:class:: SPARE(datamodel, model)
+
+   Bases: :py:obj:`PyQt5.QtCore.QObject`
+
+   This class is an adapter to the worker class.
+
+   .. py:attribute:: sendprogress
+      
+
+      
+
+   .. py:attribute:: done
+      
+
+      
+
+   .. py:method:: InterruptComputation(self)
+
+
+   .. py:method:: DoSPAREsComputation(self, asynchronous=False)
+
+
+   .. py:method:: OnComputationDone(self, y_hat)
+
+
+   .. py:method:: updateProgress(self, txt, vl)
+
+
+
+.. py:class:: BrainAgeWorker(data, model)
+
+   Bases: :py:obj:`PyQt5.QtCore.QObject`
+
+   Class for doing spare computation.
+
+   .. py:attribute:: done
+      
+
+      
+
+   .. py:attribute:: progress
+      
+
+      
+
+   .. py:method:: run(self)
+
+
+

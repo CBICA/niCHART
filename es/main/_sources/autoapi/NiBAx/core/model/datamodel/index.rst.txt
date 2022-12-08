@@ -1,0 +1,184 @@
+:py:mod:`NiBAx.core.model.datamodel`
+====================================
+
+.. py:module:: NiBAx.core.model.datamodel
+
+.. autoapi-nested-parse::
+
+   contact: software@cbica.upenn.edu
+   Copyright (c) 2018 University of Pennsylvania. All rights reserved.
+   Use of this source code is governed by license located in license file: https://github.com/CBICA/NiBAx/blob/main/LICENSE
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.core.model.datamodel.DataModel
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.core.model.datamodel.logger
+
+
+.. py:data:: logger
+   
+
+   
+
+.. py:class:: DataModel
+
+   Bases: :py:obj:`PyQt5.QtCore.QObject`
+
+   This class holds the data model.
+
+   .. py:attribute:: data_changed
+      
+
+      
+
+   .. py:method:: SetMUSEDictionaries(self, MUSEDictNAMEtoID, MUSEDictIDtoNAME, MUSEDictDataFrame)
+
+      Setter for MUSE dictionary
+
+
+   .. py:method:: SetDerivedMUSEMap(self, DerivedMUSEMap)
+
+      Setter for Derived MUSE dictionary
+
+
+   .. py:method:: SetDataFilePath(self, p)
+
+      Setter
+
+
+   .. py:method:: SetHarmonizationModelFilePath(self, p)
+
+      Setter
+
+
+   .. py:method:: GetDataFilePath(self)
+
+      Return data file path
+
+
+   .. py:method:: GetHarmonizationModelFilePath(self)
+
+      Return harmonization model file path
+
+
+   .. py:method:: GetMUSEDictionaries(self)
+
+      Get the MUSE dictionaries to map from ID to name and vice-versa
+
+
+   .. py:method:: GetDerivedMUSEMap(self)
+
+      Get the derived MUSE dictionary to map from SINGLE to DERIVED ROIs
+
+
+   .. py:method:: GetMUSEDictDataFrame(self)
+
+      Get the MUSE dictionaries to map from ID to name and vice-versa
+
+
+   .. py:method:: SetData(self, d)
+
+      Setter for data
+
+
+   .. py:method:: SetHarmonizationModel(self, m)
+
+      Setter for neuroHarmonize model
+
+
+   .. py:method:: SetSPAREModel(self, BrainAgeModel, ADModel)
+
+      Setter for SPARE-* models
+
+
+   .. py:method:: GetCompleteData(self)
+
+      Returns complete data.
+
+
+   .. py:method:: GetModel(self)
+
+      Returns harmonization model.
+
+
+   .. py:method:: GetMaxAgeOfMUSEHarmonizationModel(self)
+
+      Returns model age maximum.
+
+
+   .. py:method:: GetMinAgeOfMUSEHarmonizationModel(self)
+
+      Returns model age minimum.
+
+
+   .. py:method:: GetNormativeRange(self, roi)
+
+      Return normative range
+
+
+   .. py:method:: GetData(self, roi, hue)
+
+      Returns a subset of data needed for plot.
+      Takes as parameters the roi and hue for the plot.
+      Since the plot always uses 'Age' for X axis, this is always returned.
+
+
+   .. py:method:: IsValidData(self, data=None)
+
+      Checks if the data is valid or not.
+
+
+   .. py:method:: IsValidHarmonization(self)
+
+      Checks if the harmonization model is valid or not.
+
+
+   .. py:method:: IsValidSPARE(self)
+
+      Checks if the SPARE-* model is valid or not.
+
+
+   .. py:method:: GetColumnHeaderNames(self)
+
+      Returns all header names for all columns in the dataset.
+
+
+   .. py:method:: GetColumnDataTypes(self)
+
+      Returns all header names for all columns in the dataset.
+
+
+   .. py:method:: Reset(self)
+
+
+   .. py:method:: GetDataStatistics(self)
+
+      Returns a dictionary of data statistics.
+      Currently returned stats:
+      # Observation,
+      # Participants
+      # Age [min,max]
+      # Sex [M,F]
+
+
+   .. py:method:: AddSparesToDataModel(self, spares, SPARE_AD='SPARE_AD', SPARE_BA='SPARE_BA')
+
+
+

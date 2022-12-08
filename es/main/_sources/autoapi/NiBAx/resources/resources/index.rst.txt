@@ -1,0 +1,69 @@
+:py:mod:`NiBAx.resources.resources`
+===================================
+
+.. py:module:: NiBAx.resources.resources
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.resources.resources.qInitResources
+   NiBAx.resources.resources.qCleanupResources
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.resources.resources.qt_resource_data
+   NiBAx.resources.resources.qt_resource_name
+   NiBAx.resources.resources.qt_resource_struct_v1
+   NiBAx.resources.resources.qt_resource_struct_v2
+   NiBAx.resources.resources.qt_version
+   NiBAx.resources.resources.rcc_version
+
+
+.. py:data:: qt_resource_data
+   :annotation: = b'\x00\x00\x02\xbe\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x18\x00\x00\x00\x18\x08\x02\x00...
+
+   
+
+.. py:data:: qt_resource_name
+   :annotation: = b"\x00\x06\x07\x03}\xc3\x00i\x00m\x00a\x00g\x00e\x00s\x00\x05\x00o\xa6S\x00i\x00c\x00o\x00n\x00s\...
+
+   
+
+.. py:data:: qt_resource_struct_v1
+   :annotation: = b'\x00\x00\x00\x00\x00\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x12\x00\x02\x00\x00\x00\x0...
+
+   
+
+.. py:data:: qt_resource_struct_v2
+   :annotation: = b'\x00\x00\x00\x00\x00\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0...
+
+   
+
+.. py:data:: qt_version
+   
+
+   
+
+.. py:data:: rcc_version
+   :annotation: = 1
+
+   
+
+.. py:function:: qInitResources()
+
+
+.. py:function:: qCleanupResources()
+
+

@@ -1,0 +1,27 @@
+:py:mod:`NiBAx.core`
+====================
+
+.. py:module:: NiBAx.core
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   gui/index.rst
+   model/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   baseplugin/index.rst
+   iStagingLogger/index.rst
+   plotcanvas/index.rst
+
+

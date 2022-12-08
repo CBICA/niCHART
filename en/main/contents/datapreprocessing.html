@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Pre-Processing &mdash; NiBAχ 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Placeholder Gallery" href="../auto_examples/index.html" />
+    <link rel="prev" title="User Guide" href="userguide.html" />
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6752KVNMB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B6752KVNMB');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html">
+            <img src="../_static/NiBAx.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                main
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Pre-Processing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#muse-ravens-pipeline">MUSE/RAVENS Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#complete-example">Complete example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#fmri-processing">fMRI Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#packages-required">Packages required</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#outputs">Outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#download-and-setup">Download and Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-data">Input Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#submitting-cluster-job">Submitting cluster job</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-filter-functional-data-in-mni152-2mm-template-space">Step 1 Filter functional data in MNI152_2mm template space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2">Step 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-extract-features-from-gigica-matrix">Step 3 Extract features from GIGICA matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Placeholder Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Developer Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NiBAχ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Data Pre-Processing</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/CBICA/NiBAx/blob/main/docs/contents/datapreprocessing.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="data-pre-processing">
+<h1>Data Pre-Processing<a class="headerlink" href="#data-pre-processing" title="Permalink to this heading"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The documentation is under active development.
+Statistical and machine learning models will be made available once fully
+validated.</p>
+</div>
+<section id="muse-ravens-pipeline">
+<h2>MUSE/RAVENS Pipeline<a class="headerlink" href="#muse-ravens-pipeline" title="Permalink to this heading"></a></h2>
+<p>The MUSE/RAVENS pipeline performs the anatomical segmentation and parcellation.
+Following these steps will setup the MUSE/RAVENS processing pipeline using a
+singularity container.</p>
+<section id="setup">
+<h3>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h3>
+<p>Running the scripts inside the container requires Git and Singularity.
+Follow directions of the respective tools to install Singularity
+(<a class="reference external" href="https://sylabs.io/guides/3.8/admin-guide/installation.html">https://sylabs.io/guides/3.8/admin-guide/installation.html</a>) and Git
+(<a class="reference external" href="https://github.com/git-guides/install-git">https://github.com/git-guides/install-git</a>).</p>
+<p>Make sure that the commands <cite>singularity</cite> and <cite>git</cite> are available in the
+terminal, for instance by adding them to the <cite>$PATH</cite> environment variable.</p>
+<p>Additionally, make sure that an environment variable <cite>$TMPDIR</cite> points to a
+temporary scratch space that can be used to store intermediate results.
+Otherwise, it will be set to <cite>$PWD</cite> (i.e. the current working directory).</p>
+</section>
+<section id="complete-example">
+<h3>Complete example<a class="headerlink" href="#complete-example" title="Permalink to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Clone the istaging git repository</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">GIT_LFS_SKIP_SMUDGE</span><span class="o">=</span><span class="m">1</span> git clone https://github.com/CBICA/NiBAx/
+<span class="nb">cd</span> NiBAx/Image_Processing/sMRI
+git lfs pull --include example
+git lfs pull --include sMRI_ProcessingPipeline
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Download from the singularity cloud and save the .sif file in the <cite>Container/</cite> folder.</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> Container
+singularity pull library://jimitdoshi/cbica/cbica-muse-pipeline:1.0.0
+<span class="nb">cd</span> ..
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Follow the example provided in the <cite>example/</cite> directory</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash example/run_example.sh
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>This step will create a <cite>Protocols</cite> directory inside <cite>example</cite> which contains all the results files.</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Re-orientation to LPS</span>
+example/Protocols/ReOrientedLPS/SUB-01/SUB-01_T1_LPS.nii.gz
+
+<span class="c1"># Intensity inhomogeneity correction</span>
+example/Protocols/BiasCorrected/SUB-01/SUB-01_T1_LPS_N4.nii.gz
+
+<span class="c1"># Brain extraction</span>
+example/Protocols/Skull-Stripped/SUB-01/SUB-01_T1_LPS_N4_brainmask_muse-ss.nii.gz
+example/Protocols/Skull-Stripped/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss.nii.gz
+example/Protocols/Skull-Stripped/SUB-01/SUB-01_T1_LPS_N4_ROI_1_SimRank.nii.gz
+
+<span class="c1"># Another round of inhomogeneity correction using fast</span>
+example/Protocols/fastbc/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_seg.nii.gz
+example/Protocols/fastbc/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc.nii.gz
+
+<span class="c1"># MUSE ROI labeling</span>
+example/Protocols/MUSE/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_muse.nii.gz
+example/Protocols/MUSE/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_muse_DerivedVolumes.csv
+
+<span class="c1"># Tissue segmentation using MUSE ROIs</span>
+example/Protocols/Segmented/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_muse_seg.nii.gz
+
+<span class="c1"># RAVENS</span>
+example/Protocols/RAVENS/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_rTemplate_ants-0.5_JacDet.nii.gz
+example/Protocols/RAVENS/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_rTemplate_ants-0.5.nii.gz
+example/Protocols/RAVENS/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_muse_seg_ants-0.5_RAVENS_10.nii.gz
+example/Protocols/RAVENS/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_muse_seg_ants-0.5_RAVENS_50.nii.gz
+example/Protocols/RAVENS/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_muse_seg_ants-0.5_RAVENS_150.nii.gz
+example/Protocols/RAVENS/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_muse_seg_ants-0.5_RAVENS_250.nii.gz
+
+<span class="c1"># Post-processed RAVENS</span>
+<span class="c1">### Smoothed by 2mm</span>
+example/Protocols/RAVENS/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_muse_seg_ants-0.5_RAVENS_10_s2.nii.gz
+example/Protocols/RAVENS/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_muse_seg_ants-0.5_RAVENS_50_s2.nii.gz
+example/Protocols/RAVENS/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_muse_seg_ants-0.5_RAVENS_150_s2.nii.gz
+example/Protocols/RAVENS/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_muse_seg_ants-0.5_RAVENS_250_s2.nii.gz
+<span class="c1">### Downsampled to 2mmx2mmx2mm</span>
+example/Protocols/RAVENS/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_muse_seg_ants-0.5_RAVENS_10_s2_DS.nii.gz
+example/Protocols/RAVENS/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_muse_seg_ants-0.5_RAVENS_50_s2_DS.nii.gz
+example/Protocols/RAVENS/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_muse_seg_ants-0.5_RAVENS_150_s2_DS.nii.gz
+example/Protocols/RAVENS/SUB-01/SUB-01_T1_LPS_N4_brain_muse-ss_fastbc_muse_seg_ants-0.5_RAVENS_250_s2_DS.nii.gz
+</pre></div>
+</div>
+</section>
+</section>
+<section id="fmri-processing">
+<h2>fMRI Processing<a class="headerlink" href="#fmri-processing" title="Permalink to this heading"></a></h2>
+<p>This pipeline is for pre-processing fMRI time-series using an incrementally
+modified version of the [UK_biobank_pipeline](<a class="reference external" href="https://git.fmrib.ox.ac.uk/falmagro/UK_biobank_pipeline_v_1">https://git.fmrib.ox.ac.uk/falmagro/UK_biobank_pipeline_v_1</a>).
+The pipeline removes structured artifacts using ICA+FIX [2], resamples filtered functional data to standard space, applies GIGICA [3] on functional data to extract features. Higher level functionalities include:</p>
+<blockquote>
+<div><ol class="lowerroman simple">
+<li><p>Generating filtered functional data and resampling to standard space(MNI152_2mm)</p></li>
+<li><p>Getting subject specific IC time courses using GIGICA.</p></li>
+<li><p>Getting Correlation Matrices at two different dimensionalities 25(21 useful components) and 100(55 useful)</p></li>
+</ol>
+</div></blockquote>
+<section id="packages-required">
+<h3>Packages required<a class="headerlink" href="#packages-required" title="Permalink to this heading"></a></h3>
+<p>UKBiobank pipeline (<a class="reference external" href="https://github.com/CBICA/UK_biobank_pipeline_v_1.git">https://github.com/CBICA/UK_biobank_pipeline_v_1.git</a>)</p>
+<p>GIGICA - Group Information Guided ICA (<a class="reference external" href="https://www.nitrc.org/projects/gig-ica/">https://www.nitrc.org/projects/gig-ica/</a>)</p>
+<p>FSL and AFNI</p>
+</section>
+<section id="outputs">
+<h3>Outputs<a class="headerlink" href="#outputs" title="Permalink to this heading"></a></h3>
+<p>Dimensions : n = 25 or 100 components (Group ICs from UKBiobank)  <br />
+Good Components list are in : (only useful components are extracted and saved)  <br />
+n25 :  <a class="reference external" href="https://www.fmrib.ox.ac.uk/ukbiobank/group_means/rfMRI_GoodComponents_d25_v1.txt">https://www.fmrib.ox.ac.uk/ukbiobank/group_means/rfMRI_GoodComponents_d25_v1.txt</a> <br />
+n100 : <a class="reference external" href="https://www.fmrib.ox.ac.uk/ukbiobank/group_means/rfMRI_GoodComponents_d100_v1.txt">https://www.fmrib.ox.ac.uk/ukbiobank/group_means/rfMRI_GoodComponents_d100_v1.txt</a></p>
+<p>and can be viewed : (this includes viewing bad nodes also)</p>
+<p><a class="reference external" href="https://www.fmrib.ox.ac.uk/ukbiobank/group_means/rfMRI_ICA_d25.html">https://www.fmrib.ox.ac.uk/ukbiobank/group_means/rfMRI_ICA_d25.html</a>
+<a class="reference external" href="https://www.fmrib.ox.ac.uk/ukbiobank/group_means/rfMRI_ICA_d100.html">https://www.fmrib.ox.ac.uk/ukbiobank/group_means/rfMRI_ICA_d100.html</a></p>
+<p>For Partial and Full Correlations saved n*(n-1)/2 vectorized elements.
+i)Nodal amplitudes (21 useful/25 and 55 useful/100)  <br />
+ii)Partial Correlation Matrix (vectorized and saved upper triangle 210 and 1485)  <br />
+iii) Full Correlation Matrix (vectorized and saved upper triangle - 210  elements and 1485) <br /></p>
+</section>
+<section id="download-and-setup">
+<h3>Download and Setup<a class="headerlink" href="#download-and-setup" title="Permalink to this heading"></a></h3>
+<p><strong>UKB_Pipeline</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">GIT_LFS_SKIP_SMUDGE</span><span class="o">=</span><span class="m">1</span> git clone https://git.upd.unibe.ch/p400pm_191026/istaging_data_consolidation.git IDC_TEMP
+<span class="nb">cd</span> IDC_TEMP/Image_Processing/fMRI
+git lfs pull --include GIGICAR.tar.gz
+git submodule update --init  UK_biobank_pipeline_v_1
+</pre></div>
+</div>
+<p>Note : The command <cite>git submodule update –init</cite> will work with <cite>git/2.23.0</cite> &amp; above. Otherwise use <cite>git init`</cite> and then <cite>git submodule add UK_biobank_pipeline_v_1</cite>.</p>
+<p><strong>GIGICA</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>tar xvfz GIGICAR.tar.gz
+rm -rf GIGICAR.tar.gz
+</pre></div>
+</div>
+<p><strong>FSLNets</strong></p>
+<p>This is for calculating networks (dependency: MATLAB and L1 precision)
+For more information: <a class="reference external" href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLNets">https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSLNets</a></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> IDC_TEMP/Image_Processing/fMRI/UK_biobank_pipeline_v_1
+wget http://www.fmrib.ox.ac.uk/~steve/ftp/fslnets.tar.gz
+tar xvfz fslnets.tar.gz
+rm -rf fslnets.tar.gz
+</pre></div>
+</div>
+<p><strong>L1precision</strong></p>
+<p>To estimate L1-norm regularized partial correlation. Here, we are not regularizing/normalizing correlations for now. But its good to get this on path.
+.. code-block:: shell</p>
+<blockquote>
+<div><p>cd IDC_TEMP/Image_Processing/fMRI/UK_biobank_pipeline_v_1/FSLNets
+wget <a class="reference external" href="http://www.cs.ubc.ca/~schmidtm/Software/L1precision.zip">http://www.cs.ubc.ca/~schmidtm/Software/L1precision.zip</a>
+unzip L1precision.zip
+rm -rf L1precision.zip</p>
+</div></blockquote>
+<p>With the setup being complete, now navigate to ~/IDC_TEMP/Image_Processing/fMRI/scripts for running the pipeline.</p>
+</section>
+<section id="input-data">
+<h3>Input Data<a class="headerlink" href="#input-data" title="Permalink to this heading"></a></h3>
+<p>Step 1 expects data to be in partial BIDS format. And for each subject, folder structure would be for example (runs both structural and functional pipelines and generate T1 brain mask for registration).
+The resulting files are <cite>${sub}/fMRI_nosmooth/rfMRI.nii.gz</cite> and <cite>${sub}/T1/T1.nii.gz</cite>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sh convert_to_BIDS.sh -f <span class="si">${</span><span class="nv">path_to_resting_data</span><span class="si">}</span> -s <span class="si">${</span><span class="nv">path_to_t1</span><span class="si">}</span> -d <span class="si">${</span><span class="nv">destination</span><span class="si">}</span> -smooth <span class="m">0</span> <span class="c1"># or 1</span>
+</pre></div>
+</div>
+<p>This creates the corresponding directory, copies files, and reorients images to LAS.</p>
+</section>
+<section id="submitting-cluster-job">
+<h3>Submitting cluster job<a class="headerlink" href="#submitting-cluster-job" title="Permalink to this heading"></a></h3>
+<p>This is an example of how to get the pipeline up and running locally. Assuming all wrapper scripts,UKBiobank pipeline and GIGICA are properly cloned:</p>
+</section>
+<section id="step-1-filter-functional-data-in-mni152-2mm-template-space">
+<h3>Step 1 Filter functional data in MNI152_2mm template space<a class="headerlink" href="#step-1-filter-functional-data-in-mni152-2mm-template-space" title="Permalink to this heading"></a></h3>
+<p>Result to look for: <cite>${dest}/${sub}/fMRI_nosmooth/rfMRI.ica/reg_standard/filtered_func_data_clean.nii.gz</cite></p>
+<p>Example command for preprocessing the data:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">jid</span><span class="o">=</span><span class="k">$(</span>qsub <span class="se">\</span>
+    -terse <span class="se">\</span>
+    -j y <span class="se">\</span>
+    -l <span class="nv">h_vmem</span><span class="o">=</span>12G <span class="se">\</span>
+    -o <span class="si">${</span><span class="nv">dest</span><span class="si">}</span>/<span class="si">${</span><span class="nv">sub</span><span class="si">}</span>/sge/<span class="se">\$</span>JOB_NAME-<span class="se">\$</span>JOB_ID.log <span class="se">\</span>
+    <span class="si">${</span><span class="nv">path_to_script</span><span class="si">}</span>/ukbb_fix.sh <span class="se">\</span>
+    -s <span class="si">${</span><span class="nv">sub</span><span class="si">}</span> <span class="se">\</span>
+    -i <span class="si">${</span><span class="nv">inpath</span><span class="si">}</span> <span class="se">\</span>
+    -tr <span class="si">${</span><span class="nv">TR</span><span class="si">}</span> <span class="se">\</span>
+    -te <span class="si">${</span><span class="nv">TE</span><span class="si">}</span> <span class="se">\</span>
+    -fwhm <span class="m">100</span> <span class="se">\</span>
+    -p <span class="si">${</span><span class="nv">UKBB_Pipeline_Dir</span><span class="si">}</span> <span class="se">\</span>
+    -smooth <span class="m">0</span> <span class="k">)</span><span class="p">;</span>
+</pre></div>
+</div>
+<dl>
+<dt>where sub - subject ID</dt><dd><p>inpath - Path for input directory where subject directory exists(output will be saved in ${inpath}/${sub})
+TR - Repetition Time(sec)
+TE - Echo Time(ms)
+FWHM - Smoothing parameter - Full Width at Half Max
+p - location of UKBB pipeline directory
+-smooth - 0/1 0-no smoothing(uses WHII training data for FIX denoising)</p>
+<blockquote>
+<div><p>1 - smoothing (uses Standard data for FIX denoising)</p>
+</div></blockquote>
+</dd>
+</dl>
+</section>
+<section id="step-2">
+<h3>Step 2<a class="headerlink" href="#step-2" title="Permalink to this heading"></a></h3>
+<p>Running GIGICA on filtered functional data separately for 25 and 100 components.</p>
+<dl class="simple">
+<dt><strong>Result to look for:</strong> ${dest}/${sub}/${sub}_gigica.mat which has subject specific time courses and ICs.</dt><dd><dl class="simple">
+<dt>gigica.mat - ic<span class="classifier">nVoxels x nComponents</span></dt><dd><ul class="simple">
+<li><p>tc : nTimecourses x nComponents</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><strong>Other results:</strong> ${sub}_timecourses.nii.gz and ${sub}_componets.nii.gz</p>
+<p>Example command for obtaining gigica matrix for an individual:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">jid</span><span class="o">=</span><span class="k">$(</span>qsub <span class="se">\</span>
+      -terse <span class="se">\</span>
+      -b y <span class="se">\</span>
+      -j y <span class="se">\</span>
+      -l <span class="nv">h_vmem</span><span class="o">=</span>10G <span class="se">\</span>
+      -o <span class="si">${</span><span class="nv">dest</span><span class="si">}</span>/<span class="si">${</span><span class="nv">sub</span><span class="si">}</span>/sge/<span class="se">\$</span>JOB_NAME-<span class="se">\$</span>JOB_ID.log <span class="se">\</span>
+      <span class="si">${</span><span class="nv">path_to_script</span><span class="si">}</span>/run_GIGICA.sh <span class="se">\</span>
+      -in <span class="si">${</span><span class="nv">filtered_img</span><span class="si">}</span> <span class="se">\</span>
+      -ref <span class="si">${</span><span class="nv">ref_ics</span><span class="si">}</span> <span class="se">\</span>
+      -mask <span class="si">${</span><span class="nv">mask_img</span><span class="si">}</span> <span class="se">\</span>
+      -dest <span class="si">${</span><span class="nv">out_base</span><span class="si">}</span> <span class="se">\</span>
+      -p <span class="si">${</span><span class="nv">gigica_dir</span><span class="si">}</span> <span class="se">\</span>
+      -a <span class="m">0</span>.5 <span class="k">)</span><span class="p">;</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>where in - full path to filtered functional data registered to standard space from previous step (4D file)</dt><dd><p>ref - absolute path to reference group ICs(4D file)
+mask -  absolute path to MNI152_2mm binarized mask
+dest - output directory along with  base name
+p - path to GIGICA scripts directory
+a - similarity parameter by default 0.5 (optional) <br /></p>
+</dd>
+</dl>
+</section>
+<section id="step-3-extract-features-from-gigica-matrix">
+<h3>Step 3 Extract features from GIGICA matrix<a class="headerlink" href="#step-3-extract-features-from-gigica-matrix" title="Permalink to this heading"></a></h3>
+<p>Run separately for 25 and 100 components.</p>
+<p><strong>Result to look for:</strong> Within ${dest}/${sub}/rfMRI_d100/:</p>
+<p>${sub}_NodeAmplitudes_v1.txt - which has nodal amplitudes of size n=21 or n=55
+${sub}_partialcorr_v1.txt - partial correlations of size (21x20/2 = 210 elements or 55x54/2 = 1485 elements)
+${sub}_fullcorr_v1.txt - Full correlations of size (21x20/2 = 210 elements or 55x54/2 = 1485 elements)</p>
+<p>Example command for obtaining final features for an individual:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">jid</span><span class="o">=</span><span class="k">$(</span>qsub <span class="se">\</span>
+      -terse <span class="se">\</span>
+      -b y <span class="se">\</span>
+      -j y <span class="se">\</span>
+      -l <span class="nv">h_vmem</span><span class="o">=</span>8G <span class="se">\</span>
+      -o <span class="si">${</span><span class="nv">dest</span><span class="si">}</span>/<span class="si">${</span><span class="nv">sub</span><span class="si">}</span>/sge/<span class="se">\$</span>JOB_NAME-<span class="se">\$</span>JOB_ID.log <span class="se">\</span>
+      <span class="si">${</span><span class="nv">script</span><span class="si">}</span>/processing_gigica.sh <span class="se">\</span>
+      -s <span class="si">${</span><span class="nv">sub</span><span class="si">}</span> <span class="se">\</span>
+      -tr <span class="si">${</span><span class="nv">TR</span><span class="si">}</span> <span class="se">\</span>
+      -iDir <span class="si">${</span><span class="nv">protoDir</span><span class="si">}</span>/GIGICA/gigica_d100 <span class="se">\</span>
+      -nets <span class="si">${</span><span class="nv">FSLNets</span><span class="si">}</span> <span class="se">\</span>
+      -p <span class="si">${</span><span class="nv">ukb</span><span class="si">}</span> <span class="se">\</span>
+      -n  <span class="si">${</span><span class="nv">nc</span><span class="si">}</span> <span class="se">\</span>
+      -gDir <span class="si">${</span><span class="nv">ukb</span><span class="si">}</span>/templates/group/ <span class="se">\</span>
+      -tp <span class="si">${</span><span class="nv">ntp</span><span class="si">}</span> <span class="se">\</span>
+      -o <span class="si">${</span><span class="nv">dest</span><span class="si">}</span><span class="k">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>where s - subject ID</dt><dd><p>tr - Repetition Time(sec)
+iDir - path for GIGICA input result directory
+nets - path to FSLNets. This must be within UK_biobank_pipeline_v_1 when we clone repository
+p - path to UKBiobank scripts directory
+n - number of components(25 or 100)
+gDir - path to group directory where template for melodic_IC_d25 and melodic_IC_d100 exists.
+tp - number of timepoints
+o - destination directory for saving final results.</p>
+</dd>
+</dl>
+<p>### Working Example:</p>
+<ol class="lowerroman simple">
+<li><p>Copy data from project:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir <span class="se">\$</span><span class="o">{</span>HOME<span class="o">}</span>/Data/ -pv
+cp -r /cbica/projects/BLSA/Pipelines/rsfMRI/rsfMRI_2020/Data/Nifti/BLSA_7996_06-0_10/ <span class="se">\$</span><span class="o">{</span>HOME<span class="o">}</span>/Data/
+</pre></div>
+</div>
+<ol class="lowerroman simple" start="2">
+<li><p>Set all environment variables and paths in settings.sh within scripts directory.</p></li>
+</ol>
+<p>iii) Create destination directory
+.. code-block:: shell</p>
+<blockquote>
+<div><p>mkdir ${HOME}/Out/UKB_Pipeline/BLSA_7996_06-0_10/sge -pv</p>
+</div></blockquote>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sh convert_to_BIDS.sh <span class="se">\</span>
+-f <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Data/BLSA_7996_06-0_10/BLSA_7996_06-0_10_REST.nii.gz <span class="se">\</span>
+-s <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Data/BLSA_7996_06-0_10/BLSA_7996_06-0_10_T1.nii.gz  <span class="se">\</span>
+-d <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Out/UKB_Pipeline/BLSA_7996_06-0_10 <span class="se">\</span>
+-smooth <span class="m">0</span>
+
+
+Expected output is :
+    <span class="sb">`</span><span class="se">\$</span><span class="o">{</span>HOME<span class="o">}</span>/Out/UKB_Pipeline/BLSA_7996_06-0_10/fMRI_nosmooth/rfMRI.nii.gz<span class="sb">`</span>
+    <span class="sb">`</span><span class="se">\$</span><span class="o">{</span>HOME<span class="o">}</span>/Out/UKB_Pipeline/BLSA_7996_06-0_10/T1/T1.nii.gz<span class="sb">`</span>
+</pre></div>
+</div>
+<p>For submitting this script to cluster:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>  <span class="nv">jid</span><span class="o">=</span><span class="k">$(</span>qsub <span class="se">\</span>
+        -terse <span class="se">\</span>
+        -b y <span class="se">\</span>
+        -j y <span class="se">\</span>
+        -l short <span class="se">\</span>
+        -o <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Out/UKB_Pipeline/BLSA_7996_06-0_10/sge/<span class="se">\$</span>JOB_NAME-<span class="se">\$</span>JOB_ID.log <span class="se">\</span>
+        <span class="nv">$HOME</span>/IDC_TEMP/Image_Processing/fMRI/scripts/convert_to_BIDS.sh <span class="se">\</span>
+        -f <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Data/BLSA_7996_06-0_10/BLSA_7996_06-0_10_REST.nii.gz <span class="se">\</span>
+        -s <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Data/BLSA_7996_06-0_10/BLSA_7996_06-0_10_T1.nii.gz  <span class="se">\</span>
+        -d <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Out/UKB_Pipeline/BLSA_7996_06-0_10 <span class="se">\</span>
+        -smooth <span class="m">0</span><span class="k">)</span>
+
+
+iv<span class="o">)</span> Check Orientation and see <span class="k">if</span> it is LAS:
+ <span class="sb">`</span>fslhd <span class="se">\$</span><span class="o">{</span>HOME<span class="o">}</span>/Out/UKB_Pipeline/BLSA_7996_06-0_10/fMRI_nosmooth/rfMRI.nii.gz<span class="sb">`</span>
+ <span class="sb">`</span>fslhd <span class="se">\$</span><span class="o">{</span>HOME<span class="o">}</span>/Out/UKB_Pipeline/BLSA_7996_06-0_10/T1/T1.nii.gz<span class="sb">`</span>
+
+Expected output:
+  <span class="sb">`</span>qform_xorient  Right-to-Left<span class="sb">`</span>
+  <span class="sb">`</span>qform_yorient  Posterior-to-Anterior<span class="sb">`</span>
+  <span class="sb">`</span>qform_zorient  Inferior-to-Superior<span class="sb">`</span>
+
+v<span class="o">)</span> Next run fmri pipeline by:
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sh ukbb_fix.sh  <span class="se">\</span>
+ -s BLSA_7996_06-0_10 <span class="se">\</span>
+ -tr <span class="m">2</span> <span class="se">\</span>
+ -te <span class="m">25</span> <span class="se">\</span>
+ -fwhm <span class="m">100</span>  <span class="se">\</span>
+ -p <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/IDC_TEMP/Image_Processing/fMRI/UK_biobank_pipeline_v_1/  <span class="se">\</span>
+ -i <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Out/UKB_Pipeline/ <span class="se">\</span>
+ -smooth <span class="m">0</span>
+</pre></div>
+</div>
+<p>Expected: ${HOME}/Out/UKB_Pipeline/BLSA_7996_06-0_10/fMRI_nosmooth/rfMRI.ica/reg_standard/filtered_func_data_clean.nii.gz (in standard space)</p>
+<p>For submitting this script to cluster:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">jid</span><span class="o">=</span><span class="k">$(</span>qsub <span class="se">\</span>
+      -terse <span class="se">\</span>
+      -b y <span class="se">\</span>
+      -j y <span class="se">\</span>
+      -l <span class="nv">h_vmem</span><span class="o">=</span>12G <span class="se">\</span>
+      -o <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Out/UKB_Pipeline/BLSA_7996_06-0_10/sge/<span class="se">\$</span>JOB_NAME-<span class="se">\$</span>JOB_ID.log <span class="se">\</span>
+      <span class="nv">$HOME</span>/IDC_TEMP/Image_Processing/fMRI/scripts/ukbb_fix.sh <span class="se">\</span>
+      -s BLSA_7996_06-0_10 <span class="se">\</span>
+      -tr <span class="m">2</span> <span class="se">\</span>
+      -te <span class="m">25</span> <span class="se">\</span>
+      -fwhm <span class="m">100</span>  <span class="se">\</span>
+      -p <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/IDC_TEMP/Image_Processing/fMRI/UK_biobank_pipeline_v_1/  <span class="se">\</span>
+      -i <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Out/UKB_Pipeline/ <span class="se">\</span>
+      -smooth <span class="m">0</span><span class="k">)</span>
+</pre></div>
+</div>
+<ol class="lowerroman simple" start="6">
+<li><p>For GIGICA,</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Out/GIGICA/gigica_d100/BLSA_7996_06-0_10/sge -pv
+sh run_GIGICA.sh <span class="se">\</span>
+  -in <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Out/UKB_Pipeline/BLSA_7996_06-0_10/fMRI_nosmooth/rfMRI.ica/reg_standard/filtered_func_data_clean.nii.gz <span class="se">\</span>
+  -ref <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/IDC_TEMP/Image_Processing/fMRI/UK_biobank_pipeline_v_1/templates/group/melodic_IC_100.nii.gz  <span class="se">\</span>
+  -mask <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/IDC_TEMP/Image_Processing/fMRI/UK_biobank_pipeline_v_1/templates/MNI152_T1_2mm_brain_mask_bin.nii.gz <span class="se">\</span>
+  -dest <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Out/GIGICA/gigica_d100/BLSA_7996_06-0_10/BLSA_7996_06-0_10 <span class="se">\</span>
+  -p <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/GIGICAR/ <span class="se">\</span>
+  -a <span class="m">0</span>.5
+</pre></div>
+</div>
+<p>Pre-requisite: This script takes filtered_func_data_clean in standard space as input which is the output from previous step.
+Expected output:  <a href="#id1"><span class="problematic" id="id2">``</span></a>${HOME}/Out/GIGICA/gigica_d100/BLSA_7996_06-0_10/BLSA_7996_06-0_10_gigica.mat`</p>
+<p>The above script runs on MATLAB and exceeds interactive CPU/run limit. It may also use lot of CPUs. To avoid this, it can be submitted as batch job as below .</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">jid</span><span class="o">=</span><span class="k">$(</span>qsub <span class="se">\</span>
+    -terse <span class="se">\</span>
+    -b y <span class="se">\</span>
+    -j y <span class="se">\</span>
+    -l <span class="nv">h_vmem</span><span class="o">=</span>10G <span class="se">\</span>
+    -o <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Out/GIGICA/gigica_d100/BLSA_7996_06-0_10/sge/<span class="se">\$</span>JOB_NAME-<span class="se">\$</span>JOB_ID.log <span class="se">\</span>
+    <span class="nv">$HOME</span>/IDC_TEMP/Image_Processing/fMRI/scripts/run_GIGICA.sh <span class="se">\</span>
+    -in <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Out/UKB_Pipeline/BLSA_7996_06-0_10/fMRI_nosmooth/rfMRI.ica/reg_standard/filtered_func_data_clean.nii.gz <span class="se">\</span>
+    -ref <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/IDC_TEMP/Image_Processing/fMRI/UK_biobank_pipeline_v_1/templates/group/melodic_IC_100.nii.gz  <span class="se">\</span>
+    -mask <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/IDC_TEMP/Image_Processing/fMRI/UK_biobank_pipeline_v_1/templates/MNI152_T1_2mm_brain_mask_bin.nii.gz <span class="se">\</span>
+    -dest <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Out/GIGICA/gigica_d100/BLSA_7996_06-0_10/BLSA_7996_06-0_10 <span class="se">\</span>
+    -p <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/IDC_TEMP/Image_Processing/fMRI/GIGICAR/ <span class="se">\</span>
+    -a <span class="m">0</span>.5 <span class="k">)</span>
+</pre></div>
+</div>
+<ol class="lowerroman simple" start="7">
+<li><p>For Feature Extraction,</p></li>
+</ol>
+<p>Expected output files:<br />
+<cite>${HOME}/Out/Features/BLSA_7996_06-0_10/rfMRI_d100/BLSA_7996_06-0_10_NodeAmplitudes_v1.txt</cite>  <br />
+<cite>${HOME}/Out/Features/BLSA_7996_06-0_10/rfMRI_d100/BLSA_7996_06-0_10_partialcorr_v1.txt</cite>  <br />
+<cite>${HOME}/Out/Features/BLSA_7996_06-0_10/rfMRI_d100/BLSA_7996_06-0_10_fullcorr_v1.txt</cite></p>
+<p>For submitting this script to cluster:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">jid</span><span class="o">=</span><span class="k">$(</span>qsub <span class="se">\</span>
+    -terse <span class="se">\</span>
+    -b y <span class="se">\</span>
+    -j y <span class="se">\</span>
+    -l <span class="nv">h_vmem</span><span class="o">=</span>8G <span class="se">\</span>
+    -o <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Out/Features/BLSA_7996_06-0_10/sge/<span class="se">\$</span>JOB_NAME-<span class="se">\$</span>JOB_ID.log <span class="se">\</span>
+    <span class="nv">$HOME</span>/IDC_TEMP/Image_Processing/fMRI/scripts/processing_gigica.sh <span class="se">\</span>
+    -s BLSA_7996_06-0_10 <span class="se">\</span>
+    -tr <span class="m">2</span> <span class="se">\</span>
+    -iDir <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Out/GIGICA/gigica_d100/ <span class="se">\</span>
+    -nets <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/IDC_TEMP/Image_Processing/fMRI/UK_biobank_pipeline_v_1/FSLNets <span class="se">\</span>
+    -p <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/IDC_TEMP/Image_Processing/fMRI/UK_biobank_pipeline_v_1/ <span class="se">\</span>
+    -n <span class="m">100</span> <span class="se">\</span>
+    -gDir <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/IDC_TEMP/Image_Processing/fMRI/UK_biobank_pipeline_v_1/templates/group/ <span class="se">\</span>
+    -tp <span class="m">180</span> <span class="se">\</span>
+    -o <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/Out/Features/ <span class="k">)</span>
+</pre></div>
+</div>
+</section>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this heading"></a></h3>
+<p>[1] Miller KL, Alfaro-Almagro F, Bangerter NK, Thomas DL, Yacoub E, Xu J, Bartsch AJ, Jbabdi S, Sotiropoulos SN, Andersson JL, Griffanti L, Douaud G, Okell TW, Weale P, Dragonu I, Garratt S, Hudson S, Collins R, Jenkinson M, Matthews PM, Smith SM. Multimodal population brain imaging in the UK Biobank prospective epidemiological study. Nat Neurosci. 2016 Nov;19(11):1523-1536. doi: 10.1038/nn.4393 . Epub 2016 Sep 19. PMID: 27643430 ; PMCID: PMC5086094.</p>
+<p>[2] L. Griffanti, G. Salimi-Khorshidi, C.F. Beckmann, E.J. Auerbach, G. Douaud, C.E. Sexton, E. Zsoldos, K. Ebmeier, N. Filippini, C.E. Mackay, S. Moeller, J.G. Xu, E. Yacoub, G. Baselli, K. Ugurbil, K.L. Miller, and S.M. Smith. ICA-based artefact removal and accelerated fMRI acquisition for improved resting state network imaging. NeuroImage, 95:232-47, 2014</p>
+<p>[3] Du Y, Fan Y. Group information guided ICA for fMRI data analysis. Neuroimage. 2013 Apr 1;69:157-97. doi: 10.1016/j.neuroimage.2012.11.008 . Epub 2012 Nov 27. PMID: 23194820 .</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="userguide.html" class="btn btn-neutral float-left" title="User Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../auto_examples/index.html" class="btn btn-neutral float-right" title="Placeholder Gallery" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, CBICA, University of Pennsylvania.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: main
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Languages</dt>
+        
+           <strong> 
+          <dd><a href="/NiBAx/en/main/">en</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="/NiBAx/es/main/">es</a></dd>
+          
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="/NiBAx/en/main/">main</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/NiBAx/en/main/NiBAχ-docs_en_main.pdf">pdf</a></dd>
+        
+          <dd><a href="/NiBAx/en/main/NiBAχ-docs_en_main.epub">epub</a></dd>
+        
+      </dl>
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<style>
+/* Sidebar header (and topbar for mobile) */
+.wy-side-nav-search, .wy-nav-top {
+  background: #95b1c2;
+}
+/* Sidebar */
+.wy-nav-side {
+  background: #363745;
+}
+</style>
+
+
+</body>
+</html>

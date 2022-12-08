@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NiBAx.NiBAxCmdApp &mdash; NiBAχ 0.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6752KVNMB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B6752KVNMB');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html">
+            <img src="../../_static/NiBAx.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                main
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/userguide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/datapreprocessing.html">Data Pre-Processing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Placeholder Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contents/development.html">Developer Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NiBAχ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+          <li><a href="../NiBAx.html">NiBAx</a> &raquo;</li>
+      <li>NiBAx.NiBAxCmdApp</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NiBAx.NiBAxCmdApp</h1><div class="highlight"><pre>
+<span></span><span class="c1"># This Python file uses the following encoding: utf-8</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">contact: software@cbica.upenn.edu</span>
+<span class="sd">Copyright (c) 2018 University of Pennsylvania. All rights reserved.</span>
+<span class="sd">Use of this source code is governed by license located in license file: https://github.com/CBICA/NiBAx/blob/main/LICENSE</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtWidgets</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">NiBAx.plugins.loadsave.dataio</span> <span class="kn">import</span> <span class="n">DataIO</span>
+<span class="kn">from</span> <span class="nn">NiBAx.plugins.sparesplugin.spares</span> <span class="kn">import</span> <span class="n">SPARE</span><span class="p">,</span> <span class="n">BrainAgeWorker</span>
+<span class="kn">from</span> <span class="nn">NiBAx.plugins.harmonizationplugin.harmonization</span> <span class="kn">import</span> <span class="n">Harmonize</span>
+<span class="kn">from</span> <span class="nn">NiBAx.core.model.datamodel</span> <span class="kn">import</span> <span class="n">DataModel</span>
+
+<div class="viewcode-block" id="NiBAxCmdApp"><a class="viewcode-back" href="../../autoapi/NiBAx/NiBAxCmdApp/index.html#NiBAx.NiBAxCmdApp.NiBAxCmdApp">[docs]</a><span class="k">class</span> <span class="nc">NiBAxCmdApp</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dio</span> <span class="o">=</span> <span class="n">DataIO</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span> <span class="o">=</span> <span class="n">DataModel</span><span class="p">()</span>
+
+<div class="viewcode-block" id="NiBAxCmdApp.LoadData"><a class="viewcode-back" href="../../autoapi/NiBAx/NiBAxCmdApp/index.html#NiBAx.NiBAxCmdApp.NiBAxCmdApp.LoadData">[docs]</a>    <span class="k">def</span> <span class="nf">LoadData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datafile</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reading data&quot;</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dio</span><span class="o">.</span><span class="n">ReadPickleFile</span><span class="p">(</span><span class="n">datafile</span><span class="p">)</span>
+
+        <span class="c1">#also read MUSE dictionary</span>
+        <span class="n">MUSEDictNAMEtoID</span><span class="p">,</span> <span class="n">MUSEDictIDtoNAME</span><span class="p">,</span> <span class="n">MUSEDictDataFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dio</span><span class="o">.</span><span class="n">ReadMUSEDictionary</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">SetMUSEDictionaries</span><span class="p">(</span><span class="n">MUSEDictNAMEtoID</span><span class="p">,</span> <span class="n">MUSEDictIDtoNAME</span><span class="p">,</span><span class="n">MUSEDictDataFrame</span><span class="p">)</span>
+
+        <span class="c1">#also read Derived MUSE dictionary </span>
+        <span class="n">DerivedMUSEMap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dio</span><span class="o">.</span><span class="n">ReadDerivedMUSEMap</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">SetDerivedMUSEMap</span><span class="p">(</span><span class="n">DerivedMUSEMap</span><span class="p">)</span>
+
+        <span class="c1">#set data into datamodel</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">IsValidData</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">SetDataFilePath</span><span class="p">(</span><span class="n">datafile</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">SetData</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="NiBAxCmdApp.Harmonize"><a class="viewcode-back" href="../../autoapi/NiBAx/NiBAxCmdApp/index.html#NiBAx.NiBAxCmdApp.NiBAxCmdApp.Harmonize">[docs]</a>    <span class="k">def</span> <span class="nf">Harmonize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">harmonizationmodelfile</span><span class="p">,</span><span class="n">outputfile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reading harmonization model&quot;</span><span class="p">)</span>
+        <span class="n">harmonizationmodel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dio</span><span class="o">.</span><span class="n">ReadPickleFile</span><span class="p">(</span><span class="n">harmonizationmodelfile</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Harmonizing MUSE ROIs&quot;</span><span class="p">)</span>
+        <span class="n">harmonized_rois</span> <span class="o">=</span> <span class="n">Harmonize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="p">,</span><span class="n">harmonizationmodel</span><span class="p">)</span>
+        <span class="n">muse</span><span class="p">,</span> <span class="n">parameters</span> <span class="o">=</span> <span class="n">harmonized_rois</span><span class="o">.</span><span class="n">DoHarmonization</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Adding residuals and harmonized volumes to data frame...&#39;</span><span class="p">)</span>
+        <span class="n">harmonized_rois</span><span class="o">.</span><span class="n">AddHarmonizedMUSE</span><span class="p">(</span><span class="n">muse</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">outputfile</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saving updated data at specified location&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dio</span><span class="o">.</span><span class="n">SavePickleFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">outputfile</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="NiBAxCmdApp.ComputeSpares"><a class="viewcode-back" href="../../autoapi/NiBAx/NiBAxCmdApp/index.html#NiBAx.NiBAxCmdApp.NiBAxCmdApp.ComputeSpares">[docs]</a>    <span class="k">def</span> <span class="nf">ComputeSpares</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sparesmodelfile</span><span class="p">,</span> <span class="n">outputfile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;reading spare model&quot;</span><span class="p">)</span>
+        <span class="n">sparemodel</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;BrainAge&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;AD&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+        <span class="n">sparemodel</span><span class="p">[</span><span class="s1">&#39;BrainAge&#39;</span><span class="p">],</span> <span class="n">sparemodel</span><span class="p">[</span><span class="s1">&#39;AD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dio</span><span class="o">.</span><span class="n">ReadSPAREModel</span><span class="p">(</span><span class="n">sparesmodelfile</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;computing SPARE scores&quot;</span><span class="p">)</span>
+        <span class="n">spare_compute_instance</span> <span class="o">=</span> <span class="n">SPARE</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="p">,</span><span class="n">sparemodel</span><span class="p">)</span>
+        <span class="n">spare_compute_instance</span><span class="o">.</span><span class="n">DoSPAREsComputation</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Adding SPARE-* scores to data frame...&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">AddSparesToDataModel</span><span class="p">(</span><span class="n">spare_compute_instance</span><span class="o">.</span><span class="n">SPAREs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">outputfile</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saving updated data at specified location&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dio</span><span class="o">.</span><span class="n">SavePickleFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datamodel</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">outputfile</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, CBICA, University of Pennsylvania.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: main
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Languages</dt>
+        
+           <strong> 
+          <dd><a href="/NiBAx/en/main/">en</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="/NiBAx/es/main/">es</a></dd>
+          
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="/NiBAx/en/main/">main</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/NiBAx/en/main/NiBAχ-docs_en_main.pdf">pdf</a></dd>
+        
+          <dd><a href="/NiBAx/en/main/NiBAχ-docs_en_main.epub">epub</a></dd>
+        
+      </dl>
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<style>
+/* Sidebar header (and topbar for mobile) */
+.wy-side-nav-search, .wy-nav-top {
+  background: #95b1c2;
+}
+/* Sidebar */
+.wy-nav-side {
+  background: #363745;
+}
+</style>
+
+
+</body>
+</html>

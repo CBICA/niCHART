@@ -1,0 +1,38 @@
+:py:mod:`NiBAx.NiBAxCmdApp`
+===========================
+
+.. py:module:: NiBAx.NiBAxCmdApp
+
+.. autoapi-nested-parse::
+
+   contact: software@cbica.upenn.edu
+   Copyright (c) 2018 University of Pennsylvania. All rights reserved.
+   Use of this source code is governed by license located in license file: https://github.com/CBICA/NiBAx/blob/main/LICENSE
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.NiBAxCmdApp.NiBAxCmdApp
+
+
+
+
+.. py:class:: NiBAxCmdApp
+
+   .. py:method:: LoadData(self, datafile)
+
+
+   .. py:method:: Harmonize(self, harmonizationmodelfile, outputfile=None)
+
+
+   .. py:method:: ComputeSpares(self, sparesmodelfile, outputfile=None)
+
+
+

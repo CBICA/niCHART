@@ -1,0 +1,36 @@
+:py:mod:`NiBAx.plugins.customwidget.customwidget`
+=================================================
+
+.. py:module:: NiBAx.plugins.customwidget.customwidget
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   NiBAx.plugins.customwidget.customwidget.CustomWidget
+
+
+
+
+.. py:class:: CustomWidget
+
+   Bases: :py:obj:`PyQt5.QtWidgets.QWidget`, :py:obj:`yapsy.IPlugin.IPlugin`
+
+   .. py:method:: SetupConnections(self)
+
+
+   .. py:method:: SetupUi(self)
+
+
+   .. py:method:: UpdateDataStatistics(self)
+
+
+   .. py:method:: OnDataChanged(self)
+
+
+

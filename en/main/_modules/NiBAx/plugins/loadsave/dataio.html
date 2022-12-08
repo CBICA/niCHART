@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NiBAx.plugins.loadsave.dataio &mdash; NiBAχ 0.1 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../../_static/tabs.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6752KVNMB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B6752KVNMB');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html">
+            <img src="../../../../_static/NiBAx.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                main
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contents/userguide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contents/datapreprocessing.html">Data Pre-Processing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto_examples/index.html">Placeholder Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../autoapi/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contents/development.html">Developer Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">NiBAχ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+          <li><a href="../../../NiBAx.html">NiBAx</a> &raquo;</li>
+      <li>NiBAx.plugins.loadsave.dataio</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NiBAx.plugins.loadsave.dataio</h1><div class="highlight"><pre>
+<span></span><span class="c1"># This Python file uses the following encoding: utf-8</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">contact: software@cbica.upenn.edu</span>
+<span class="sd">Copyright (c) 2018 University of Pennsylvania. All rights reserved.</span>
+<span class="sd">Use of this source code is governed by license located in license file: https://github.com/CBICA/NiBAx/blob/main/LICENSE</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">joblib</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">NiBAx.core</span> <span class="kn">import</span> <span class="n">iStagingLogger</span>
+
+<div class="viewcode-block" id="logger"><a class="viewcode-back" href="../../../../autoapi/NiBAx/plugins/loadsave/dataio/index.html#NiBAx.plugins.loadsave.dataio.logger">[docs]</a><span class="n">logger</span> <span class="o">=</span> <span class="n">iStagingLogger</span><span class="o">.</span><span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DataIO"><a class="viewcode-back" href="../../../../autoapi/NiBAx/plugins/loadsave/dataio/index.html#NiBAx.plugins.loadsave.dataio.DataIO">[docs]</a><span class="k">class</span> <span class="nc">DataIO</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+
+<div class="viewcode-block" id="DataIO.ReadPickleFile"><a class="viewcode-back" href="../../../../autoapi/NiBAx/plugins/loadsave/dataio/index.html#NiBAx.plugins.loadsave.dataio.DataIO.ReadPickleFile">[docs]</a>    <span class="k">def</span> <span class="nf">ReadPickleFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">filename</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading pickle file ...&quot;</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="DataIO.ReadCSVFile"><a class="viewcode-back" href="../../../../autoapi/NiBAx/plugins/loadsave/dataio/index.html#NiBAx.plugins.loadsave.dataio.DataIO.ReadCSVFile">[docs]</a>    <span class="k">def</span> <span class="nf">ReadCSVFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">filename</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading CSV file ...&quot;</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="DataIO.SavePickleFile"><a class="viewcode-back" href="../../../../autoapi/NiBAx/plugins/loadsave/dataio/index.html#NiBAx.plugins.loadsave.dataio.DataIO.SavePickleFile">[docs]</a>    <span class="k">def</span> <span class="nf">SavePickleFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">filename</span><span class="p">):</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DataIO.ReadMUSEDictionary"><a class="viewcode-back" href="../../../../autoapi/NiBAx/plugins/loadsave/dataio/index.html#NiBAx.plugins.loadsave.dataio.DataIO.ReadMUSEDictionary">[docs]</a>    <span class="k">def</span> <span class="nf">ReadMUSEDictionary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Load MUSE dictionary file</span>
+        <span class="n">MUSEDictfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;MUSE_ROI_Dictionary.csv&#39;</span><span class="p">)</span>
+        <span class="n">MUSEDict</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">MUSEDictfile</span><span class="p">)</span>
+
+        <span class="c1"># Create lookup from name to ID and vice-versa</span>
+        <span class="c1"># e.g. name to ID: Hippocampus right -&gt; MUSE_Volume_48</span>
+        <span class="n">MUSEDictNAMEtoID</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">MUSEDict</span><span class="p">[</span><span class="s1">&#39;ROI_NAME&#39;</span><span class="p">],</span> <span class="n">MUSEDict</span><span class="p">[</span><span class="s1">&#39;ROI_COL&#39;</span><span class="p">]))</span>
+        <span class="c1"># e.g. ID to name; MUSE_Volume_48 -&gt; Hippocampus right</span>
+        <span class="n">MUSEDictIDtoNAME</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">MUSEDict</span><span class="p">[</span><span class="s1">&#39;ROI_COL&#39;</span><span class="p">],</span> <span class="n">MUSEDict</span><span class="p">[</span><span class="s1">&#39;ROI_NAME&#39;</span><span class="p">]))</span>
+
+        <span class="n">MUSEDictDataFrame</span> <span class="o">=</span> <span class="n">MUSEDict</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;MUSE dictionary read from file: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">MUSEDictfile</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">MUSEDictNAMEtoID</span><span class="p">,</span> <span class="n">MUSEDictIDtoNAME</span><span class="p">,</span> <span class="n">MUSEDictDataFrame</span></div>
+    
+<div class="viewcode-block" id="DataIO.ReadDerivedMUSEMap"><a class="viewcode-back" href="../../../../autoapi/NiBAx/plugins/loadsave/dataio/index.html#NiBAx.plugins.loadsave.dataio.DataIO.ReadDerivedMUSEMap">[docs]</a>    <span class="k">def</span> <span class="nf">ReadDerivedMUSEMap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Load MUSE dictionary file</span>
+        <span class="n">DerivedMapfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;MUSE_DerivedROIs_Mappings.csv&#39;</span><span class="p">)</span>
+        <span class="n">DerivedMUSEMap</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">DerivedMapfile</span><span class="p">,</span>
+        <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;python&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;level_0&#39;</span><span class="p">:</span><span class="s1">&#39;ROI_INDEX&#39;</span><span class="p">,</span><span class="s1">&#39;level_1&#39;</span><span class="p">:</span><span class="s1">&#39;ROI_NAME&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;ROI_INDEX&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ROI_NAME&#39;</span><span class="p">])</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Derived MUSE dictionary read from file: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">DerivedMapfile</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">DerivedMUSEMap</span></div>
+
+        
+<div class="viewcode-block" id="DataIO.ReadSPAREModel"><a class="viewcode-back" href="../../../../autoapi/NiBAx/plugins/loadsave/dataio/index.html#NiBAx.plugins.loadsave.dataio.DataIO.ReadSPAREModel">[docs]</a>    <span class="k">def</span> <span class="nf">ReadSPAREModel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">BrainAgeModel</span><span class="p">,</span> <span class="n">ADModel</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">BrainAgeModel</span><span class="p">,</span> <span class="n">ADModel</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, CBICA, University of Pennsylvania.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: main
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Languages</dt>
+        
+           <strong> 
+          <dd><a href="/NiBAx/en/main/">en</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="/NiBAx/es/main/">es</a></dd>
+          
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="/NiBAx/en/main/">main</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/NiBAx/en/main/NiBAχ-docs_en_main.pdf">pdf</a></dd>
+        
+          <dd><a href="/NiBAx/en/main/NiBAχ-docs_en_main.epub">epub</a></dd>
+        
+      </dl>
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<style>
+/* Sidebar header (and topbar for mobile) */
+.wy-side-nav-search, .wy-nav-top {
+  background: #95b1c2;
+}
+/* Sidebar */
+.wy-nav-side {
+  background: #363745;
+}
+</style>
+
+
+</body>
+</html>

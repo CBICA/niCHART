@@ -1,0 +1,20 @@
+:py:mod:`NiBAx.plugins`
+=======================
+
+.. py:module:: NiBAx.plugins
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   agetrends/index.rst
+   computeSPAREs/index.rst
+   customwidget/index.rst
+   datacharacteristics/index.rst
+   harmonization/index.rst
+   loadsave/index.rst
+
+

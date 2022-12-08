@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NiBAx.core.model.datamodel &mdash; documentación de NiBAχ - 0.1</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../../_static/tabs.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../../search.html" />
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6752KVNMB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B6752KVNMB');
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html">
+            <img src="../../../../_static/NiBAx.png" class="logo" alt="Logotipo"/>
+          </a>
+              <div class="version">
+                main
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contents/userguide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contents/datapreprocessing.html">Data Pre-Processing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto_examples/index.html">Placeholder Gallery</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../autoapi/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contents/development.html">Developer Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">NiBAχ</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Código de módulo</a> &raquo;</li>
+          <li><a href="../../../NiBAx.html">NiBAx</a> &raquo;</li>
+      <li>NiBAx.core.model.datamodel</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código fuente para NiBAx.core.model.datamodel</h1><div class="highlight"><pre>
+<span></span><span class="c1"># This Python file uses the following encoding: utf-8</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">contact: software@cbica.upenn.edu</span>
+<span class="sd">Copyright (c) 2018 University of Pennsylvania. All rights reserved.</span>
+<span class="sd">Use of this source code is governed by license located in license file: https://github.com/CBICA/NiBAx/blob/main/LICENSE</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">neuroHarmonize</span> <span class="k">as</span> <span class="nn">nh</span>
+<span class="kn">import</span> <span class="nn">importlib.resources</span> <span class="k">as</span> <span class="nn">pkg_resources</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">joblib</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">pyqtSignal</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span>
+<span class="kn">from</span> <span class="nn">NiBAx.core</span> <span class="kn">import</span> <span class="n">iStagingLogger</span>
+
+<div class="viewcode-block" id="logger"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.logger">[documentos]</a><span class="n">logger</span> <span class="o">=</span> <span class="n">iStagingLogger</span><span class="o">.</span><span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DataModel"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel">[documentos]</a><span class="k">class</span> <span class="nc">DataModel</span><span class="p">(</span><span class="n">QObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This class holds the data model.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DataModel.data_changed"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.data_changed">[documentos]</a>    <span class="n">data_changed</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">pyqtSignal</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">QObject</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;The constructor.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">harmonization_model</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MUSEDictNAMEtoID</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MUSEDictIDtoNAME</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_FilePath</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">harmonization_model_Filepath</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">SPAREModel</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">BrainAgeModel</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ADModel</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="DataModel.SetMUSEDictionaries"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.SetMUSEDictionaries">[documentos]</a>    <span class="k">def</span> <span class="nf">SetMUSEDictionaries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MUSEDictNAMEtoID</span><span class="p">,</span> <span class="n">MUSEDictIDtoNAME</span><span class="p">,</span><span class="n">MUSEDictDataFrame</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Setter for MUSE dictionary&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MUSEDictNAMEtoID</span> <span class="o">=</span> <span class="n">MUSEDictNAMEtoID</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MUSEDictIDtoNAME</span> <span class="o">=</span> <span class="n">MUSEDictIDtoNAME</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MUSEDictDataFrame</span> <span class="o">=</span> <span class="n">MUSEDictDataFrame</span></div>
+    
+<div class="viewcode-block" id="DataModel.SetDerivedMUSEMap"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.SetDerivedMUSEMap">[documentos]</a>    <span class="k">def</span> <span class="nf">SetDerivedMUSEMap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">DerivedMUSEMap</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Setter for Derived MUSE dictionary&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">DerivedMUSEMap</span> <span class="o">=</span> <span class="n">DerivedMUSEMap</span></div>
+
+
+<div class="viewcode-block" id="DataModel.SetDataFilePath"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.SetDataFilePath">[documentos]</a>    <span class="k">def</span> <span class="nf">SetDataFilePath</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">p</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Setter&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_FilePath</span> <span class="o">=</span> <span class="n">p</span></div>
+
+
+<div class="viewcode-block" id="DataModel.SetHarmonizationModelFilePath"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.SetHarmonizationModelFilePath">[documentos]</a>    <span class="k">def</span> <span class="nf">SetHarmonizationModelFilePath</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">p</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Setter&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">harmonization_model_Filepath</span> <span class="o">=</span> <span class="n">p</span></div>
+
+
+<div class="viewcode-block" id="DataModel.GetDataFilePath"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.GetDataFilePath">[documentos]</a>    <span class="k">def</span> <span class="nf">GetDataFilePath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return data file path&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_FilePath</span></div>
+
+
+<div class="viewcode-block" id="DataModel.GetHarmonizationModelFilePath"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.GetHarmonizationModelFilePath">[documentos]</a>    <span class="k">def</span> <span class="nf">GetHarmonizationModelFilePath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return harmonization model file path&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">harmonization_model_Filepath</span></div>
+
+
+<div class="viewcode-block" id="DataModel.GetMUSEDictionaries"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.GetMUSEDictionaries">[documentos]</a>    <span class="k">def</span> <span class="nf">GetMUSEDictionaries</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the MUSE dictionaries to map from ID to name and vice-versa&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">MUSEDictNAMEtoID</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MUSEDictIDtoNAME</span></div>
+    
+<div class="viewcode-block" id="DataModel.GetDerivedMUSEMap"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.GetDerivedMUSEMap">[documentos]</a>    <span class="k">def</span> <span class="nf">GetDerivedMUSEMap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the derived MUSE dictionary to map from SINGLE to DERIVED ROIs&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">DerivedMUSEMap</span></div>
+    
+<div class="viewcode-block" id="DataModel.GetMUSEDictDataFrame"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.GetMUSEDictDataFrame">[documentos]</a>    <span class="k">def</span> <span class="nf">GetMUSEDictDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the MUSE dictionaries to map from ID to name and vice-versa&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">MUSEDictDataFrame</span></div>
+
+        
+<div class="viewcode-block" id="DataModel.SetData"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.SetData">[documentos]</a>    <span class="k">def</span> <span class="nf">SetData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">d</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Setter for data&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">d</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Data changed in datamodel. Signal emitted.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_changed</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="DataModel.SetHarmonizationModel"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.SetHarmonizationModel">[documentos]</a>    <span class="k">def</span> <span class="nf">SetHarmonizationModel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">m</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Setter for neuroHarmonize model&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">harmonization_model</span> <span class="o">=</span> <span class="n">m</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;neuroHarmonize model set.&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DataModel.SetSPAREModel"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.SetSPAREModel">[documentos]</a>    <span class="k">def</span> <span class="nf">SetSPAREModel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">BrainAgeModel</span><span class="p">,</span> <span class="n">ADModel</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Setter for SPARE-* models&quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;setting SPARE models&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">BrainAgeModel</span> <span class="o">=</span> <span class="n">BrainAgeModel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ADModel</span> <span class="o">=</span> <span class="n">ADModel</span></div>
+
+
+<div class="viewcode-block" id="DataModel.GetCompleteData"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.GetCompleteData">[documentos]</a>    <span class="k">def</span> <span class="nf">GetCompleteData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns complete data.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="DataModel.GetModel"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.GetModel">[documentos]</a>    <span class="k">def</span> <span class="nf">GetModel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns harmonization model.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">harmonization_model</span></div>
+    
+<div class="viewcode-block" id="DataModel.GetMaxAgeOfMUSEHarmonizationModel"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.GetMaxAgeOfMUSEHarmonizationModel">[documentos]</a>    <span class="k">def</span> <span class="nf">GetMaxAgeOfMUSEHarmonizationModel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns model age maximum.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">harmonization_model</span><span class="p">[</span><span class="s1">&#39;smooth_model&#39;</span><span class="p">][</span><span class="s1">&#39;bsplines_constructor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">knot_kwds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;upper_bound&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="DataModel.GetMinAgeOfMUSEHarmonizationModel"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.GetMinAgeOfMUSEHarmonizationModel">[documentos]</a>    <span class="k">def</span> <span class="nf">GetMinAgeOfMUSEHarmonizationModel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns model age minimum.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">harmonization_model</span><span class="p">[</span><span class="s1">&#39;smooth_model&#39;</span><span class="p">][</span><span class="s1">&#39;bsplines_constructor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">knot_kwds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;lower_bound&#39;</span><span class="p">]</span></div>
+        
+
+<div class="viewcode-block" id="DataModel.GetNormativeRange"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.GetNormativeRange">[documentos]</a>    <span class="k">def</span> <span class="nf">GetNormativeRange</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">roi</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return normative range&quot;&quot;&quot;</span>
+        
+        <span class="c1"># Constructig the visualization of the normative range based on GAM</span>
+        <span class="c1"># model</span>
+        <span class="n">covariates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">GetMinAgeOfMUSEHarmonizationModel</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetMaxAgeOfMUSEHarmonizationModel</span><span class="p">(),</span> <span class="mi">200</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">])</span>
+        <span class="c1"># Fix ICV roughly to population average</span>
+        <span class="n">covariates</span><span class="p">[</span><span class="s1">&#39;ICV&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1450000</span> <span class="c1"># mean ICV</span>
+        <span class="c1"># Fix Sex variable</span>
+        <span class="n">covariates</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># No need to specify site, but column with name `SITE` must exist</span>
+        <span class="n">covariates</span><span class="p">[</span><span class="s1">&#39;SITE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span>
+        <span class="c1"># Set the ROI to be predicted</span>
+        <span class="n">ROIs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">harmonization_model</span><span class="p">[</span><span class="s1">&#39;ROIs&#39;</span><span class="p">]</span>
+        <span class="c1"># Compute predicted mean for specific ROI</span>
+        <span class="c1"># TODO: This is inefficient because the mean values are predicted for</span>
+        <span class="c1">#       all ROIs every time. Computation is only necessary if the</span>
+        <span class="c1">#       covariates change (e.g. for different `Sex`).</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">stand_mean</span> <span class="o">=</span> <span class="n">nh</span><span class="o">.</span><span class="n">harmonizationApply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">covariates</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">ROIs</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span>
+                                              <span class="n">covariates</span><span class="p">[[</span><span class="s1">&#39;SITE&#39;</span><span class="p">,</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span><span class="s1">&#39;Sex&#39;</span><span class="p">,</span><span class="s1">&#39;ICV&#39;</span><span class="p">]],</span>
+                                              <span class="bp">self</span><span class="o">.</span><span class="n">harmonization_model</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">stand_mean</span><span class="p">[:,</span><span class="n">ROIs</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">roi</span><span class="p">)]</span>
+        <span class="c1"># Get the normative range based on pooled variance</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">harmonization_model</span><span class="p">[</span><span class="s1">&#39;var_pooled&#39;</span><span class="p">][</span><span class="n">ROIs</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">roi</span><span class="p">)])</span>
+        <span class="c1"># Return age and associated mean value as well as normative range</span>
+        <span class="k">return</span> <span class="n">covariates</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span></div>
+
+
+<div class="viewcode-block" id="DataModel.GetData"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.GetData">[documentos]</a>    <span class="k">def</span> <span class="nf">GetData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">roi</span><span class="p">,</span><span class="n">hue</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a subset of data needed for plot.</span>
+<span class="sd">        Takes as parameters the roi and hue for the plot.</span>
+<span class="sd">        Since the plot always uses &#39;Age&#39; for X axis, this is always returned.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">roi</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">roi</span> <span class="o">=</span> <span class="p">[</span><span class="n">roi</span><span class="p">]</span>
+        
+        <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">roi</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span><span class="n">hue</span><span class="p">]]</span>
+        <span class="k">return</span> <span class="n">d</span></div>
+
+
+<div class="viewcode-block" id="DataModel.IsValidData"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.IsValidData">[documentos]</a>    <span class="k">def</span> <span class="nf">IsValidData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Checks if the data is valid or not.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="s1">&#39;participant_id&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="s1">&#39;Age&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="s1">&#39;Sex&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="DataModel.IsValidHarmonization"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.IsValidHarmonization">[documentos]</a>    <span class="k">def</span> <span class="nf">IsValidHarmonization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Checks if the harmonization model is valid or not.&quot;&quot;&quot;</span>
+        <span class="c1">#TODO: Implement checks</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="DataModel.IsValidSPARE"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.IsValidSPARE">[documentos]</a>    <span class="k">def</span> <span class="nf">IsValidSPARE</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Checks if the SPARE-* model is valid or not.&quot;&quot;&quot;</span>
+        <span class="c1">#TODO: Implement checks</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="DataModel.GetColumnHeaderNames"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.GetColumnHeaderNames">[documentos]</a>    <span class="k">def</span> <span class="nf">GetColumnHeaderNames</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns all header names for all columns in the dataset.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">return</span> <span class="n">k</span></div>
+
+
+<div class="viewcode-block" id="DataModel.GetColumnDataTypes"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.GetColumnDataTypes">[documentos]</a>    <span class="k">def</span> <span class="nf">GetColumnDataTypes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns all header names for all columns in the dataset.&quot;&quot;&quot;</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dtypes</span>
+        <span class="k">return</span> <span class="n">d</span></div>
+    
+
+<div class="viewcode-block" id="DataModel.Reset"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.Reset">[documentos]</a>    <span class="k">def</span> <span class="nf">Reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1">#clear all contents of data/model and release memory etc.</span>
+        <span class="c1">#TODO: this needs to be done correctly,</span>
+        <span class="c1">#is there a better way to clear data?</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">harmonization_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">harmonization_model</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="DataModel.GetDataStatistics"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.GetDataStatistics">[documentos]</a>    <span class="k">def</span> <span class="nf">GetDataStatistics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a dictionary of data statistics.</span>
+<span class="sd">        Currently returned stats:</span>
+<span class="sd">        # Observation,</span>
+<span class="sd">        # Participants</span>
+<span class="sd">        # Age [min,max]</span>
+<span class="sd">        # Sex [M,F]&quot;&quot;&quot;</span>
+
+        <span class="c1">#create empty dictionary</span>
+        <span class="n">stats</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+        <span class="c1">#fill dictionary with data stats</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;minAge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;maxAge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;meanAge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;numParticipants&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;participant_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;numObservations&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">sex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[[</span><span class="s1">&#39;participant_id&#39;</span><span class="p">,</span><span class="s1">&#39;Sex&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+        <span class="n">sex</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sex</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+        <span class="n">sex</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sex</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">set_categories</span><span class="p">([</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">])</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;countsPerSex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sex</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">stats</span></div>
+
+<div class="viewcode-block" id="DataModel.AddSparesToDataModel"><a class="viewcode-back" href="../../../../autoapi/NiBAx/core/model/datamodel/index.html#NiBAx.core.model.datamodel.DataModel.AddSparesToDataModel">[documentos]</a>    <span class="k">def</span> <span class="nf">AddSparesToDataModel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spares</span><span class="p">,</span> <span class="n">SPARE_AD</span><span class="o">=</span><span class="s1">&#39;SPARE_AD&#39;</span><span class="p">,</span> <span class="n">SPARE_BA</span><span class="o">=</span><span class="s1">&#39;SPARE_BA&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">SPARE_AD</span><span class="p">]</span> <span class="o">=</span> <span class="n">spares</span><span class="p">[</span><span class="s1">&#39;SPARE_AD&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_axis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">SPARE_BA</span><span class="p">]</span> <span class="o">=</span> <span class="n">spares</span><span class="p">[</span><span class="s1">&#39;SPARE_BA&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_axis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_changed</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2022, CBICA, University of Pennsylvania.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: main
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Languages</dt>
+        
+          
+          <dd><a href="/NiBAx/en/main/">en</a></dd>
+          
+        
+           <strong> 
+          <dd><a href="/NiBAx/es/main/">es</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Versiones</dt>
+        
+           <strong> 
+          <dd><a href="/NiBAx/es/main/">main</a></dd>
+           </strong> 
+        
+      </dl>
+      
+      
+      <dl>
+        <dt>Descargas</dt>
+        
+          <dd><a href="/NiBAx/es/main/NiBAχ-docs_es_main.pdf">pdf</a></dd>
+        
+          <dd><a href="/NiBAx/es/main/NiBAχ-docs_es_main.epub">epub</a></dd>
+        
+      </dl>
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+ 
+
+<style>
+/* Sidebar header (and topbar for mobile) */
+.wy-side-nav-search, .wy-nav-top {
+  background: #95b1c2;
+}
+/* Sidebar */
+.wy-nav-side {
+  background: #363745;
+}
+</style>
+
+
+</body>
+</html>

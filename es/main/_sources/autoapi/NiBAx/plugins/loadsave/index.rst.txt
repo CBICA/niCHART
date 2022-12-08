@@ -1,0 +1,16 @@
+:py:mod:`NiBAx.plugins.loadsave`
+================================
+
+.. py:module:: NiBAx.plugins.loadsave
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   dataio/index.rst
+   loadsave/index.rst
+
+
