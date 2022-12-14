@@ -1,0 +1,13 @@
+[Core]
+Name = Table View
+Module = tableview
+
+[Documentation]
+Author = Ashish Singh
+Version = 0.1
+Website = 
+Description = Table View of Data
+
+[Tab]
+#tab position starts from 0
+Position = 0

@@ -1,0 +1,279 @@
+<?xml  version="1.0"  encoding="UTF-8"?>
+<ui  version="4.0">
+  <class>Form</class>
+  <widget  class="QWidget"  name="Form">
+    <property  name="geometry">
+      <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>906</width>
+        <height>549</height>
+      </rect>
+    </property>
+    <property  name="windowTitle">
+      <string>Form</string>
+    </property>
+    <layout  class="QHBoxLayout"  name="horizontalLayout">
+      <item>
+        <widget  class="QSplitter"  name="splitter">
+          <property  name="orientation">
+            <enum>Qt::Horizontal</enum>
+          </property>
+          <widget  class="QWidget"  name="wA">
+            <property  name="sizePolicy">
+              <sizepolicy  hsizetype="Preferred"  vsizetype="Preferred">
+                <horstretch>8</horstretch>
+                <verstretch>0</verstretch>
+              </sizepolicy>
+            </property>
+            <layout  class="QVBoxLayout"  name="vlA">
+              <item>
+                <widget  class="QMdiArea"  name="mdiArea"/>
+              </item>
+            </layout>
+          </widget>
+          <widget  class="QWidget"  name="wB">
+            <property  name="sizePolicy">
+              <sizepolicy  hsizetype="Minimum"  vsizetype="Minimum">
+                <horstretch>1</horstretch>
+                <verstretch>0</verstretch>
+              </sizepolicy>
+            </property>
+            <layout  class="QVBoxLayout"  name="vlB">
+              <item>
+                <widget  class="QFrame"  name="wBA">
+                  <property  name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property  name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                  </property>
+                  <property  name="lineWidth">
+                    <number>8</number>
+                  </property>
+                  <layout  class="QVBoxLayout"  name="vlBA">
+                    <item>
+                      <widget  class="QLabel"  name="label_select">
+                        <property  name="text">
+                          <string>X Var</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item>
+                      <layout  class="QHBoxLayout"  name="horizontalLayout_5">
+                        <item>
+                          <spacer  name="horizontalSpacer_5">
+                            <property  name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property  name="sizeHint"  stdset="0">
+                              <size>
+                                <width>40</width>
+                                <height>20</height>
+                              </size>
+                            </property>
+                          </spacer>
+                        </item>
+                        <item>
+                          <layout  class="QVBoxLayout"  name="vlBAA"/>
+                        </item>
+                      </layout>
+                    </item>
+                  </layout>
+                </widget>
+              </item>
+
+              <item>
+                <widget  class="QFrame"  name="wBB">
+                  <property  name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property  name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                  </property>
+                  <property  name="lineWidth">
+                    <number>8</number>
+                  </property>
+                  <layout  class="QVBoxLayout"  name="vlBB">
+                    <item>
+                      <widget  class="QLabel"  name="label_select2">
+                        <property  name="text">
+                          <string>Y Var</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item>
+                      <layout  class="QHBoxLayout"  name="horizontalLayout_6">
+                        <item>
+                          <spacer  name="horizontalSpacer_6">
+                            <property  name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property  name="sizeHint"  stdset="0">
+                              <size>
+                                <width>40</width>
+                                <height>20</height>
+                              </size>
+                            </property>
+                          </spacer>
+                        </item>
+                        <item>
+                          <layout  class="QVBoxLayout"  name="vlBAB"/>
+                        </item>
+                      </layout>
+                    </item>
+                  </layout>
+                </widget>
+              </item>
+
+              <item>
+                <widget  class="QFrame"  name="wBC">
+                  <property  name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property  name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                  </property>
+                  <property  name="lineWidth">
+                    <number>8</number>
+                  </property>
+                  <layout  class="QVBoxLayout"  name="vlBC">
+                    <item>
+                      <widget  class="QLabel"  name="label_select2">
+                        <property  name="text">
+                          <string>Filter Var</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item>
+                      <layout  class="QHBoxLayout"  name="horizontalLayout_6">
+                        <item>
+                          <spacer  name="horizontalSpacer_6">
+                            <property  name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property  name="sizeHint"  stdset="0">
+                              <size>
+                                <width>40</width>
+                                <height>20</height>
+                              </size>
+                            </property>
+                          </spacer>
+                        </item>
+                        <item>
+                          <layout  class="QVBoxLayout"  name="vlBAC"/>
+                        </item>
+                        <item>
+                          <layout  class="QVBoxLayout"  name="vlBAD"/>
+                        </item>
+                      </layout>
+                    </item>
+                  </layout>
+                </widget>
+              </item>
+              
+              <item>
+                <widget  class="QFrame"  name="wBD">
+                  <property  name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property  name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                  </property>
+                  <property  name="lineWidth">
+                    <number>8</number>
+                  </property>
+                  <layout  class="QVBoxLayout"  name="vlBD">
+                    <item>
+                      <widget  class="QLabel"  name="label_select3">
+                        <property  name="text">
+                          <string>Hue Var</string>
+                        </property>
+                      </widget>
+                    </item>
+                    <item>
+                      <layout  class="QHBoxLayout"  name="horizontalLayout_7">
+                        <item>
+                          <spacer  name="horizontalSpacer_7">
+                            <property  name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property  name="sizeHint"  stdset="0">
+                              <size>
+                                <width>40</width>
+                                <height>20</height>
+                              </size>
+                            </property>
+                          </spacer>
+                        </item>
+                        <item>
+                          <layout  class="QVBoxLayout"  name="vlBAE"/>
+                        </item>
+                        <item>
+                          <layout  class="QVBoxLayout"  name="vlBAF"/>
+                        </item>
+                      </layout>
+                    </item>
+                  </layout>
+                </widget>
+              </item>
+
+              <item>
+                <widget  class="QFrame"  name="wBD">
+                  <property  name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property  name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                  </property>
+                  <property  name="lineWidth">
+                    <number>8</number>
+                  </property>
+                    <layout  class="QHBoxLayout"  name="horizontalLayout_8">
+                    <item>
+                        <spacer  name="horizontalSpacer_8">
+                        <property  name="orientation">
+                            <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property  name="sizeHint"  stdset="0">
+                            <size>
+                            <width>40</width>
+                            <height>20</height>
+                            </size>
+                        </property>
+                        </spacer>
+                    </item>
+                    <item>
+                        <widget  class="QPushButton"  name="plotBtn">
+                        <property  name="text">
+                            <string>Plot</string>
+                        </property>
+                        </widget>
+                    </item>
+                    </layout>
+                </widget>
+              </item>
+              
+              <item>
+                <spacer  name="verticalSpacer">
+                <property  name="orientation">
+                    <enum>Qt::Vertical</enum>
+                </property>
+                <property  name="sizeHint"  stdset="0">
+                    <size>
+                    <width>20</width>
+                    <height>40</height>
+                    </size>
+                </property>
+                </spacer>
+              </item>
+              
+            </layout>
+          </widget>
+        </widget>
+      </item>
+    </layout>
+  </widget>
+  <resources/>
+  <connections/>
+</ui>

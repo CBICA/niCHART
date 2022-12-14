@@ -1,0 +1,13 @@
+[Core]
+Name = Dist View
+Module = distview
+
+[Documentation]
+Author = Guray Erus
+Version = 0.1
+Website = 
+Description = Dist View of Data
+
+[Tab]
+#tab position starts from 0
+Position = 2

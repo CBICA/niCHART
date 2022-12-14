@@ -32,7 +32,7 @@ class PlotCanvas(QtWidgets.QWidget):
 
         self.setLayout(QtWidgets.QVBoxLayout())
 
-        self.layout().addWidget(self.toolbar)
+        #self.layout().addWidget(self.toolbar)
         self.layout().addWidget(self.canvas)
 
     def getFigure(self):
