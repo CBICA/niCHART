@@ -4,7 +4,7 @@ requires = ["setuptools", "wheel", "poetry-core @ git+https://github.com/python-
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "NiBAx"
+name = "niCHART"
 version = "0.1"
 description = "BrainChart Utility and Analysis Package"
 authors = [
@@ -16,18 +16,18 @@ keywords = ["neuro-imaging", "MRI", "big data"]
 
 readme = "README.md"
 
-include = ["NiBAx/plugins/data/MUSE_ROI_Dictionary.csv",
-           "NiBAx/**/*.ui",
-           "NiBAx/**/*.yapsy-plugin",
+include = ["niCHART/plugins/data/MUSE_ROI_Dictionary.csv",
+           "niCHART/**/*.ui",
+           "niCHART/**/*.yapsy-plugin",
            "*.png"]
 packages = [
-    {include = "NiBAx"}
+    {include = "niCHART"}
 ]
 
 
 [tool.briefcase]
-project_name = "NiBAx"
-name = "[NiBAx]"
+project_name = "niCHART"
+name = "[niCHART]"
 bundle = "com.example"
 version = "0.1"
 description = "BrainChart Utility and Analysis Package"
@@ -38,33 +38,33 @@ authors = [
 ]
 keywords = ["neuro-imaging", "MRI", "big data"]
 readme = "README.md"
-icon = "NiBAx/resources/icon"
-installer_icon = "NiBAx/resources/icon"
-include = ["NiBAx/plugins/data/MUSE_ROI_Dictionary.csv",
-           "NiBAx/**/*.ui",
-           "NiBAx/**/*.yapsy-plugin",
+icon = "niCHART/resources/icon"
+installer_icon = "niCHART/resources/icon"
+include = ["niCHART/plugins/data/MUSE_ROI_Dictionary.csv",
+           "niCHART/**/*.ui",
+           "niCHART/**/*.yapsy-plugin",
            "*.png"]
 packages = [
-    {include = "NiBAx"}
+    {include = "niCHART"}
 ]
 
 
-[tool.briefcase.app.NiBAx.macOS]
+[tool.briefcase.app.niCHART.macOS]
 requires = []
 
-[tool.briefcase.app.NiBAx.linux]
+[tool.briefcase.app.niCHART.linux]
 requires = []
 system_requires = []
 
-[tool.briefcase.app.NiBAx.windows]
+[tool.briefcase.app.niCHART.windows]
 requires = []
 
 
-[tool.briefcase.app.NiBAx]
-formal_name = "NiBAx"
+[tool.briefcase.app.niCHART]
+formal_name = "niCHART"
 description = "The coolest app ever"
-icon = "NiBAx/resources/icon" # Briecase will choose the right extension depending the os (png,ico,...)
-sources = ['NiBAx']
+icon = "niCHART/resources/icon" # Briecase will choose the right extension depending the os (png,ico,...)
+sources = ['niCHART']
 requires = ['cycler==0.10.0',
 'joblib>=1.2.0',
 'MarkupSafe==2.0.1',
@@ -124,10 +124,10 @@ pytest = "7.0.1"
 pytest-qt = "4.0.2"
 
 [tool.poetry.urls]
-homepage = "https://cbica.github.io/NiBAx"
-repository = "https://github.com/CBICA/NiBAx"
-documentation = "https://cbica.github.io/NiBAx"
+homepage = "https://cbica.github.io/niCHART"
+repository = "https://github.com/CBICA/niCHART"
+documentation = "https://cbica.github.io/niCHART"
 
 
 [tool.poetry.scripts]
-NiBAx = "NiBAx:main"
+niCHART = "niCHART:main"

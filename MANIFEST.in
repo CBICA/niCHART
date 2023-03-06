@@ -1,2 +1,2 @@
-include NiBAx/plugins/loadsave/MUSE_ROI_Dictionary.csv
+include niCHART/plugins/loadsave/MUSE_ROI_Dictionary.csv
 include README.md

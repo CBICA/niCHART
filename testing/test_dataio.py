@@ -1,7 +1,7 @@
 import pytest
 import os
 import pandas as pd
-from NiBAx.plugins.loadsave.dataio import DataIO
+from niCHART.plugins.loadsave.dataio import DataIO
 
 #This file contains tests for dataio.py
 
