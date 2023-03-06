@@ -1,7 +1,7 @@
 import pytest
 import os
 from PyQt5 import QtCore, QtWidgets
-from NiBAx.core.plotcanvas import PlotCanvas
+from niCHART.core.plotcanvas import PlotCanvas
 import matplotlib
 
 #This file contains tests for PlotCanvas.py

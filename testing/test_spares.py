@@ -1,9 +1,9 @@
 import pytest
 import os
 import pandas as pd
-from NiBAx.plugins.loadsave.dataio import DataIO
-from NiBAx.plugins.spareplugin.spares import SPARE
-from NiBAx.core.model.datamodel import DataModel
+from niCHART.plugins.loadsave.dataio import DataIO
+from niCHART.plugins.spareplugin.spares import SPARE
+from niCHART.core.model.datamodel import DataModel
 
 #This file contains tests for spares.py
 

@@ -19,7 +19,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'NiBAχ'
+project = 'niCHART'
 copyright = '2022, CBICA, University of Pennsylvania'
 author = 'Ashish Singh'
 
@@ -51,7 +51,7 @@ extensions = [
     'sphinx.ext.autosectionlabel',
 ]
 
-autoapi_dirs = ['../NiBAx']
+autoapi_dirs = ['../niCHART']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -120,7 +120,7 @@ html_logo = "contents/images/NiBAx.png"
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'NiBAxdoc'
+htmlhelp_basename = 'niCHARTdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -147,7 +147,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'NiBAx.tex', 'NiBAx Documentation',
+    (master_doc, 'niCHART.tex', 'niCHART Documentation',
      'Ashish Singh', 'manual'),
 ]
 
@@ -157,7 +157,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'NiBAx', 'NiBAx Documentation',
+    (master_doc, 'niCHART', 'niCHART Documentation',
      [author], 1)
 ]
 
@@ -168,7 +168,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'NiBAx', 'NiBAx Documentation',
+    (master_doc, 'niCHART', 'niCHART Documentation',
      author, 'Ahmed Abdulkadir', 'The neuro-imaging brain aging chart',
      'Miscellaneous'),
 ]
@@ -281,6 +281,6 @@ html_context['downloads'].append( ('epub', '/' +REPO_NAME+ '/' +current_language
  
 html_context['display_github'] = True
 html_context['github_user'] = 'CBICA'
-html_context['github_repo'] = 'NiBAx'
+html_context['github_repo'] = 'niCHART'
 html_context['github_version'] = 'main/docs/'
  
