@@ -43,8 +43,8 @@ Complete example
 
 .. code-block:: shell
 
-   GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/CBICA/NiBAx/
-   cd NiBAx/Image_Processing/sMRI
+   GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/CBICA/niCHART/
+   cd niCHART/Image_Processing/sMRI
    git lfs pull --include example
    git lfs pull --include sMRI_ProcessingPipeline
 

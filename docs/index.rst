@@ -47,8 +47,8 @@ of expressive imaging signatures.
 *****
 About
 *****
-By using NiBAx, the user agrees to the following license:
+By using niCHART, the user agrees to the following license:
 https://www.med.upenn.edu/cbica/software-agreement-non-commercial.html
 
-For more information and support, please post on the `Discussions <https://github.com/CBICA/NiBAx/discussions>`_
+For more information and support, please post on the `Discussions <https://github.com/CBICA/niCHART/discussions>`_
 section or contact `CBICA Software <software@cbica.upenn.edu>`_.
