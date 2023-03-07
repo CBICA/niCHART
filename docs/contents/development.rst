@@ -42,7 +42,7 @@ with the full path.
          /usr/bin/python --version
 
 
-It is recommended to install **[NiBAx]** in a virtual Python environment.
+It is recommended to install **[niCHART]** in a virtual Python environment.
 Shown below is an installation into the folder `.env` in the current working
 directory.
 
@@ -50,16 +50,16 @@ directory.
 
     python -m venv .env
     source .env/bin/activate
-    python -m pip install https://github.com/CBICA/NiBAx
+    python -m pip install https://github.com/CBICA/niCHART
 
 
-Once installed, the GUI is accesible as command `NiBAx`.
+Once installed, the GUI is accesible as command `niCHART`.
 
 .. code-block:: shell
 
-    # Typing NiBAx in an activated virtual environment
+    # Typing niCHART in an activated virtual environment
     # will launch the graphical user interface.
-    NiBAx
+    niCHART
 
 ***************************
 Build documentation locally
