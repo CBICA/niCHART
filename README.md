@@ -1,6 +1,6 @@
 # [niCHART] The neuro-imaging brain aging chart
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7aadb18130574bd5b85b978cd709fe2c)](https://www.codacy.com/gh/CBICA/NiBAx/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CBICA/NiBAx&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7aadb18130574bd5b85b978cd709fe2c)](https://www.codacy.com/gh/CBICA/niCHART/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CBICA/niCHART&amp;utm_campaign=Badge_Grade)
 
 | :construction:
   <font size="+1">This software and documentation is under development!
@@ -119,7 +119,7 @@ user's profile. The installation does not require administrator rights.
 
 ## Disclaimer
 - The software has been designed for research purposes only and has neither been reviewed nor approved for clinical use by the Food and Drug Administration (FDA) or by any other federal/state agency.
-- By using NiBAx, the user agrees to the following license: https://www.med.upenn.edu/cbica/software-agreement-non-commercial.html
+- By using niCHART, the user agrees to the following license: https://www.med.upenn.edu/cbica/software-agreement-non-commercial.html
 
 ## Contact
 For more information and support, please post on the [Discussions](https://github.com/CBICA/niCHART/discussions) section or contact <a href="mailto:software@cbica.upenn.edu">CBICA Software</a>.
