@@ -6,8 +6,10 @@ from niCHART.core.baseplugin import BasePlugin
 
 import seaborn as sns
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 import numpy as np
 import pandas as pd
+from niCHART.plugins.loadsave.dataio import DataIO
 from niCHART.core.plotcanvas import PlotCanvas
 from niCHART.core.gui.SearchableQComboBox import SearchableQComboBox
 
@@ -33,12 +35,23 @@ class AgeTrends(QtWidgets.QWidget,BasePlugin):
 
     def SetupConnections(self):
         self.datamodel.data_changed.connect(lambda: self.OnDataChanged())
+        self.datamodel.model_changed.connect(lambda: self.OnModelChanged())
         self.ui.comboBoxROI.currentIndexChanged.connect(self.UpdatePlot)
         self.ui.comboBoxHue.currentIndexChanged.connect(self.UpdatePlot)
 
     def OnDataChanged(self):
         self.PopulateROI()
         self.PopulateHue()
+
+    def OnModelChanged(self):
+        self.GetMUSEROIDict()
+        self.PopulateROI()
+
+    def GetMUSEROIDict(self):
+        dio = DataIO()
+        #also read MUSE dictionary
+        MUSEDictNAMEtoID, MUSEDictIDtoNAME, MUSEDictDataFrame = dio.ReadMUSEDictionary()
+        self.datamodel.SetMUSEDictionaries(MUSEDictNAMEtoID, MUSEDictIDtoNAME,MUSEDictDataFrame)
 
     def PopulateROI(self):
         #get data column header names
@@ -57,7 +70,6 @@ class AgeTrends(QtWidgets.QWidget,BasePlugin):
                             'WMLS_Volume_700' ]:
             if invalid_ROI in roiList:
                 roiList.remove(invalid_ROI)
-
 
         _, MUSEDictIDtoNAME = self.datamodel.GetMUSEDictionaries()
         roiList = list(set(roiList).intersection(set(datakeys)))
@@ -117,7 +129,11 @@ class AgeTrends(QtWidgets.QWidget,BasePlugin):
         plotOptions['HUE'] = currentHue
 
         #Plot data
-        self.PlotAgeTrends(plotOptions)
+        if self.datamodel.data is not None:
+            self.PlotAgeTrends(plotOptions)
+        
+        if (self.datamodel.harmonization_model is not None) and (self.datamodel.data is None):
+            self.PlotModelTrends(plotOptions)
 
     def PlotAgeTrends(self,plotOptions):
         """Plot Age Trends"""
@@ -138,14 +154,57 @@ class AgeTrends(QtWidgets.QWidget,BasePlugin):
         sns.despine(fig=self.plotCanvas.axes.get_figure(), trim=True)
         self.plotCanvas.axes.get_figure().set_tight_layout(True)
 
-        # Plot normative range if according GAM model is available
-        if (self.datamodel.harmonization_model is not None) and (currentROI in ['H_' + x for x in self.datamodel.harmonization_model['ROIs']]):
-            x,y,z = self.datamodel.GetNormativeRange(currentROI[2:])
+        if (self.datamodel.harmonization_model is not None) and (currentROI in [x for x in self.datamodel.harmonization_model['ROIs']]):
+            x,y,z = self.datamodel.GetNormativeRange(currentROI)
             #print('Pooled variance: %f' % (z))
             # Plot three lines as expected mean and +/- 2 times standard deviation
             sns.lineplot(x=x, y=y, ax=self.plotCanvas.axes, linestyle='-', markers=False, color='k')
             sns.lineplot(x=x, y=y+z, ax=self.plotCanvas.axes, linestyle=':', markers=False, color='k')
             sns.lineplot(x=x, y=y-z, ax=self.plotCanvas.axes, linestyle=':', markers=False, color='k')
+
+        # Set ROI name as y-label if applicable
+        _, MUSEDictIDtoNAME = self.datamodel.GetMUSEDictionaries()
+        ylabel = currentROI
+        #print(currentROI)
+        if ylabel.startswith('MUSE_'):
+            ylabel = '(MUSE) ' + list(map(MUSEDictIDtoNAME.get, [currentROI]))[0]
+
+        if ylabel.startswith('WMLS_'):
+            ylabel = '(WMLS) ' + list(map(MUSEDictIDtoNAME.get, [currentROI.replace('WMLS_', 'MUSE_')]))[0]
+
+        if ylabel.startswith('H_MUSE_'):
+            ylabel = '(Harmonized MUSE) ' + list(map(MUSEDictIDtoNAME.get, [currentROI.replace('H_', '')]))[0]
+
+        if ylabel.startswith('RES_MUSE_'):
+            ylabel = '(Residuals MUSE) ' + list(map(MUSEDictIDtoNAME.get, [currentROI.replace('RES_', '')]))[0]
+
+        self.plotCanvas.axes.set(ylabel=ylabel)
+
+        # refresh canvas
+        self.plotCanvas.draw()
+
+    def PlotModelTrends(self,plotOptions):
+        """Plot Age Trends"""
+        currentROI = plotOptions['ROI']
+
+        # clear plot
+        self.plotCanvas.axes.clear()
+
+        if (self.datamodel.harmonization_model is not None) and (currentROI in [x for x in self.datamodel.harmonization_model['ROIs']]):
+            x,y,z = self.datamodel.GetNormativeRange(currentROI,sex='M')
+            u,v,w = self.datamodel.GetNormativeRange(currentROI,sex='F')
+            #print('Pooled variance: %f' % (z))
+            # Plot three lines as expected mean and +/- 2 times standard deviation
+            sns.lineplot(x=x, y=y, ax=self.plotCanvas.axes, linestyle='-', markers=False, color='blue')
+            sns.lineplot(x=x, y=y+z, ax=self.plotCanvas.axes, linestyle=':', markers=False, color='blue')
+            sns.lineplot(x=x, y=y-z, ax=self.plotCanvas.axes, linestyle=':', markers=False, color='blue')
+            sns.lineplot(x=u, y=v, ax=self.plotCanvas.axes, linestyle='-', markers=False, color='orange')
+            sns.lineplot(x=u, y=v+w, ax=self.plotCanvas.axes, linestyle=':', markers=False, color='orange')
+            sns.lineplot(x=u, y=v-w, ax=self.plotCanvas.axes, linestyle=':', markers=False, color='orange')
+            custom_lines = [Line2D([0], [0], color='orange', lw=4),
+                    Line2D([0], [0], color='blue', lw=4)]
+            self.plotCanvas.axes.legend(custom_lines,['Female ','Male'],loc='upper left',title='Sex')
+
 
         # Set ROI name as y-label if applicable
         _, MUSEDictIDtoNAME = self.datamodel.GetMUSEDictionaries()

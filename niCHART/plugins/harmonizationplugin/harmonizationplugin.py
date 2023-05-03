@@ -42,9 +42,6 @@ class HarmonizationPlugin(QtWidgets.QWidget,BasePlugin):
     
     def SetupConnections(self):
         self.ui.load_harmonization_model_Btn.clicked.connect(lambda: self.OnLoadHarmonizationModelBtnClicked())
-        if self.datamodel.data is None:
-            self.ui.load_harmonization_model_Btn.setEnabled(False)
-            self.ui.Harmonized_Data_Information_Lbl.setText('Data must be loaded before model selection.\nReturn to Load and Save Data tab to select data.')
         self.ui.load_other_model_Btn.clicked.connect(lambda: self.OnLoadHarmonizationModelBtnClicked())
         self.ui.show_data_Btn.clicked.connect(lambda: self.OnShowDataBtnClicked())
         self.ui.apply_model_to_dataset_Btn.clicked.connect(lambda: self.OnApplyModelToDatasetBtnClicked())
@@ -98,13 +95,17 @@ class HarmonizationPlugin(QtWidgets.QWidget,BasePlugin):
                 age_min = self.datamodel.harmonization_model['smooth_model']['bsplines_constructor'].knot_kwds[0]['lower_bound']
                 model_text4 = ('Valid Age Range: [' + str(age_min) + ', ' + str(age_max) + ']')
                 model_text1 += '\n'+model_text4
-                self.ui.Harmonized_Data_Information_Lbl.setText(model_text1)
                 if self.datamodel.data is None:
                     self.ui.apply_model_to_dataset_Btn.setEnabled(False)
-                    self.ui.Harmonized_Data_Information_Lbl.setText('Data must be loaded before model selection or application.\nReturn to Load and Save Data tab to select data.')
+                    model_text5 = 'Data must be loaded before model application.\nReturn to Load and Save Data tab to select data.'
+                    model_text1 += '\n'+model_text5
+                    self.ui.Harmonized_Data_Information_Lbl.setText(model_text1)
                 else:
+                    self.ui.Harmonized_Data_Information_Lbl.setText(model_text1)
                     self.ui.apply_model_to_dataset_Btn.setEnabled(True)
                     self.ui.apply_model_to_dataset_Btn.setStyleSheet("background-color: rgb(230,255,230); color: black")
+                self.datamodel.SetDataFilePath(filename)
+                self.datamodel.SetHarmonizationModel(self.datamodel.harmonization_model)
         self.ui.stackedWidget.setCurrentIndex(0)
 
     def OnLoadHarmonizationModelBtnClicked(self):
@@ -339,9 +340,8 @@ class HarmonizationPlugin(QtWidgets.QWidget,BasePlugin):
             self.ui.show_data_Btn.setEnabled(False)
     
         if self.datamodel.data is None:
-            self.ui.load_harmonization_model_Btn.setEnabled(False)
             self.ui.apply_model_to_dataset_Btn.setEnabled(False)
-            self.ui.Harmonized_Data_Information_Lbl.setText('Data must be loaded before model selection.\nReturn to Load and Save Data tab to select data.')
+            self.ui.Harmonized_Data_Information_Lbl.setText('Data must be loaded before model application.\nReturn to Load and Save Data tab to select data.')
         else:
             self.ui.load_harmonization_model_Btn.setEnabled(True)
             if self.datamodel.harmonization_model is None:
