@@ -131,3 +131,8 @@ documentation = "https://cbica.github.io/niCHART"
 
 [tool.poetry.scripts]
 niCHART = "niCHART:main"
+
+[tool.codespell]
+skip = '.git,*.pdf,*.svg'
+#
+# ignore-words-list = ''
