@@ -21,7 +21,7 @@ class BasePlugin(IPlugin):
 
         def activate(self):
                 """
-                On activation tell that this has been successfull.
+                On activation tell that this has been successful.
                 """
                 # get the automatic procedure from IPlugin
                 IPlugin.activate(self)
