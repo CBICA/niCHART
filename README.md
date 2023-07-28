@@ -105,7 +105,7 @@ niCHART --data_file istaging.pkl.gz
 ```
 
 ## Build executable package for Windows 10/11
-We use (beeware/briefcase)[https://github.com/beeware/briefcase)] to package
+We use [beeware/briefcase](https://github.com/beeware/briefcase) to package
 the software in Windows 10/11.
 
 ```shell
