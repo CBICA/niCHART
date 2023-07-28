@@ -133,6 +133,6 @@ documentation = "https://cbica.github.io/niCHART"
 niCHART = "niCHART:main"
 
 [tool.codespell]
-skip = '.git,*.pdf,*.svg'
+skip = '.git,*.pdf,*.svg,MUSE*.csv'
 #
-# ignore-words-list = ''
+ignore-words-list = 'te'
