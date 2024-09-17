@@ -35,7 +35,8 @@ class Harmonize(QtCore.QObject):
 
         covars = self.datamodel.data[['SITE','Age','Sex','DLICV_baseline']].reset_index(drop=True).copy()
         covars.loc[:,'Sex'] = covars['Sex'].map({'M':1,'F':0})
-        covars.loc[covars.Age>100, 'Age']=100
+        covars.loc[covars.Age>102, 'Age']=102
+        covars.loc[covars.Age<20, 'Age']=20
 
         # Parameter table for plotting 
         gamma_ROIs = ['gamma_'+ x for x in self.datamodel.harmonization_model['ROIs']]
@@ -73,9 +74,11 @@ class Harmonize(QtCore.QObject):
                 model_delta = pd.DataFrame(self.datamodel.harmonization_model['delta_star'],columns=delta_ROIs,index=[x for x in self.datamodel.harmonization_model['SITE_labels']])
                 parameters = pd.concat([model_gamma,model_delta],axis=1).sort_index()                     
             else:
-                oos_data = self.datamodel.data[self.datamodel.data['SITE'].isin(sites_to_harmonize)].dropna(subset=covariates)[[x for x in self.datamodel.harmonization_model['ROIs']]].values
-                oos_covars = self.datamodel.data[self.datamodel.data.SITE.isin(sites_to_harmonize)].dropna(subset=covariates)[covariates]
+                oos_data = self.datamodel.data[(self.datamodel.data['SITE'].isin(sites_to_harmonize))&(self.datamodel.data['UseForComBatGAMHarmonization'].notnull())].dropna(subset=covariates)[[x for x in self.datamodel.harmonization_model['ROIs']]].values
+                oos_covars = self.datamodel.data[(self.datamodel.data['SITE'].isin(sites_to_harmonize))&(self.datamodel.data['UseForComBatGAMHarmonization'].notnull())].dropna(subset=covariates)[covariates]
                 oos_covars.loc[:,'Sex'] = oos_covars['Sex'].map({'M':1,'F':0})
+                oos_covars.loc[oos_covars.Age>102, 'Age']=102
+                oos_covars.loc[oos_covars.Age<20, 'Age']=20
                 self.model, _ = nh.harmonizationLearn(oos_data, oos_covars,
                                                 smooth_terms=['Age'],
                                                 smooth_term_bounds=(np.floor(np.min(self.datamodel.data.Age)),np.ceil(np.max(self.datamodel.data.Age))),
@@ -122,7 +125,7 @@ class Harmonize(QtCore.QObject):
             MUSEDictDataFrame= self.datamodel.GetMUSEDictDataFrame()
             muse_mappings = self.datamodel.GetDerivedMUSEMap()
             for ROI in MUSEDictDataFrame[MUSEDictDataFrame['ROI_LEVEL']=='DERIVED']['ROI_INDEX']:
-                single_ROIs = muse_mappings.loc[ROI].replace('NaN',np.nan).dropna().astype(np.float)
+                single_ROIs = muse_mappings.loc[ROI].replace('NaN',np.nan).dropna().astype(np.float64)
                 single_ROIs = ['H_MUSE_Volume_%0d' % x for x in single_ROIs]
                 muse['H_MUSE_Volume_%d' % ROI] = muse[single_ROIs].sum(axis=1,skipna=False)
             muse.drop(columns=['H_MUSE_Volume_702'], inplace=True)

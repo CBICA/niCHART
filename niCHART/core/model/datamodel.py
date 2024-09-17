@@ -21,6 +21,7 @@ class DataModel(QObject):
     """This class holds the data model."""
 
     data_changed = QtCore.pyqtSignal()
+    model_changed = QtCore.pyqtSignal()
 
     def __init__(self):
         QObject.__init__(self)
@@ -90,7 +91,8 @@ class DataModel(QObject):
     def SetHarmonizationModel(self,m):
         """Setter for neuroHarmonize model"""
         self.harmonization_model = m
-        logger.info('neuroHarmonize model set.')
+        logger.info('neuroHarmonize model set. Signal emmitted')
+        self.model_changed.emit()
 
 
     def SetSPAREModel(self,BrainAgeModel, ADModel):
@@ -118,8 +120,12 @@ class DataModel(QObject):
         return self.harmonization_model['smooth_model']['bsplines_constructor'].knot_kwds[0]['lower_bound']
         
 
-    def GetNormativeRange(self,roi):
+    def GetNormativeRange(self,roi,sex='M'):
         """Return normative range"""
+        if sex == 'M':
+            sex_bin = 1
+        else:
+            sex_bin = 0
         
         # Constructig the visualization of the normative range based on GAM
         # model
@@ -127,7 +133,7 @@ class DataModel(QObject):
         # Fix ICV roughly to population average
         covariates['ICV'] = 1450000 # mean ICV
         # Fix Sex variable
-        covariates['Sex'] = 0
+        covariates['Sex'] = sex_bin
         # No need to specify site, but column with name `SITE` must exist
         covariates['SITE'] = 'None'
         # Set the ROI to be predicted
@@ -190,6 +196,8 @@ class DataModel(QObject):
         """Returns all header names for all columns in the dataset."""
         if self.data is not None:
             k = self.data.keys()
+        elif self.harmonization_model is not None:
+            k = self.harmonization_model['ROIs']
         else:
             k = []
         
