@@ -59,7 +59,7 @@ directory.
     python -m pip install https://github.com/CBICA/niCHART
 
 
-Once installed, the GUI is accesible as command `niCHART`.
+Once installed, the GUI is accessible as command `niCHART`.
 
 .. code-block:: shell
 
@@ -147,7 +147,7 @@ the ``SPARE-*`` plug in.
 
 SPARE-*
 =======
-This plugin is used to load a SPARE-* model, apply it ot the data set, and
+This plugin is used to load a SPARE-* model, apply it to the data set, and
 optionally add the derived scores to the data set.
 Currently only ``SPARE-AD`` and ``SPARE-BA`` are supported.
 After loading the model, the plugin will verify that the loaded model is
@@ -156,7 +156,7 @@ To be applied to the data, harmonized features need to be present in the data
 frame.
 After running the plugin ``Harmonization``, the necessary standardized features
 are available.
-The computation of the scores runs asyncronously, which means that the rest of
+The computation of the scores runs asynchronously, which means that the rest of
 the user interface remains operational.
 
 .. figure:: images/ScreenshotSPARE.png

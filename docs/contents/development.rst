@@ -53,7 +53,7 @@ directory.
     python -m pip install https://github.com/CBICA/niCHART
 
 
-Once installed, the GUI is accesible as command `niCHART`.
+Once installed, the GUI is accessible as command `niCHART`.
 
 .. code-block:: shell
 
@@ -65,7 +65,7 @@ Once installed, the GUI is accesible as command `niCHART`.
 Build documentation locally
 ***************************
 
-When ``sphinx-autobuild`` is installed, the documentation can bu built locally
+When ``sphinx-autobuild`` is installed, the documentation can be built locally
 and automatically updates when one of the source files changes.
 
 .. code-block:: shell
